@@ -1,4 +1,4 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { TestingModule } from '@nestjs/testing';
 
 import { userTestModule } from '../user.test-module';
 import { UserService } from '../user.service';
@@ -32,5 +32,43 @@ describe('RegisterResolver', () => {
     )) as RegisterError;
     expect(result).toBeInstanceOf(RegisterError);
     expect(result.fieldEmpty).toBeDefined();
+  });
+
+  it('should cause an error when username not available', async () => {
+    const registerInput: RegisterInput = {
+      username: 'user',
+      password: 'password',
+    };
+    jest
+      .spyOn(userService, 'getUserByUsername')
+      .mockImplementation(async () => {
+        const user = new User();
+        Object.assign<User, RegisterInput>(user, registerInput);
+        return user;
+      });
+
+    const result = (await registerResolver.register(
+      registerInput,
+    )) as RegisterError;
+    expect(result).toBeInstanceOf(RegisterError);
+    expect(result.usernameNotAvailable).toBeDefined();
+  });
+
+  it('should return an user', async () => {
+    const registerInput: RegisterInput = {
+      username: 'user',
+      password: 'userpassword',
+    };
+    jest
+      .spyOn(userService, 'getUserByUsername')
+      .mockImplementation(async () => null);
+    jest.spyOn(userService, 'createUser').mockImplementation(async () => {
+      const user = new User();
+      Object.assign<User, RegisterInput>(user, registerInput);
+      return user;
+    });
+
+    const result = (await registerResolver.register(registerInput)) as User;
+    expect(result).toEqual(registerInput);
   });
 });
