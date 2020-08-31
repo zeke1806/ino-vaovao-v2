@@ -1,10 +1,12 @@
 import { ConnectionOptions } from 'typeorm';
+import { GqlModuleOptions } from '@nestjs/graphql';
 
-interface ServerConfigs {
+export interface ServerConfigs {
   port: number;
 }
 interface Configs {
   server: ServerConfigs;
+  graphql: GqlModuleOptions;
   database: ConnectionOptions;
 }
 
@@ -12,6 +14,11 @@ export default (): Configs => {
   return {
     server: {
       port: parseInt(process.env.PORT),
+    },
+
+    graphql: {
+      playground: process.env.PLAYGROUND === 'true',
+      debug: process.env.DEBUG === 'true',
     },
 
     database: {
