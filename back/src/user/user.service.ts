@@ -11,6 +11,10 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
+  getUserByUsername(username: string): Promise<User> {
+    return this.userRepository.findOne({ where: { username } });
+  }
+
   createUser(newUser: User): Promise<User> {
     return this.userRepository.save(newUser);
   }

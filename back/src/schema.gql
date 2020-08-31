@@ -2,18 +2,25 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input CreateUserInput {
-  password: String!
-  username: String!
-}
-
 type Mutation {
-  register(createUserInput: CreateUserInput!): User!
+  register(registerInput: RegisterInput!): RegisterResult!
 }
 
 type Query {
   hello: String!
 }
+
+type RegisterError {
+  fieldEmpty: String
+  usernameNotAvailable: String
+}
+
+input RegisterInput {
+  password: String!
+  username: String!
+}
+
+union RegisterResult = RegisterError | User
 
 type User {
   id: ID!
