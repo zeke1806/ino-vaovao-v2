@@ -1,10 +1,10 @@
 import { AppLoading, Asset } from 'expo';
 import React, { useState } from 'react';
 
+import { ContextProvider } from './providers';
 import Icons from './utils/Icons';
 import { Image } from 'react-native';
 import RootNavigator from './navigations/RootStackNavigator';
-import RootProvider from './providers';
 
 function cacheImages(images: Image[]): Image[] {
   return images.map((image: Image) => {
@@ -38,9 +38,9 @@ function ProviderWrapper(): React.ReactElement {
     );
   }
   return (
-    <RootProvider>
+    <ContextProvider>
       <App />
-    </RootProvider>
+    </ContextProvider>
   );
 }
 
