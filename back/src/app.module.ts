@@ -10,6 +10,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { AppResolver } from './app.resolver';
+import { UtilsModule } from './utils/utils.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { AppResolver } from './app.resolver';
       },
     }),
     UserModule,
+    UtilsModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
