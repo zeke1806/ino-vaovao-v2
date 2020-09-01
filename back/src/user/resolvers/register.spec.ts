@@ -5,16 +5,19 @@ import { UserService } from '../user.service';
 import { RegisterResolver } from './register';
 import { RegisterInput, RegisterError } from '../user.model';
 import { User } from '../user.entity';
+import { BcryptService } from '../../utils/bcrypt.service';
 
 describe('RegisterResolver', () => {
   let userService: UserService;
   let registerResolver: RegisterResolver;
+  let bcryptService: BcryptService;
 
   beforeEach(async () => {
     const module: TestingModule = await userTestModule();
 
     registerResolver = module.get<RegisterResolver>(RegisterResolver);
     userService = module.get<UserService>(UserService);
+    bcryptService = module.get<BcryptService>(BcryptService);
   });
 
   it('should be defined', () => {
@@ -67,8 +70,10 @@ describe('RegisterResolver', () => {
       Object.assign<User, RegisterInput>(user, registerInput);
       return user;
     });
+    jest.spyOn(bcryptService, 'hash');
 
     const result = (await registerResolver.register(registerInput)) as User;
+    expect(bcryptService.hash).toHaveBeenCalled();
     expect(result).toEqual(registerInput);
   });
 });

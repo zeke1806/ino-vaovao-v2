@@ -3,10 +3,14 @@ import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { RegisterInput, RegisterResult, RegisterError } from '../user.model';
 import { UserService } from '../user.service';
 import { User } from '../user.entity';
+import { BcryptService } from '../../utils/bcrypt.service';
 
 @Resolver()
 export class RegisterResolver {
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private bcryptService: BcryptService,
+  ) {}
 
   @Mutation(() => RegisterResult)
   async register(
@@ -28,7 +32,10 @@ export class RegisterResolver {
     }
 
     const newUser = new User();
-    Object.assign<User, RegisterInput>(newUser, registerInput);
+    Object.assign<User, RegisterInput>(newUser, {
+      ...registerInput,
+      password: await this.bcryptService.hash(registerInput.password),
+    });
     return this.userService.createUser(newUser);
   }
 }
