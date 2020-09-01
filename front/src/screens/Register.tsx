@@ -1,8 +1,12 @@
 import * as React from 'react';
 import { Text } from 'react-native';
 
-const RegisterScreen: React.FC = () => {
-  return <Text>Register Screen</Text>;
+export interface Props {
+  text: string;
+}
+
+const RegisterScreen: React.FC<Props> = ({ text }) => {
+  return <Text>{text}</Text>;
 };
 
 export default RegisterScreen;
