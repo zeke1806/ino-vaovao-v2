@@ -3,7 +3,7 @@ import RegisterScreen from '../screens/Register';
 import { View } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 
-storiesOf('Test', module)
+storiesOf('RegisterScreen', module)
   .addDecorator((story) => (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       {story()}

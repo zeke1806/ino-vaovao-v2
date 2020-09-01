@@ -12,7 +12,7 @@
     "eject": "expo eject",
     "test": "node node_modules/jest/bin/jest.js",
     "lint": "eslint src --ext .ts,.tsx,.js,.jsx",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "adb reverse tcp:6006 tcp:6006 && start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "private": true,
