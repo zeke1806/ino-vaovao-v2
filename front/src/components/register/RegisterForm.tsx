@@ -44,10 +44,17 @@ const RegisterForm: React.FC = () => {
         />
         <Input placeholder="Valider votre mot de passe" />
       </Item>
+
+      <View style={styles.btnContainer}>
+        <Button rounded style={styles.submitBtn}>
+          <Text>Inscription</Text>
+        </Button>
+      </View>
     </View>
   );
 };
 
+const space = (screenHeight * 7) / 100;
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -55,7 +62,16 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    marginBottom: (screenHeight * 7) / 100,
+    marginBottom: space,
+  },
+
+  btnContainer: {
+    alignItems: 'center',
+    marginTop: space,
+  },
+
+  submitBtn: {
+    backgroundColor: '#E8808C',
   },
 
   marginRight: {
