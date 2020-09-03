@@ -14,7 +14,14 @@ const withPasswordValid: RegisterFormProps = {
 
 storiesOf('RegisterForm', module)
   .addDecorator((story) => (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 15,
+      }}
+    >
       <ProviderWrapper>{story()}</ProviderWrapper>
     </View>
   ))
