@@ -9,5 +9,5 @@ storiesOf('RegisterScreen', module)
       {story()}
     </View>
   ))
-  .add('default', () => <RegisterScreen text="default" />)
-  .add('autre', () => <RegisterScreen text="autre text" />);
+  .add('default', () => <RegisterScreen />)
+  .add('autre', () => <RegisterScreen />);

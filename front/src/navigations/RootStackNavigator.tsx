@@ -8,7 +8,7 @@ const Stack = createStackNavigator();
 function RootNavigator(): React.ReactElement {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="register" component={RegisterScreen} />
       </Stack.Navigator>
     </NavigationContainer>
