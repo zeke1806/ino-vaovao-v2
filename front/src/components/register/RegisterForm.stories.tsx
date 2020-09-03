@@ -1,8 +1,16 @@
+import RegisterForm, { RegisterFormProps } from './RegisterForm';
 import { ProviderWrapper } from '../../App';
 import React from 'react';
-import RegisterForm from './RegisterForm';
 import { View } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
+
+const withPasswordValid: RegisterFormProps = {
+  formInput: {
+    username: '',
+    password: 'pass',
+    validatePassword: 'pass',
+  },
+};
 
 storiesOf('RegisterForm', module)
   .addDecorator((story) => (
@@ -10,4 +18,5 @@ storiesOf('RegisterForm', module)
       <ProviderWrapper>{story()}</ProviderWrapper>
     </View>
   ))
-  .add('default', () => <RegisterForm />);
+  .add('default', () => <RegisterForm />)
+  .add('withPasswordValid', () => <RegisterForm {...withPasswordValid} />);

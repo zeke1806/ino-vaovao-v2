@@ -5,7 +5,29 @@ import { StyleSheet } from 'react-native';
 import { globalStyles } from '../../styles/global';
 import { screenHeight } from '../../utils/Styles';
 
-const RegisterForm: React.FC = () => {
+interface RegisterFormInput {
+  username: string;
+  password: string;
+  validatePassword: string;
+}
+export interface RegisterFormProps {
+  formInput?: RegisterFormInput;
+}
+
+const RegisterForm: React.FC<RegisterFormProps> = ({ formInput }) => {
+  const passwordValid = (): boolean => {
+    if (
+      formInput &&
+      formInput.password &&
+      formInput.validatePassword &&
+      formInput.password === formInput.validatePassword
+    ) {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <View style={styles.container}>
       <Item>
@@ -15,7 +37,7 @@ const RegisterForm: React.FC = () => {
           color={globalStyles.iconColor.color}
           style={styles.marginRight}
         />
-        <Input placeholder="Nom" />
+        <Input placeholder="Nom" value={formInput?.username} />
       </Item>
 
       <View style={{ height: 5 }}></View>
@@ -24,10 +46,10 @@ const RegisterForm: React.FC = () => {
         <AntDesign
           name="lock"
           size={24}
-          color={globalStyles.iconColor.color}
+          color={!passwordValid() ? globalStyles.iconColor.color : 'green'}
           style={styles.marginRight}
         />
-        <Input placeholder="Mot de passe" />
+        <Input placeholder="Mot de passe" value={formInput?.password} />
         <AntDesign name="eye" size={24} color={globalStyles.iconColor.color} />
       </Item>
 
@@ -37,10 +59,13 @@ const RegisterForm: React.FC = () => {
         <AntDesign
           name="lock"
           size={24}
-          color={globalStyles.iconColor.color}
+          color={!passwordValid() ? globalStyles.iconColor.color : 'green'}
           style={styles.marginRight}
         />
-        <Input placeholder="Valider votre mot de passe" />
+        <Input
+          placeholder="Valider votre mot de passe"
+          value={formInput?.validatePassword}
+        />
       </Item>
 
       <View style={styles.btnContainer}>
