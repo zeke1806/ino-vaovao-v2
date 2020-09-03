@@ -1,15 +1,13 @@
 import * as React from 'react';
-import { Button, H2, Input, Item, Text } from 'native-base';
-import { StyleSheet, View } from 'react-native';
+import { Button, Input, Item, Text, View } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
-import { globalStyles } from '../styles/global';
-import { screenHeight } from '../utils/Styles';
+import { StyleSheet } from 'react-native';
+import { globalStyles } from '../../styles/global';
+import { screenHeight } from '../../utils/Styles';
 
-const RegisterScreen: React.FC = () => {
+const RegisterForm: React.FC = () => {
   return (
     <View style={styles.container}>
-      <H2 style={styles.title}>Inscription</H2>
-
       <Item>
         <AntDesign
           name="smileo"
@@ -47,27 +45,23 @@ const RegisterScreen: React.FC = () => {
 
       <View style={styles.btnContainer}>
         <Button rounded style={styles.submitBtn}>
-          <Text>Inscription</Text>
+          <Text>S&apos;inscrire</Text>
         </Button>
       </View>
     </View>
   );
 };
 
-const space = (screenHeight * 7) / 100;
+const spaceY = (screenHeight * 7) / 100;
 const styles = StyleSheet.create({
   container: {
     width: '100%',
     alignItems: 'center',
   },
 
-  title: {
-    marginBottom: space,
-  },
-
   btnContainer: {
     alignItems: 'center',
-    marginTop: space,
+    marginTop: spaceY * 2,
   },
 
   submitBtn: {
@@ -79,4 +73,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterScreen;
+export default RegisterForm;
