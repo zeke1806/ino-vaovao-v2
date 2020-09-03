@@ -9,7 +9,7 @@ function App(): React.ReactElement {
   return <RootNavigator />;
 }
 
-function ProviderWrapper(): React.ReactElement {
+export const ProviderWrapper: React.FC = ({ children }) => {
   const [loading, setLoading] = React.useState(false);
   const [isReady, setIsReady] = React.useState(false);
 
@@ -33,11 +33,13 @@ function ProviderWrapper(): React.ReactElement {
 
   if (!isReady) return <AppLoading />;
 
+  return <ContextProvider>{children}</ContextProvider>;
+};
+
+export default function AppProvided(): React.ReactElement {
   return (
-    <ContextProvider>
+    <ProviderWrapper>
       <App />
-    </ContextProvider>
+    </ProviderWrapper>
   );
 }
-
-export default ProviderWrapper;
