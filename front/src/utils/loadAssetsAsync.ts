@@ -1,7 +1,6 @@
 import { Asset } from 'expo';
 import Icons from './Icons';
 import { Image } from 'react-native';
-import { loadFontsAsync } from './loadFontsAsync';
 
 function cacheImages(images: Image[]): Image[] {
   return images.map((image: Image) => {
@@ -16,5 +15,4 @@ function cacheImages(images: Image[]): Image[] {
 export const loadAssetsAsync = async (): Promise<void> => {
   const imageAssets = cacheImages(Icons);
   await Promise.all([...imageAssets]);
-  await loadFontsAsync();
 };

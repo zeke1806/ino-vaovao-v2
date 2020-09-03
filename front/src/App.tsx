@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { AppLoading } from 'expo';
-
 import { ContextProvider } from './providers';
 import RootNavigator from './navigations/RootStackNavigator';
 import { loadAssetsAsync } from './utils/loadAssetsAsync';
+import { loadFontsAsync } from './utils/loadFontsAsync';
 
 function App(): React.ReactElement {
   return <RootNavigator />;
 }
 
 function ProviderWrapper(): React.ReactElement {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const [isReady, setIsReady] = React.useState(false);
+
+  React.useEffect(() => {
+    const asyncLoadFont = async (): Promise<void> => {
+      await loadFontsAsync();
+      setIsReady(true);
+    };
+    asyncLoadFont();
+  }, []);
 
   if (loading) {
     return (
@@ -21,6 +30,8 @@ function ProviderWrapper(): React.ReactElement {
       />
     );
   }
+
+  if (!isReady) return <AppLoading />;
 
   return (
     <ContextProvider>
