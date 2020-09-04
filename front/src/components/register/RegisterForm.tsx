@@ -12,9 +12,17 @@ interface RegisterFormInput {
 }
 export interface RegisterFormProps {
   formInput?: RegisterFormInput;
+  onChange?: (key: keyof RegisterFormInput, text: string) => void;
+  onSubmit?: () => void;
 }
 
-const RegisterForm: React.FC<RegisterFormProps> = ({ formInput }) => {
+const RegisterForm: React.FC<RegisterFormProps> = ({
+  formInput,
+  onChange,
+  onSubmit,
+}) => {
+  const [secureText, setSecureText] = React.useState(false);
+
   const passwordValid = (): boolean => {
     if (
       formInput &&
@@ -28,6 +36,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formInput }) => {
     return false;
   };
 
+  const toogleSecureTextEntry = (): void => {
+    setSecureText(!secureText);
+  };
+
   return (
     <View style={styles.container}>
       <Item>
@@ -37,7 +49,13 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formInput }) => {
           color={globalStyles.iconColor.color}
           style={styles.marginRight}
         />
-        <Input placeholder="Nom" value={formInput?.username} />
+        <Input
+          placeholder="Nom"
+          value={formInput?.username}
+          onChangeText={(text): void => {
+            onChange && onChange('username', text);
+          }}
+        />
       </Item>
 
       <View style={{ height: 5 }}></View>
@@ -49,8 +67,20 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formInput }) => {
           color={!passwordValid() ? globalStyles.iconColor.color : 'green'}
           style={styles.marginRight}
         />
-        <Input placeholder="Mot de passe" value={formInput?.password} />
-        <AntDesign name="eye" size={24} color={globalStyles.iconColor.color} />
+        <Input
+          placeholder="Mot de passe"
+          value={formInput?.password}
+          secureTextEntry={secureText}
+          onChangeText={(text): void => {
+            onChange && onChange('password', text);
+          }}
+        />
+        <AntDesign
+          name="eye"
+          size={24}
+          color={globalStyles.iconColor.color}
+          onPress={toogleSecureTextEntry}
+        />
       </Item>
 
       <View style={{ height: 5 }}></View>
@@ -65,11 +95,14 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ formInput }) => {
         <Input
           placeholder="Valider votre mot de passe"
           value={formInput?.validatePassword}
+          onChangeText={(text): void => {
+            onChange && onChange('validatePassword', text);
+          }}
         />
       </Item>
 
       <View style={styles.btnContainer}>
-        <Button rounded style={styles.submitBtn}>
+        <Button rounded style={styles.submitBtn} onPress={onSubmit}>
           <Text>S&apos;inscrire</Text>
         </Button>
       </View>

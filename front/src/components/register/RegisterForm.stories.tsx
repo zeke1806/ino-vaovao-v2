@@ -2,9 +2,10 @@ import RegisterForm, { RegisterFormProps } from './RegisterForm';
 import { ProviderWrapper } from '../../App';
 import React from 'react';
 import { View } from 'react-native';
+import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react-native';
 
-const withPasswordValid: RegisterFormProps = {
+export const withPasswordValid: RegisterFormProps = {
   formInput: {
     username: '',
     password: 'pass',
@@ -26,4 +27,6 @@ storiesOf('RegisterForm', module)
     </View>
   ))
   .add('default', () => <RegisterForm />)
-  .add('withPasswordValid', () => <RegisterForm {...withPasswordValid} />);
+  .add('withPasswordValid', () => (
+    <RegisterForm {...withPasswordValid} onSubmit={action('onSubmit')} />
+  ));
