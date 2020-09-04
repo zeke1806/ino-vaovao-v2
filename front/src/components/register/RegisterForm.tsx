@@ -5,19 +5,19 @@ import { StyleSheet } from 'react-native';
 import { globalStyles } from '../../styles/global';
 import { screenHeight } from '../../utils/Styles';
 
-interface RegisterFormInput {
+export interface RegisterFormInput {
   username: string;
   password: string;
   validatePassword: string;
 }
 export interface RegisterFormProps {
-  formInput?: RegisterFormInput;
-  onChange?: (key: keyof RegisterFormInput, text: string) => void;
-  onSubmit?: () => void;
-  error?: boolean;
+  formInput: RegisterFormInput;
+  onChange: (key: keyof RegisterFormInput, text: string) => void;
+  onSubmit: () => void;
+  error: boolean;
 }
 
-const RegisterForm: React.FC<RegisterFormProps> = ({
+const RegisterForm: React.FC<Partial<RegisterFormProps>> = ({
   formInput,
   onChange,
   onSubmit,

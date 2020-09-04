@@ -4,7 +4,7 @@ import React from 'react';
 import { View } from 'react-native';
 import { storiesOf } from '@storybook/react-native';
 
-export const withPasswordValid: RegisterFormProps = {
+export const withPasswordValid: Partial<RegisterFormProps> = {
   formInput: {
     username: '',
     password: 'pass',
@@ -12,7 +12,7 @@ export const withPasswordValid: RegisterFormProps = {
   },
 };
 
-export const withFieldError: RegisterFormProps = {
+export const withFieldError: Partial<RegisterFormProps> = {
   error: true,
   formInput: {
     username: '',

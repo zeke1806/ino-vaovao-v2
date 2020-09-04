@@ -1,15 +1,17 @@
 import * as React from 'react';
 import { Container, H2 } from 'native-base';
+import { ScrollView, StyleSheet } from 'react-native';
 import { screenHeight, screenWidth } from '../utils/Styles';
-import RegisterForm from '../components/register/RegisterForm';
-import { StyleSheet } from 'react-native';
+import RegisterFormCtn from '../components/register/RegisterForm.ctn';
 
 const RegisterScreen: React.FC = () => {
   return (
-    <Container style={styles.container}>
-      <H2 style={styles.title}>Inscription</H2>
-      <RegisterForm />
-    </Container>
+    <ScrollView>
+      <Container style={styles.container}>
+        <H2 style={styles.title}>Inscription</H2>
+        <RegisterFormCtn />
+      </Container>
+    </ScrollView>
   );
 };
 
