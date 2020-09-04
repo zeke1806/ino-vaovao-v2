@@ -5,7 +5,7 @@ import { AppRegistry } from 'react-native';
 // import stories
 configure(() => {
   import('../src/components/register/RegisterForm.stories');
-  import('../src/screens/RegisterScreen.story');
+  import('../src/screens/RegisterScreen.stories');
 }, module);
 
 // Refer to https://github.com/storybookjs/storybook/tree/master/app/react-native#start-command-parameters

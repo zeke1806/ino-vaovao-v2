@@ -14,12 +14,14 @@ export interface RegisterFormProps {
   formInput?: RegisterFormInput;
   onChange?: (key: keyof RegisterFormInput, text: string) => void;
   onSubmit?: () => void;
+  error?: boolean;
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({
   formInput,
   onChange,
   onSubmit,
+  error,
 }) => {
   const [secureText, setSecureText] = React.useState(false);
 
@@ -42,7 +44,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
 
   return (
     <View style={styles.container}>
-      <Item>
+      <Item error={!!(error && !formInput?.username)}>
         <AntDesign
           name="smileo"
           size={24}
@@ -60,7 +62,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
 
       <View style={{ height: 5 }}></View>
 
-      <Item>
+      <Item error={!!(error && !formInput?.password)}>
         <AntDesign
           name="lock"
           size={24}
@@ -76,7 +78,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           }}
         />
         <AntDesign
-          name="eye"
+          name={secureText ? 'eye' : 'eyeo'}
           size={24}
           color={globalStyles.iconColor.color}
           onPress={toogleSecureTextEntry}
@@ -85,7 +87,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
 
       <View style={{ height: 5 }}></View>
 
-      <Item>
+      <Item error={!!(error && !formInput?.validatePassword)}>
         <AntDesign
           name="lock"
           size={24}
