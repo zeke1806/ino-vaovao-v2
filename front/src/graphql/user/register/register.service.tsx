@@ -31,7 +31,12 @@ export const useRegister = (): {
     MutationRegisterArgs
   >(REGISTER, {
     onCompleted: ({ register }) => {
-      console.log('success ', register);
+      setError(false);
+      setValidatePassword('');
+      setVariables((draft) => {
+        draft.registerInput.username = '';
+        draft.registerInput.password = '';
+      });
     },
   });
 

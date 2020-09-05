@@ -23,7 +23,7 @@ const RegisterForm: React.FC<Partial<RegisterFormProps>> = ({
   onSubmit,
   error,
 }) => {
-  const [secureText, setSecureText] = React.useState(false);
+  const [secureText, setSecureText] = React.useState(true);
 
   const passwordValid = (): boolean => {
     if (
