@@ -1,4 +1,5 @@
 import RegisterForm, { RegisterFormProps } from './RegisterForm';
+import { object, withKnobs } from '@storybook/addon-knobs';
 import { ProviderWrapper } from '../../App';
 import React from 'react';
 import { View } from 'react-native';
@@ -22,6 +23,7 @@ export const withFieldError: Partial<RegisterFormProps> = {
 };
 
 storiesOf('RegisterForm', module)
+  .addDecorator(withKnobs)
   .addDecorator((story) => (
     <View
       style={{
@@ -36,4 +38,5 @@ storiesOf('RegisterForm', module)
   ))
   .add('default', () => <RegisterForm />)
   .add('withPasswordValid', () => <RegisterForm {...withPasswordValid} />)
-  .add('withFieldError', () => <RegisterForm {...withFieldError} />);
+  .add('withFieldError', () => <RegisterForm {...withFieldError} />)
+  .add('withLoading', () => <RegisterForm loading={object('loading', true)} />);

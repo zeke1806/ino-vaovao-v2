@@ -1,7 +1,7 @@
 import * as React from 'react';
+import { ActivityIndicator, StyleSheet } from 'react-native';
 import { Button, Input, Item, Text, View } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
-import { StyleSheet } from 'react-native';
 import { globalStyles } from '../../styles/global';
 import { screenHeight } from '../../utils/Styles';
 
@@ -15,6 +15,7 @@ export interface RegisterFormProps {
   onChange: (key: keyof RegisterFormInput, text: string) => void;
   onSubmit: () => void;
   error: boolean;
+  loading: boolean;
 }
 
 const RegisterForm: React.FC<Partial<RegisterFormProps>> = ({
@@ -22,6 +23,7 @@ const RegisterForm: React.FC<Partial<RegisterFormProps>> = ({
   onChange,
   onSubmit,
   error,
+  loading,
 }) => {
   const [secureText, setSecureText] = React.useState(true);
 
@@ -107,6 +109,11 @@ const RegisterForm: React.FC<Partial<RegisterFormProps>> = ({
       <View style={styles.btnContainer}>
         <Button rounded style={styles.submitBtn} onPress={onSubmit}>
           <Text>S&apos;inscrire</Text>
+          {loading && (
+            <View style={styles.loadingCtn}>
+              <ActivityIndicator color="white" size="small" />
+            </View>
+          )}
         </Button>
       </View>
     </View>
@@ -123,6 +130,10 @@ const styles = StyleSheet.create({
   btnContainer: {
     alignItems: 'center',
     marginTop: spaceY * 2,
+  },
+
+  loadingCtn: {
+    marginHorizontal: 10,
   },
 
   submitBtn: {

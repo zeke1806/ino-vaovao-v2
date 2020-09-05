@@ -8,6 +8,7 @@ const RegisterFormCtn: React.FC = () => {
     handleChangeFormRegister,
     submitRegister,
     errorFormRegister,
+    loadingRegister,
   } = useRegister();
 
   const registerFormProps: RegisterFormProps = {
@@ -15,6 +16,7 @@ const RegisterFormCtn: React.FC = () => {
     error: errorFormRegister,
     onChange: handleChangeFormRegister,
     onSubmit: submitRegister,
+    loading: loadingRegister,
   };
 
   return <RegisterForm {...registerFormProps} />;
