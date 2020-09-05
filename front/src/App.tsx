@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { ApolloProvider } from '@apollo/client';
 import { AppLoading } from 'expo';
 import { ContextProvider } from './providers';
 import RootNavigator from './navigations/RootStackNavigator';
+import { client } from './graphql/apollo';
 import { loadAssetsAsync } from './utils/loadAssetsAsync';
 import { loadFontsAsync } from './utils/loadFontsAsync';
 
@@ -33,7 +35,11 @@ export const ProviderWrapper: React.FC = ({ children }) => {
 
   if (!isReady) return <AppLoading />;
 
-  return <ContextProvider>{children}</ContextProvider>;
+  return (
+    <ContextProvider>
+      <ApolloProvider client={client}>{children}</ApolloProvider>
+    </ContextProvider>
+  );
 };
 
 export default function AppProvided(): React.ReactElement {

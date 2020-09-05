@@ -66,7 +66,7 @@ const RegisterForm: React.FC<Partial<RegisterFormProps>> = ({
         <AntDesign
           name="lock"
           size={24}
-          color={!passwordValid() ? globalStyles.iconColor.color : 'green'}
+          color={!passwordValid() ? globalStyles.iconColor.color : '#55EFC2'}
           style={styles.marginRight}
         />
         <Input
@@ -91,12 +91,13 @@ const RegisterForm: React.FC<Partial<RegisterFormProps>> = ({
         <AntDesign
           name="lock"
           size={24}
-          color={!passwordValid() ? globalStyles.iconColor.color : 'green'}
+          color={!passwordValid() ? globalStyles.iconColor.color : '#55EFC2'}
           style={styles.marginRight}
         />
         <Input
           placeholder="Valider votre mot de passe"
           value={formInput?.validatePassword}
+          secureTextEntry={true}
           onChangeText={(text): void => {
             onChange && onChange('validatePassword', text);
           }}
