@@ -63,13 +63,18 @@ function getHookWrapper(mocks: MockedResponse[]): Results {
 
   expect(result.current.errorFormRegister).toBeFalsy();
   expect(result.current.loadingRegister).toBeFalsy();
+  expect(result.current.registerForm).toEqual({
+    username: '',
+    password: '',
+    validatePassword: '',
+  });
 
   return { result, waitForNextUpdate };
 }
 
 describe('useRegister custom hook', () => {
   describe('with incorrect input', () => {
-    it('should pruduce an error on form', async () => {
+    it('should produce an error on form', async () => {
       const { result } = getHookWrapper([registerMutationMocks]);
       act(() => {
         result.current.submitRegister();

@@ -10,14 +10,15 @@ export type RegisterForm = {
   password: string;
   username: string;
 };
-
-export const useRegister = (): {
+export interface UseRegisterReturns {
   registerForm: RegisterForm;
   submitRegister: () => void;
   loadingRegister: boolean;
   errorFormRegister: boolean;
   handleChangeFormRegister: (key: Keys, value: string) => void;
-} => {
+}
+
+export const useRegister = (): UseRegisterReturns => {
   const [errorFormRegister, setError] = React.useState(false);
   const [validatePassword, setValidatePassword] = React.useState('');
   const [variables, setVariables] = useImmer<MutationRegisterArgs>({
@@ -26,11 +27,12 @@ export const useRegister = (): {
       password: '',
     },
   });
+
   const [register, { loading: loadingRegister }] = useMutation<
     RegisterData,
     MutationRegisterArgs
   >(REGISTER, {
-    onCompleted: ({ register }) => {
+    onCompleted: () => {
       setError(false);
       setValidatePassword('');
       setVariables((draft) => {
