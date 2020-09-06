@@ -4,8 +4,8 @@ import { MutationRegisterArgs } from '../../types';
 import { useImmer } from 'use-immer';
 import { useMutation } from '@apollo/client';
 
-type Keys = 'username' | 'password' | 'validatePassword';
-type RegisterForm = {
+export type Keys = 'username' | 'password' | 'validatePassword';
+export type RegisterForm = {
   validatePassword: string;
   password: string;
   username: string;
