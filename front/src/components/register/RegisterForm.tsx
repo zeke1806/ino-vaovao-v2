@@ -50,7 +50,7 @@ const RegisterForm: React.FC<Partial<RegisterFormProps>> = ({
         <AntDesign
           name="smileo"
           size={24}
-          color={globalStyles.iconColor.color}
+          color={globalStyles.colors.icon}
           style={styles.marginRight}
         />
         <Input
@@ -68,7 +68,7 @@ const RegisterForm: React.FC<Partial<RegisterFormProps>> = ({
         <AntDesign
           name="lock"
           size={24}
-          color={!passwordValid() ? globalStyles.iconColor.color : '#55EFC2'}
+          color={!passwordValid() ? globalStyles.colors.icon : '#55EFC2'}
           style={styles.marginRight}
         />
         <Input
@@ -82,7 +82,7 @@ const RegisterForm: React.FC<Partial<RegisterFormProps>> = ({
         <AntDesign
           name={secureText ? 'eye' : 'eyeo'}
           size={24}
-          color={globalStyles.iconColor.color}
+          color={globalStyles.colors.icon}
           onPress={toogleSecureTextEntry}
         />
       </Item>
@@ -93,7 +93,7 @@ const RegisterForm: React.FC<Partial<RegisterFormProps>> = ({
         <AntDesign
           name="lock"
           size={24}
-          color={!passwordValid() ? globalStyles.iconColor.color : '#55EFC2'}
+          color={!passwordValid() ? globalStyles.colors.icon : '#55EFC2'}
           style={styles.marginRight}
         />
         <Input
@@ -116,11 +116,23 @@ const RegisterForm: React.FC<Partial<RegisterFormProps>> = ({
           )}
         </Button>
       </View>
+
+      <View style={styles.seConnecterCtn}>
+        <Text style={{ color: globalStyles.colors.text2 }}>
+          Vous avez dejas un compte?
+        </Text>
+        <Button transparent style={{ alignSelf: 'center' }}>
+          <Text style={{ color: globalStyles.colors.primary }}>
+            Se connecter
+          </Text>
+        </Button>
+      </View>
     </View>
   );
 };
 
 const spaceY = (screenHeight * 7) / 100;
+
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -137,7 +149,13 @@ const styles = StyleSheet.create({
   },
 
   submitBtn: {
-    backgroundColor: '#E8808C',
+    backgroundColor: globalStyles.colors.primary,
+  },
+
+  seConnecterCtn: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginTop: spaceY,
   },
 
   marginRight: {
