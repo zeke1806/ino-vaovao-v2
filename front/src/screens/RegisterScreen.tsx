@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Container, H2 } from 'native-base';
 import { ScrollView, StyleSheet } from 'react-native';
 import { screenHeight, screenWidth } from '../utils/Styles';
+import Constants from 'expo-constants';
 import RegisterFormCtn from '../components/register/RegisterForm.ctn';
 
 const RegisterScreen: React.FC = () => {
@@ -22,6 +23,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: spaceX,
+    paddingTop: Constants.statusBarHeight,
   },
 
   title: {
