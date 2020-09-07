@@ -2,8 +2,10 @@ import * as React from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 import { Button, Input, Item, Text, View } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
+import { RegisterScreenProps } from '../../navigations/AuthenticationNavigator';
 import { globalStyles } from '../../styles/global';
 import { screenHeight } from '../../utils/Styles';
+import { useNavigation } from '@react-navigation/core';
 
 export interface RegisterFormInput {
   username: string;
@@ -25,6 +27,7 @@ const RegisterForm: React.FC<Partial<RegisterFormProps>> = ({
   error,
   loading,
 }) => {
+  const navigation = useNavigation<RegisterScreenProps>();
   const [secureText, setSecureText] = React.useState(true);
 
   const passwordValid = (): boolean => {
@@ -121,7 +124,11 @@ const RegisterForm: React.FC<Partial<RegisterFormProps>> = ({
         <Text style={{ color: globalStyles.colors.text2 }}>
           Vous avez dejas un compte?
         </Text>
-        <Button transparent style={{ alignSelf: 'center' }}>
+        <Button
+          transparent
+          style={{ alignSelf: 'center' }}
+          onPress={(): void => navigation.navigate('Login')}
+        >
           <Text style={{ color: globalStyles.colors.primary }}>
             Se connecter
           </Text>

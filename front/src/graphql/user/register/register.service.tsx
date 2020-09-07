@@ -1,8 +1,7 @@
 import { REGISTER, RegisterData } from './register.gql';
 import { UseRegisterForm, useRegisterForm } from './useRegisterForm';
-import { AuthenticationNavigatorParamList } from '../../../navigations/AuthenticationNavigator';
 import { MutationRegisterArgs } from '../../types';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { RegisterScreenProps } from '../../../navigations/AuthenticationNavigator';
 import { handleRegisterCompleted } from './handleCompletedRegister';
 import { useMutation } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
@@ -13,9 +12,7 @@ export type UseRegister = {
 } & UseRegisterForm;
 
 export const useRegister = (): UseRegister => {
-  const navigation = useNavigation<
-    StackNavigationProp<AuthenticationNavigatorParamList, 'Register'>
-  >();
+  const navigation = useNavigation<RegisterScreenProps>();
   const {
     handleChangeFormRegister,
     resetForm,
