@@ -2,16 +2,23 @@ import * as React from 'react';
 import { Button, Container, H2, Text, Thumbnail } from 'native-base';
 import { CHECK } from '../utils/Icons';
 import { StyleSheet } from 'react-native';
+import { SuccessRegisterProps } from '../navigations/AuthenticationNavigator';
 import { globalStyles } from '../styles/global';
 import { screenHeight } from '../utils/Styles';
+import { useNavigation } from '@react-navigation/core';
 
 const SuccessRegisterScreen: React.FC = () => {
+  const navigation = useNavigation<SuccessRegisterProps>();
   return (
     <Container style={styles.container}>
       <Thumbnail source={CHECK} style={styles.img} />
       <H2 style={styles.title1}>Votre inscription est {'\n'} un succes</H2>
       <Text>Vous pouvez desormais echangez avec vos amis</Text>
-      <Button transparent style={{ alignSelf: 'center' }}>
+      <Button
+        transparent
+        style={{ alignSelf: 'center' }}
+        onPress={(): void => navigation.navigate('Login')}
+      >
         <Text style={styles.btnText}>Connectez-vous</Text>
       </Button>
     </Container>

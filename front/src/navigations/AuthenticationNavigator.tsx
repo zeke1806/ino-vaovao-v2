@@ -18,14 +18,19 @@ export type RegisterScreenProps = StackNavigationProp<
   'Register'
 >;
 
+export type SuccessRegisterProps = StackNavigationProp<
+  AuthenticationNavigatorParamList,
+  'SuccessRegister'
+>;
+
 const Stack = createStackNavigator<AuthenticationNavigatorParamList>();
 
 function AuthenticationNavigator(): React.ReactElement {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="SuccessRegister" component={SuccessRegisterScreen} />
-      <Stack.Screen name="Login" component={LoginScreen} />
     </Stack.Navigator>
   );
 }
