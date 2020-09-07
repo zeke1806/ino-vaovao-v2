@@ -3,6 +3,7 @@ import { UseRegisterForm, useRegisterForm } from './useRegisterForm';
 import { AuthenticationNavigatorParamList } from '../../../navigations/AuthenticationNavigator';
 import { MutationRegisterArgs } from '../../types';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { handleRegisterCompleted } from './handleCompletedRegister';
 import { useMutation } from '@apollo/client';
 import { useNavigation } from '@react-navigation/native';
 
@@ -26,11 +27,8 @@ export const useRegister = (): UseRegister => {
     RegisterData,
     MutationRegisterArgs
   >(REGISTER, {
-    onCompleted: () => {
-      // eslint-disable-next-line no-console
-      console.log('register complete');
-      resetForm();
-      navigation.navigate('SuccessRegister');
+    onCompleted: ({ register }) => {
+      handleRegisterCompleted(register, resetForm, navigation);
     },
   });
 

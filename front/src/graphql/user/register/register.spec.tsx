@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as handleRegisterCompletedModule from './handleCompletedRegister';
 import {
   HookResult,
   WaitOptions,
@@ -88,6 +89,9 @@ describe('useRegister custom hook', () => {
       const { result, waitForNextUpdate } = getHookWrapper([
         registerMutationMocks,
       ]);
+      const spy = jest
+        .spyOn(handleRegisterCompletedModule, 'handleRegisterCompleted')
+        .mockImplementation(jest.fn());
 
       act(() => {
         result.current.handleChangeFormRegister('username', 'user');
@@ -105,8 +109,7 @@ describe('useRegister custom hook', () => {
       });
 
       expect(result.current.loadingRegister).toBeFalsy();
-      // eslint-disable-next-line no-console
-      expect(console.log).toHaveBeenCalledWith('register complete');
+      expect(spy).toHaveBeenCalled();
     });
   });
 });
