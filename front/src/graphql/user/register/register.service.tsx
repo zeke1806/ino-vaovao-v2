@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { REGISTER, RegisterData } from './register.gql';
+import { AuthenticationNavigatorParamList } from '../../../navigations/AuthenticationNavigator';
 import { MutationRegisterArgs } from '../../types';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { useImmer } from 'use-immer';
 import { useMutation } from '@apollo/client';
+import { useNavigation } from '@react-navigation/native';
 
 export type Keys = 'username' | 'password' | 'validatePassword';
 export type RegisterForm = {
@@ -82,6 +85,9 @@ export type UseRegister = {
 } & UseRegisterForm;
 
 export const useRegister = (): UseRegister => {
+  const navigation = useNavigation<
+    StackNavigationProp<AuthenticationNavigatorParamList, 'Register'>
+  >();
   const {
     handleChangeFormRegister,
     resetForm,
@@ -97,6 +103,7 @@ export const useRegister = (): UseRegister => {
       // eslint-disable-next-line no-console
       console.log('register complete');
       resetForm();
+      navigation.navigate('SuccessRegister');
     },
   });
 
