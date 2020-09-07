@@ -10,15 +10,15 @@ export type RegisterForm = {
   password: string;
   username: string;
 };
-export interface UseRegisterReturns {
-  registerForm: RegisterForm;
-  submitRegister: () => void;
-  loadingRegister: boolean;
-  errorFormRegister: boolean;
+export interface UseRegisterForm {
   handleChangeFormRegister: (key: Keys, value: string) => void;
+  resetForm: () => void;
+  registerForm: RegisterForm;
+  errorFormRegister: boolean;
+  isFormOk: () => boolean;
 }
 
-export const useRegister = (): UseRegisterReturns => {
+export const useRegisterForm = (): UseRegisterForm => {
   const [errorFormRegister, setError] = React.useState(false);
   const [validatePassword, setValidatePassword] = React.useState('');
   const [variables, setVariables] = useImmer<MutationRegisterArgs>({
@@ -27,35 +27,6 @@ export const useRegister = (): UseRegisterReturns => {
       password: '',
     },
   });
-
-  const [register, { loading: loadingRegister }] = useMutation<
-    RegisterData,
-    MutationRegisterArgs
-  >(REGISTER, {
-    onCompleted: () => {
-      setError(false);
-      setValidatePassword('');
-      setVariables((draft) => {
-        draft.registerInput.username = '';
-        draft.registerInput.password = '';
-      });
-    },
-  });
-
-  const submitRegister = (): void => {
-    if (
-      variables.registerInput.password === '' ||
-      variables.registerInput.username === '' ||
-      validatePassword === '' ||
-      variables.registerInput.password !== validatePassword
-    ) {
-      // error
-      setError(true);
-    } else {
-      // submit
-      register({ variables });
-    }
-  };
 
   const handleChangeFormRegister = (key: Keys, value: string): void => {
     if (key === 'username' || key === 'password') {
@@ -67,16 +38,88 @@ export const useRegister = (): UseRegisterReturns => {
     }
   };
 
+  const resetForm = (): void => {
+    setError(false);
+    setValidatePassword('');
+    setVariables((draft) => {
+      draft.registerInput.username = '';
+      draft.registerInput.password = '';
+    });
+  };
+
+  const isFormOk = (): boolean => {
+    if (
+      variables.registerInput.password === '' ||
+      variables.registerInput.username === '' ||
+      validatePassword === '' ||
+      variables.registerInput.password !== validatePassword
+    ) {
+      // error
+      setError(true);
+      return false;
+    } else {
+      return true;
+    }
+  };
+
   const registerForm: RegisterForm = {
     ...variables.registerInput,
     validatePassword,
   };
 
   return {
+    handleChangeFormRegister,
+    resetForm,
     registerForm,
+    errorFormRegister,
+    isFormOk,
+  };
+};
+
+export type UseRegister = {
+  submitRegister: () => void;
+  loadingRegister: boolean;
+} & UseRegisterForm;
+
+export const useRegister = (): UseRegister => {
+  const {
+    handleChangeFormRegister,
+    resetForm,
+    registerForm,
+    errorFormRegister,
+    isFormOk,
+  } = useRegisterForm();
+  const [register, { loading: loadingRegister }] = useMutation<
+    RegisterData,
+    MutationRegisterArgs
+  >(REGISTER, {
+    onCompleted: () => {
+      // eslint-disable-next-line no-console
+      console.log('register complete');
+      resetForm();
+    },
+  });
+
+  const submitRegister = (): void => {
+    if (isFormOk()) {
+      register({
+        variables: {
+          registerInput: {
+            username: registerForm.username,
+            password: registerForm.password,
+          },
+        },
+      });
+    }
+  };
+
+  return {
     submitRegister,
     loadingRegister,
-    errorFormRegister,
     handleChangeFormRegister,
+    resetForm,
+    registerForm,
+    errorFormRegister,
+    isFormOk,
   };
 };
