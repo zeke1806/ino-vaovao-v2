@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {
+  MaterialTopTabNavigationProp,
+  createMaterialTopTabNavigator,
+} from '@react-navigation/material-top-tabs';
+import {
   Presentation1Screen,
   Presentation2Screen,
   Presentation3Screen,
   Presentation4Screen,
 } from '../screens/PresentationScreen';
-import {
-  StackNavigationProp,
-  createStackNavigator,
-} from '@react-navigation/stack';
 
 export type PresentationNavigatorParamList = {
   Presentation1: undefined;
@@ -17,36 +17,41 @@ export type PresentationNavigatorParamList = {
   Presentation4: undefined;
 };
 
-export type Presentation1ScreenProps = StackNavigationProp<
+export type Presentation1ScreenProps = MaterialTopTabNavigationProp<
   PresentationNavigatorParamList,
   'Presentation1'
 >;
 
-export type Presentation2ScreenProps = StackNavigationProp<
+export type Presentation2ScreenProps = MaterialTopTabNavigationProp<
   PresentationNavigatorParamList,
   'Presentation2'
 >;
 
-export type Presentation3ScreenProps = StackNavigationProp<
+export type Presentation3ScreenProps = MaterialTopTabNavigationProp<
   PresentationNavigatorParamList,
   'Presentation3'
 >;
 
-export type Presentation4ScreenProps = StackNavigationProp<
+export type Presentation4ScreenProps = MaterialTopTabNavigationProp<
   PresentationNavigatorParamList,
   'Presentation4'
 >;
 
-const Stack = createStackNavigator<PresentationNavigatorParamList>();
+const Tab = createMaterialTopTabNavigator<PresentationNavigatorParamList>();
 
 const PresentationNavigator: React.FC = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Presentation1" component={Presentation1Screen} />
-      <Stack.Screen name="Presentation2" component={Presentation2Screen} />
-      <Stack.Screen name="Presentation3" component={Presentation3Screen} />
-      <Stack.Screen name="Presentation4" component={Presentation4Screen} />
-    </Stack.Navigator>
+    <Tab.Navigator
+      swipeEnabled={true}
+      tabBarOptions={{
+        style: { display: 'none' },
+      }}
+    >
+      <Tab.Screen name="Presentation1" component={Presentation1Screen} />
+      <Tab.Screen name="Presentation2" component={Presentation2Screen} />
+      <Tab.Screen name="Presentation3" component={Presentation3Screen} />
+      <Tab.Screen name="Presentation4" component={Presentation4Screen} />
+    </Tab.Navigator>
   );
 };
 
