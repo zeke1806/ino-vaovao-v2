@@ -1,4 +1,8 @@
 import * as React from 'react';
+import {
+  useSessionDispatch,
+  useSessionState,
+} from './providers/session/session.consumer';
 import { ApolloProvider } from '@apollo/client';
 import { AppLoading } from 'expo';
 import { ContextProvider } from './providers';
@@ -7,18 +11,23 @@ import { client } from './graphql/apollo';
 import { loadAssetsAsync } from './utils/loadAssetsAsync';
 import { loadFontsAsync } from './utils/loadFontsAsync';
 
-function App(): React.ReactElement {
-  return <RootNavigator />;
-}
-
 export const ProviderWrapper: React.FC = ({ children }) => {
+  return (
+    <ContextProvider>
+      <ApolloProvider client={client}>{children}</ApolloProvider>
+    </ContextProvider>
+  );
+};
+
+function App(): React.ReactElement {
   const [loading, setLoading] = React.useState(false);
-  const [isReady, setIsReady] = React.useState(false);
+  const sessionState = useSessionState();
+  const sessionDispatch = useSessionDispatch();
 
   React.useEffect(() => {
     const asyncLoadFont = async (): Promise<void> => {
       await loadFontsAsync();
-      setIsReady(true);
+      sessionDispatch({ type: 'SET_READY' });
     };
     asyncLoadFont();
   }, []);
@@ -33,14 +42,10 @@ export const ProviderWrapper: React.FC = ({ children }) => {
     );
   }
 
-  if (!isReady) return <AppLoading />;
+  if (!sessionState.appReady) return <AppLoading />;
 
-  return (
-    <ContextProvider>
-      <ApolloProvider client={client}>{children}</ApolloProvider>
-    </ContextProvider>
-  );
-};
+  return <RootNavigator />;
+}
 
 export default function AppProvided(): React.ReactElement {
   return (

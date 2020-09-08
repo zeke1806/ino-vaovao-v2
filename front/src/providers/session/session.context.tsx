@@ -11,20 +11,20 @@ interface DisconnectAction {
   type: 'DISCONNECT';
 }
 
-type SessionActions = ConnectAction | DisconnectAction;
+interface SetReadyAction {
+  type: 'SET_READY';
+}
+
+type SessionActions = ConnectAction | DisconnectAction | SetReadyAction;
 export type SessionDispatch = (action: SessionActions) => void;
 
 // Context
 
-export interface SessionState {
-  connected: boolean;
-  appReady: boolean;
-}
-
-const initialState: SessionState = {
+const initialState = {
   connected: false,
   appReady: false,
 };
+export type SessionState = typeof initialState;
 
 const sessionReducer = produce(
   (draft: Draft<SessionState>, action: SessionActions) => {
@@ -35,6 +35,10 @@ const sessionReducer = produce(
 
       case 'DISCONNECT':
         draft.connected = false;
+        break;
+
+      case 'SET_READY':
+        draft.appReady = true;
         break;
     }
   },

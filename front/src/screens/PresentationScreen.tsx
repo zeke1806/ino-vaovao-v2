@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Container, H2, Text, Thumbnail } from 'native-base';
+import { Button, Container, H2, Text, Thumbnail, View } from 'native-base';
 import { ImageSourcePropType, StyleSheet } from 'react-native';
 import {
   PRESENTATION1,
@@ -7,21 +7,28 @@ import {
   PRESENTATION3,
   PRESENTATION4,
 } from '../utils/Icons';
-import {
-  Presentation2ScreenProps,
-  PresentationNavigatorParamList,
-} from '../navigations/PresentationNavigator';
+import { useNavigation, useRoute } from '@react-navigation/core';
+import { PresentationNavigatorParamList } from '../navigations/PresentationNavigator';
 import { globalStyles } from '../styles/global';
 import { screenHeight } from '../utils/Styles';
-import { useNavigation } from '@react-navigation/core';
 
-interface PresentationScreenProps {
+export function handleLastPresentationBtn(
+  routeName: string,
+  navigateTo: () => void,
+): void {
+  if (routeName !== 'Presentation4') navigateTo();
+  else {
+    // truc async pour specifier le premier demarrage
+  }
+}
+
+type PresentationScreenProps = {
   img: ImageSourcePropType;
   title1: string;
   title2: string;
   btnText: string;
   to: keyof PresentationNavigatorParamList;
-}
+};
 
 const PresentationScreen: React.FC<PresentationScreenProps> = ({
   img,
@@ -30,7 +37,13 @@ const PresentationScreen: React.FC<PresentationScreenProps> = ({
   btnText,
   to,
 }) => {
-  const navigation = useNavigation<Presentation2ScreenProps>();
+  const navigation = useNavigation();
+  const route = useRoute();
+
+  const navigateTo = (): void => {
+    navigation.navigate(to);
+  };
+
   return (
     <Container style={styles.container}>
       <Thumbnail source={img} style={styles.img} />
@@ -39,7 +52,7 @@ const PresentationScreen: React.FC<PresentationScreenProps> = ({
       <Button
         rounded
         style={styles.btnCtn}
-        onPress={(): void => navigation.navigate(to)}
+        onPress={(): void => handleLastPresentationBtn(route.name, navigateTo)}
       >
         <Text style={styles.btnText}>{btnText}</Text>
       </Button>
@@ -73,10 +86,14 @@ const styles = StyleSheet.create({
     marginTop: spaceY,
     alignSelf: 'center',
     backgroundColor: globalStyles.colors.secondary,
+    minWidth: '35%',
+    display: 'flex',
+    justifyContent: 'center',
   },
 
   btnText: {
     fontWeight: 'bold',
+    color: 'white',
   },
 
   img: {
