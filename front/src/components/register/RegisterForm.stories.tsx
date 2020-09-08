@@ -1,5 +1,6 @@
 import RegisterForm, { RegisterFormProps } from './RegisterForm';
 import { object, withKnobs } from '@storybook/addon-knobs';
+import MockedNavigator from '../../utils/MockedNavigator';
 import { ProviderWrapper } from '../../App';
 import React from 'react';
 import { View } from 'react-native';
@@ -24,18 +25,21 @@ export const withFieldError: Partial<RegisterFormProps> = {
 
 storiesOf('RegisterForm', module)
   .addDecorator(withKnobs)
-  .addDecorator((story) => (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 15,
-      }}
-    >
-      <ProviderWrapper>{story()}</ProviderWrapper>
-    </View>
-  ))
+  .addDecorator((story) => {
+    const Comp: React.FC<any> = () => (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: 15,
+        }}
+      >
+        <ProviderWrapper>{story()}</ProviderWrapper>
+      </View>
+    );
+    return <MockedNavigator component={Comp} />;
+  })
   .add('default', () => <RegisterForm />)
   .add('withPasswordValid', () => <RegisterForm {...withPasswordValid} />)
   .add('withFieldError', () => <RegisterForm {...withFieldError} />)
