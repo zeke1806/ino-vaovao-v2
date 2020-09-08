@@ -12,7 +12,10 @@ module.exports = {
   },
   modulePaths: ['<rootDir>'],
   moduleDirectories: ['node_modules'],
-  testMatch: ['**/__tests__/**/*.ts?(x)', '**/?(*.)+(spec|test).ts?(x)'],
+  testMatch: [
+    '**/__tests__/**/*.(ts|js)?(x)',
+    '**/?(*.)+(spec|test).(ts|js)?(x)',
+  ],
   moduleFileExtensions: ['js', 'ts', 'tsx', 'svg', 'png'],
   globals: {
     'ts-jest': {

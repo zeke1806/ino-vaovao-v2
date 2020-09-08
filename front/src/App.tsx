@@ -1,16 +1,27 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { ApolloProvider } from '@apollo/client';
 import { AppLoading } from 'expo';
-
 import { ContextProvider } from './providers';
 import RootNavigator from './navigations/RootStackNavigator';
+import { client } from './graphql/apollo';
 import { loadAssetsAsync } from './utils/loadAssetsAsync';
+import { loadFontsAsync } from './utils/loadFontsAsync';
 
 function App(): React.ReactElement {
   return <RootNavigator />;
 }
 
-function ProviderWrapper(): React.ReactElement {
-  const [loading, setLoading] = useState(false);
+export const ProviderWrapper: React.FC = ({ children }) => {
+  const [loading, setLoading] = React.useState(false);
+  const [isReady, setIsReady] = React.useState(false);
+
+  React.useEffect(() => {
+    const asyncLoadFont = async (): Promise<void> => {
+      await loadFontsAsync();
+      setIsReady(true);
+    };
+    asyncLoadFont();
+  }, []);
 
   if (loading) {
     return (
@@ -22,11 +33,19 @@ function ProviderWrapper(): React.ReactElement {
     );
   }
 
+  if (!isReady) return <AppLoading />;
+
   return (
     <ContextProvider>
-      <App />
+      <ApolloProvider client={client}>{children}</ApolloProvider>
     </ContextProvider>
   );
-}
+};
 
-export default ProviderWrapper;
+export default function AppProvided(): React.ReactElement {
+  return (
+    <ProviderWrapper>
+      <App />
+    </ProviderWrapper>
+  );
+}

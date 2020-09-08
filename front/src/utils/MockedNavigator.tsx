@@ -1,21 +1,20 @@
-import * as React from 'react';
-import AuthenticationNavigator from './AuthenticationNavigator';
 import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
-
-function RootNavigator(): React.ReactElement {
+const MockedNavigator: React.FC<any> = ({ component, params = {} }) => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
-          name="Authentication"
-          component={AuthenticationNavigator}
+          name="MockedScreen"
+          component={component}
+          initialParams={params}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
-export default RootNavigator;
+export default MockedNavigator;
