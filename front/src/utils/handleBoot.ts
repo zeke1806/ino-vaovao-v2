@@ -27,15 +27,17 @@ export async function checkToken(): Promise<boolean> {
 
 export async function handleBoot(
   sessionDispatch: (action: SessionActions) => void,
+  _checkFirstUsage = checkFirstUsage,
+  _checkToken = checkToken,
 ): Promise<void> {
   await loadFontsAsync();
 
-  if (!(await checkFirstUsage())) {
+  if (!(await _checkFirstUsage())) {
     sessionDispatch({ type: 'FIRST_USAGE' });
   }
 
   // verification si connecter ou pas (token)
-  if (await checkToken()) {
+  if (await _checkToken()) {
     sessionDispatch({ type: 'CONNECT' });
   }
 
