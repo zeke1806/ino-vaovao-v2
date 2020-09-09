@@ -8,8 +8,8 @@ import { AppLoading } from 'expo';
 import { ContextProvider } from './providers';
 import RootNavigator from './navigations/RootStackNavigator';
 import { client } from './graphql/apollo';
+import { handleBoot } from './utils/handleBoot';
 import { loadAssetsAsync } from './utils/loadAssetsAsync';
-import { loadFontsAsync } from './utils/loadFontsAsync';
 
 export const ProviderWrapper: React.FC = ({ children }) => {
   return (
@@ -25,11 +25,7 @@ function App(): React.ReactElement {
   const sessionDispatch = useSessionDispatch();
 
   React.useEffect(() => {
-    const asyncLoadFont = async (): Promise<void> => {
-      await loadFontsAsync();
-      sessionDispatch({ type: 'SET_READY' });
-    };
-    asyncLoadFont();
+    handleBoot(sessionDispatch);
   }, []);
 
   if (loading) {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Container, H2, Text, Thumbnail, View } from 'native-base';
+import { Button, Container, H2, Text, Thumbnail } from 'native-base';
 import { ImageSourcePropType, StyleSheet } from 'react-native';
 import {
   PRESENTATION1,
@@ -107,7 +107,7 @@ export const Presentation1Screen = (): JSX.Element => (
     img={PRESENTATION1}
     title1="Restez connecte"
     title2="Echangez avec vos amis avec Ino Vaovao"
-    btnText="Commencer"
+    btnText="4 Commencer"
     to="Presentation2"
   />
 );
@@ -117,7 +117,7 @@ export const Presentation2Screen = (): JSX.Element => (
     img={PRESENTATION2}
     title1="Consulter les news"
     title2="Decouvrez les dernieres actualites et partagez avec vos amis"
-    btnText="Suivant"
+    btnText="3 Suivant"
     to="Presentation3"
   />
 );
@@ -127,7 +127,7 @@ export const Presentation3Screen = (): JSX.Element => (
     img={PRESENTATION3}
     title1="Discussion de groupe"
     title2="Decouvrez les dernieres actualites et partagez avec vos amis"
-    btnText="Suivant"
+    btnText="2 Suivant"
     to="Presentation4"
   />
 );
@@ -137,7 +137,7 @@ export const Presentation4Screen = (): JSX.Element => (
     img={PRESENTATION4}
     title1="Discussion privee"
     title2="Decouvrez les dernieres actualites et partagez avec vos amis"
-    btnText="Inscrivez-vous"
+    btnText="1 Inscrivez-vous"
     to="Presentation4"
   />
 );

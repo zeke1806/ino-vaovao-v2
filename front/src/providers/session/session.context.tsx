@@ -15,7 +15,15 @@ interface SetReadyAction {
   type: 'SET_READY';
 }
 
-type SessionActions = ConnectAction | DisconnectAction | SetReadyAction;
+interface FirstUsageAction {
+  type: 'FIRST_USAGE';
+}
+
+export type SessionActions =
+  | ConnectAction
+  | DisconnectAction
+  | SetReadyAction
+  | FirstUsageAction;
 export type SessionDispatch = (action: SessionActions) => void;
 
 // Context
@@ -23,6 +31,7 @@ export type SessionDispatch = (action: SessionActions) => void;
 const initialState = {
   connected: false,
   appReady: false,
+  firstUsage: true,
 };
 export type SessionState = typeof initialState;
 
@@ -39,6 +48,10 @@ const sessionReducer = produce(
 
       case 'SET_READY':
         draft.appReady = true;
+        break;
+
+      case 'FIRST_USAGE':
+        draft.firstUsage = false;
         break;
     }
   },
