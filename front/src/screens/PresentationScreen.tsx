@@ -23,7 +23,7 @@ export async function handleLastPresentationBtn(
   if (routeName !== 'Presentation4') navigateTo();
   else {
     // truc async pour specifier le premier demarrage
-    // await AsyncStorage.setItem(FIRST_BOOT, 'true');
+    await AsyncStorage.setItem(FIRST_BOOT, 'true');
     firstUsage();
   }
 }
