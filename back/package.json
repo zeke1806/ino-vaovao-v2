@@ -45,6 +45,8 @@
     "typeorm": "^0.2.25"
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.1.2",
+    "@commitlint/config-conventional": "^9.1.2",
     "@nestjs/cli": "^7.0.0",
     "@nestjs/passport": "^7.1.0",
     "@nestjs/schematics": "^7.0.0",
@@ -60,7 +62,7 @@
     "eslint": "7.1.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-import": "^2.20.1",
-    "husky": "^4.2.5",
+    "husky": "^4.3.0",
     "jest": "26.0.1",
     "passport": "^0.4.1",
     "prettier": "^1.19.1",
@@ -84,5 +86,11 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-push": "yarn --cwd back test && yarn --cwd front test"
+    }
   }
 }
