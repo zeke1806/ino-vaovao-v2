@@ -2,7 +2,23 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type LoginError {
+  incorrectInfo: String!
+}
+
+input LoginInput {
+  password: String!
+  username: String!
+}
+
+union LoginResult = LoginError | LoginToken
+
+type LoginToken {
+  token: String!
+}
+
 type Mutation {
+  login(loginInput: LoginInput!): LoginResult!
   register(registerInput: RegisterInput!): RegisterResult!
 }
 

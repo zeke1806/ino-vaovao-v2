@@ -11,6 +11,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { AppResolver } from './app.resolver';
 import { UtilsModule } from './utils/utils.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { UtilsModule } from './utils/utils.module';
           sortSchema: true,
           playground: graphqlConfigs.playground,
           debug: graphqlConfigs.debug,
+          context: ({ req }) => ({ req }),
         };
       },
     }),
@@ -39,6 +41,7 @@ import { UtilsModule } from './utils/utils.module';
     }),
     UserModule,
     UtilsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
