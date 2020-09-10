@@ -8,17 +8,23 @@ import {
   PRESENTATION4,
 } from '../utils/Icons';
 import { useNavigation, useRoute } from '@react-navigation/core';
+import AsyncStorage from '@react-native-community/async-storage';
+import { FIRST_BOOT } from '../configs';
 import { PresentationNavigatorParamList } from '../navigations/PresentationNavigator';
 import { globalStyles } from '../styles/global';
 import { screenHeight } from '../utils/Styles';
+import { useSessionDispatch } from '../providers/session/session.consumer';
 
-export function handleLastPresentationBtn(
+export async function handleLastPresentationBtn(
   routeName: string,
   navigateTo: () => void,
-): void {
+  firstUsage: () => void,
+): Promise<void> {
   if (routeName !== 'Presentation4') navigateTo();
   else {
     // truc async pour specifier le premier demarrage
+    // await AsyncStorage.setItem(FIRST_BOOT, 'true');
+    firstUsage();
   }
 }
 
@@ -37,11 +43,16 @@ const PresentationScreen: React.FC<PresentationScreenProps> = ({
   btnText,
   to,
 }) => {
+  const sessionDispatch = useSessionDispatch();
   const navigation = useNavigation();
   const route = useRoute();
 
   const navigateTo = (): void => {
     navigation.navigate(to);
+  };
+
+  const firstUsage = (): void => {
+    sessionDispatch({ type: 'FIRST_USAGE' });
   };
 
   return (
@@ -52,7 +63,9 @@ const PresentationScreen: React.FC<PresentationScreenProps> = ({
       <Button
         rounded
         style={styles.btnCtn}
-        onPress={(): void => handleLastPresentationBtn(route.name, navigateTo)}
+        onPress={(): void => {
+          handleLastPresentationBtn(route.name, navigateTo, firstUsage);
+        }}
       >
         <Text style={styles.btnText}>{btnText}</Text>
       </Button>
