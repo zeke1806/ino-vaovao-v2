@@ -14,6 +14,12 @@ jest.mock('react-native-reanimated', () =>
 
 jest.mock('@react-native-community/async-storage', () => mockAsyncStorage);
 
-const customGlobal: GlobalWithFetchMock = global as GlobalWithFetchMock;
+jest.mock('@codler/react-native-keyboard-aware-scroll-view', () => {
+  const KeyboardAwareScrollView = ({ children }: { children: any }): any =>
+    children;
+  return { KeyboardAwareScrollView };
+});
+
+const customGlobal: GlobalWithFetchMock = (global as unknown) as GlobalWithFetchMock;
 customGlobal.fetch = require('jest-fetch-mock');
 customGlobal.fetchMock = customGlobal.fetch;
