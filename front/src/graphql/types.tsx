@@ -1,8 +1,6 @@
 import { gql } from '@apollo/client';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -12,10 +10,34 @@ export type Scalars = {
   Float: number;
 };
 
+export type LoginError = {
+  __typename?: 'LoginError';
+  incorrectInfo: Scalars['String'];
+};
+
+export type LoginInput = {
+  password: Scalars['String'];
+  username: Scalars['String'];
+};
+
+export type LoginResult = LoginError | LoginToken;
+
+export type LoginToken = {
+  __typename?: 'LoginToken';
+  token: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
+  login: LoginResult;
   register: RegisterResult;
 };
+
+
+export type MutationLoginArgs = {
+  loginInput: LoginInput;
+};
+
 
 export type MutationRegisterArgs = {
   registerInput: RegisterInput;
