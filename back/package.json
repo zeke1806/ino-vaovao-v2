@@ -90,7 +90,7 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-push": "yarn --cwd back test && yarn --cwd front test"
+      "pre-push": "yarn test && yarn --cwd front test"
     }
   }
 }
