@@ -11,10 +11,12 @@ import { useSessionDispatch } from '../../../providers/session/session.consumer'
 export async function handleOnCompletedLogin(
   data: LoginData,
   sessionDispatch: SessionDispatch,
+  resetForm: () => void,
 ): Promise<void> {
   if (data.login.__typename === 'LoginToken') {
     await AsyncStorage.setItem(TOKEN, data.login.token);
     sessionDispatch({ type: 'CONNECT' });
+    resetForm();
   }
   if (data.login.__typename === 'LoginError') {
     Alert.alert(
@@ -46,7 +48,8 @@ export const useLogin = (
     LoginData,
     MutationLoginArgs
   >(LOGIN, {
-    onCompleted: (data) => _handleOnCompletedLogin(data, sessionDispatch),
+    onCompleted: (data) =>
+      _handleOnCompletedLogin(data, sessionDispatch, form.resetFormLogin),
   });
 
   const submitLogin = (): void => {
