@@ -2,7 +2,7 @@ import * as React from 'react';
 import { LoginInput } from '../../types';
 import { useImmer } from 'use-immer';
 
-interface UseFormLogin {
+export interface UseFormLogin {
   loginInput: LoginInput;
   formLoginError: boolean;
   handleChangeLoginInput: (key: keyof LoginInput, value: string) => void;

@@ -1,17 +1,23 @@
 import * as React from 'react';
 import LoginForm, { LoginFormProps } from './LoginForm';
-import { useFormLogin } from '../../graphql/auth/login/useFormLogin';
+import { useLogin } from '../../graphql/auth/login/login.service';
 
 const LoginFormCtn: React.FC = () => {
-  const { loginInput, handleChangeLoginInput, formLoginError } = useFormLogin();
+  const {
+    loginInput,
+    handleChangeLoginInput,
+    formLoginError,
+    loadingLogin,
+    submitLogin,
+  } = useLogin();
 
   const loginFormProps: LoginFormProps = {
     formInput: loginInput,
     onChange: handleChangeLoginInput,
     error: formLoginError,
+    onSubmit: submitLogin,
+    loading: loadingLogin,
   };
-
-  console.log(loginInput);
 
   return <LoginForm {...loginFormProps} />;
 };

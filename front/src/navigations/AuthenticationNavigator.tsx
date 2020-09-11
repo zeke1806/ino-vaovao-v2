@@ -23,6 +23,11 @@ export type SuccessRegisterProps = StackNavigationProp<
   'SuccessRegister'
 >;
 
+export type LoginScreenProps = StackNavigationProp<
+  AuthenticationNavigatorParamList,
+  'Login'
+>;
+
 const Stack = createStackNavigator<AuthenticationNavigatorParamList>();
 
 function AuthenticationNavigator(): React.ReactElement {
