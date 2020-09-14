@@ -11,11 +11,19 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
+  getUserById(id: number): Promise<User> {
+    return this.userRepository.findOne({ where: { id } });
+  }
+
   getUserByUsername(username: string): Promise<User> {
     return this.userRepository.findOne({ where: { username } });
   }
 
   createUser(newUser: User): Promise<User> {
+    return this.userRepository.save(newUser);
+  }
+
+  updateUser(newUser: User): Promise<User> {
     return this.userRepository.save(newUser);
   }
 }

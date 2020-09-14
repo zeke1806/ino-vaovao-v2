@@ -6,7 +6,9 @@ export interface Payload {
 }
 
 export interface AuthPayload {
-  id: number;
+  payload: Payload;
+  iat: number;
+  exp: number;
 }
 
 @InputType()

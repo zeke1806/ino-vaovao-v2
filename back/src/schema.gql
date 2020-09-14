@@ -20,6 +20,7 @@ type LoginToken {
 type Mutation {
   login(loginInput: LoginInput!): LoginResult!
   register(registerInput: RegisterInput!): RegisterResult!
+  updateAccount(updateAccountInput: UpdateAccountInput!): UpdateAccountResult!
 }
 
 type Query {
@@ -37,6 +38,18 @@ input RegisterInput {
 }
 
 union RegisterResult = RegisterError | User
+
+type UpdateAccountError {
+  cannotUpdateTheSameInfo: String
+  usernameNotAvailable: String
+}
+
+input UpdateAccountInput {
+  password: String!
+  username: String!
+}
+
+union UpdateAccountResult = UpdateAccountError | User
 
 type User {
   id: ID!
