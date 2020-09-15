@@ -12,6 +12,7 @@ import { UserModule } from './user/user.module';
 import { AppResolver } from './app.resolver';
 import { UtilsModule } from './utils/utils.module';
 import { AuthModule } from './auth/auth.module';
+import { PhotoProfileModule } from './photo-profile/photo-profile.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { AuthModule } from './auth/auth.module';
     UserModule,
     UtilsModule,
     AuthModule,
+    PhotoProfileModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
