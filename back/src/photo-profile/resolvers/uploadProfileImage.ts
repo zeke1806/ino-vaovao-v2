@@ -1,6 +1,5 @@
 import { Resolver, Args, Mutation } from '@nestjs/graphql';
 import { GraphQLUpload, FileUpload } from 'graphql-upload';
-import { PhotoProfile } from '../photo-profile.entity';
 
 @Resolver()
 export class UploadProfileImage {
