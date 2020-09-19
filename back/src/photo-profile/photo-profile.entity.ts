@@ -17,6 +17,10 @@ export class PhotoProfile {
   id: number;
 
   @Field()
+  @Column({ name: 'public_id' })
+  publicId: string;
+
+  @Field()
   @Column()
   url: string;
 

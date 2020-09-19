@@ -34,6 +34,7 @@ export class UploadProfileImage {
           if (result) {
             const newPhotoProfile = new PhotoProfile();
             newPhotoProfile.url = result.url;
+            newPhotoProfile.publicId = result.public_id;
             newPhotoProfile.user = user;
             resolve(
               this.photoProfileService.createPhotoProfile(newPhotoProfile),
