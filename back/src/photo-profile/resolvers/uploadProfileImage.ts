@@ -1,17 +1,30 @@
 import { Resolver, Args, Mutation } from '@nestjs/graphql';
 import { GraphQLUpload, FileUpload } from 'graphql-upload';
+
 import { CloudinaryService } from '../../utils/cloudinary.service';
-import { readFile } from 'fs';
+import { PhotoProfileService } from '../photo-profile.service';
+import { PhotoProfile } from '../photo-profile.entity';
+import { UserService } from '../../user/user.service';
+import { UseGuards } from '@nestjs/common';
+import { GqlAuthGuard, CurrentUser } from '../../auth/auth.guards';
+import { AuthPayload } from '../../auth/auth.model';
 
 @Resolver()
 export class UploadProfileImage {
-  constructor(private cloudinaryService: CloudinaryService) {}
+  constructor(
+    private cloudinaryService: CloudinaryService,
+    private photoProfileService: PhotoProfileService,
+    private userService: UserService,
+  ) {}
 
-  @Mutation(() => Boolean)
+  @Mutation(() => PhotoProfile, { nullable: true })
+  @UseGuards(GqlAuthGuard)
   async uploadProfileImage(
+    @CurrentUser() authPayload: AuthPayload,
     @Args({ name: 'file', type: () => GraphQLUpload })
-    { createReadStream, filename }: FileUpload,
-  ): Promise<boolean> {
+    { createReadStream }: FileUpload,
+  ): Promise<PhotoProfile> {
+    const user = await this.userService.getUserById(authPayload.payload.id);
     return new Promise((resolve, reject) => {
       const stream = this.cloudinaryService.cloudinary.uploader.upload_stream(
         {
@@ -19,11 +32,15 @@ export class UploadProfileImage {
         },
         (error, result) => {
           if (result) {
-            console.log(result);
-            resolve(true);
+            const newPhotoProfile = new PhotoProfile();
+            newPhotoProfile.url = result.url;
+            newPhotoProfile.user = user;
+            resolve(
+              this.photoProfileService.createPhotoProfile(newPhotoProfile),
+            );
           } else {
-            resolve(error);
-            reject(false);
+            console.log(error);
+            reject(null);
           }
         },
       );

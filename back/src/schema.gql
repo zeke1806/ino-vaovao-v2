@@ -21,7 +21,12 @@ type Mutation {
   login(loginInput: LoginInput!): LoginResult!
   register(registerInput: RegisterInput!): RegisterResult!
   updateAccount(updateAccountInput: UpdateAccountInput!): UpdateAccountResult!
-  uploadProfileImage(file: Upload!): Boolean!
+  uploadProfileImage(file: Upload!): PhotoProfile
+}
+
+type PhotoProfile {
+  id: Float!
+  url: String!
 }
 
 type Query {
