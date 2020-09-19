@@ -1,15 +1,13 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { Repository } from 'typeorm';
+
 import { PhotoProfileService } from './photo-profile.service';
+import { PhotoProfile } from './photo-profile.entity';
 
 describe('PhotoProfileService', () => {
   let service: PhotoProfileService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [PhotoProfileService],
-    }).compile();
-
-    service = module.get<PhotoProfileService>(PhotoProfileService);
+    service = new PhotoProfileService({} as Repository<PhotoProfile>);
   });
 
   it('should be defined', () => {
