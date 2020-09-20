@@ -11,7 +11,15 @@ export class PhotoProfileService {
     private photoProfileRepository: Repository<PhotoProfile>,
   ) {}
 
+  getPhotoProfileById(id: number): Promise<PhotoProfile> {
+    return this.photoProfileRepository.findOne(id);
+  }
+
   createPhotoProfile(photoProfile: PhotoProfile): Promise<PhotoProfile> {
     return this.photoProfileRepository.save(photoProfile);
+  }
+
+  deletePhotoProfile(photoProfile: PhotoProfile): Promise<PhotoProfile> {
+    return this.photoProfileRepository.remove(photoProfile);
   }
 }
