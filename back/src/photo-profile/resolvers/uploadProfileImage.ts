@@ -10,7 +10,7 @@ import { GqlAuthGuard, CurrentUser } from '../../auth/auth.guards';
 import { AuthPayload } from '../../auth/auth.model';
 
 @Resolver()
-export class UploadProfileImage {
+export class UploadProfileImageResolver {
   constructor(
     private cloudinaryService: CloudinaryService,
     private photoProfileService: PhotoProfileService,

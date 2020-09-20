@@ -1,7 +1,7 @@
-import { UploadProfileImage } from './uploadProfileImage';
+import { UploadProfileImageResolver } from './uploadProfileImage';
 import { RemoveProfileImageResolver } from './removeProfileImage';
 
 export const PhotoProfileResolvers = [
-  UploadProfileImage,
+  UploadProfileImageResolver,
   RemoveProfileImageResolver,
 ];
