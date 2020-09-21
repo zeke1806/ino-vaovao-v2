@@ -9,7 +9,6 @@ import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard, CurrentUser } from '../../auth/auth.guards';
 import { AuthPayload } from '../../auth/auth.model';
 import { User } from '../../user/user.entity';
-import { rejects } from 'assert';
 
 @Resolver()
 export class UploadProfileImageResolver {

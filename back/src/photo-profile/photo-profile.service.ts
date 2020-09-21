@@ -15,6 +15,14 @@ export class PhotoProfileService {
     return this.photoProfileRepository.findOne(id);
   }
 
+  getPhotoProfileByPublicId(publicId: string): Promise<PhotoProfile> {
+    return this.photoProfileRepository.findOne({
+      where: {
+        publicId,
+      },
+    });
+  }
+
   createPhotoProfile(photoProfile: PhotoProfile): Promise<PhotoProfile> {
     return this.photoProfileRepository.save(photoProfile);
   }

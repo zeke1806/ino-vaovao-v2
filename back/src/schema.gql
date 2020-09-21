@@ -20,7 +20,7 @@ type LoginToken {
 type Mutation {
   login(loginInput: LoginInput!): LoginResult!
   register(registerInput: RegisterInput!): RegisterResult!
-  removeProfileImage(idPhotoProfile: Float!): Boolean!
+  removeProfileImage(photoProfilePublicId: String!): Boolean!
   updateAccount(updateAccountInput: UpdateAccountInput!): UpdateAccountResult!
   uploadProfileImage(file: Upload!): PhotoProfile
 }
