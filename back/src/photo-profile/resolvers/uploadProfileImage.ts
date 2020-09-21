@@ -8,6 +8,8 @@ import { UserService } from '../../user/user.service';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard, CurrentUser } from '../../auth/auth.guards';
 import { AuthPayload } from '../../auth/auth.model';
+import { User } from '../../user/user.entity';
+import { rejects } from 'assert';
 
 @Resolver()
 export class UploadProfileImageResolver {
@@ -30,22 +32,30 @@ export class UploadProfileImageResolver {
         {
           folder: 'ino-vaovao',
         },
-        (error, result) => {
-          if (result) {
-            const newPhotoProfile = new PhotoProfile();
-            newPhotoProfile.url = result.url;
-            newPhotoProfile.publicId = result.public_id;
-            newPhotoProfile.user = user;
-            resolve(
-              this.photoProfileService.createPhotoProfile(newPhotoProfile),
-            );
-          } else {
-            console.log(error);
-            reject(null);
-          }
-        },
+        (error, result) =>
+          this.onFinishStream(error, result, resolve, reject, user),
       );
       createReadStream().pipe(stream);
     });
+  }
+
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  onFinishStream(
+    error: any,
+    result: any,
+    resolve: (value?: PhotoProfile | PromiseLike<PhotoProfile>) => void,
+    reject: (reason?: any) => void,
+    user: User,
+  ): void {
+    if (result) {
+      const newPhotoProfile = new PhotoProfile();
+      newPhotoProfile.url = result.url;
+      newPhotoProfile.publicId = result.public_id;
+      newPhotoProfile.user = user;
+      resolve(this.photoProfileService.createPhotoProfile(newPhotoProfile));
+    } else {
+      console.log(error);
+      reject(null);
+    }
   }
 }

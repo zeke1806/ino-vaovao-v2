@@ -1,11 +1,9 @@
-import { FileUpload } from 'graphql-upload';
-
 import { UploadProfileImageResolver } from './uploadProfileImage';
 import { CloudinaryService } from '../../utils/cloudinary.service';
 import { PhotoProfileService } from '../photo-profile.service';
 import { UserService } from '../../user/user.service';
 import { PhotoProfile } from '../photo-profile.entity';
-import { AuthPayload } from '../../auth/auth.model';
+import { User } from '../../user/user.entity';
 
 describe('UploadProfileImageResolver', () => {
   let resolver: UploadProfileImageResolver;
@@ -15,7 +13,9 @@ describe('UploadProfileImageResolver', () => {
 
   beforeEach(() => {
     cloudinaryService = (jest.fn() as unknown) as CloudinaryService;
-    photoProfileService = (jest.fn() as unknown) as PhotoProfileService;
+    photoProfileService = ({
+      createPhotoProfile: jest.fn().mockResolvedValue(new PhotoProfile()),
+    } as unknown) as PhotoProfileService;
     userService = (jest.fn() as unknown) as UserService;
     resolver = new UploadProfileImageResolver(
       cloudinaryService,
@@ -24,24 +24,34 @@ describe('UploadProfileImageResolver', () => {
     );
   });
 
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should be defined', () => {
     expect(resolver).toBeDefined();
   });
 
-  it('should return new photo profile', async () => {
-    const expectedResult = new PhotoProfile();
-    userService.getUserById = jest.fn();
-    jest
-      .spyOn(resolver, 'uploadProfileImage')
-      .mockResolvedValue(expectedResult);
-    const result = await resolver.uploadProfileImage(
-      {
-        payload: {
-          id: 0,
-        },
-      } as AuthPayload,
-      {} as FileUpload,
-    );
-    expect(result).toBeInstanceOf(PhotoProfile);
+  describe('onFinishStream', () => {
+    const resultFalse = false;
+    const resultTrue = {
+      url: '',
+      public_id: '',
+    };
+    const error = 'error';
+    const resolve = jest.fn();
+    const reject = jest.fn();
+    const user = new User();
+
+    it('should return null', () => {
+      resolver.onFinishStream(error, resultFalse, resolve, reject, user);
+      expect(reject).toHaveBeenCalledWith(null);
+    });
+
+    it('should return new photo profile', () => {
+      resolver.onFinishStream(error, resultTrue, resolve, reject, user);
+      expect(resolve).toHaveBeenCalled();
+      expect(photoProfileService.createPhotoProfile).toHaveBeenCalled();
+    });
   });
 });
