@@ -2,6 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type FriendHistory {
+  friend: User!
+  status: FriendHistoryStatus!
+  user: User!
+}
+
+enum FriendHistoryStatus {
+  Accepted
+  Declined
+  Pending
+}
+
 type LoginError {
   incorrectInfo: String!
 }
@@ -21,6 +33,7 @@ type Mutation {
   login(loginInput: LoginInput!): LoginResult!
   register(registerInput: RegisterInput!): RegisterResult!
   removeProfileImage(photoProfilePublicId: String!): RemoveProfileImageResult!
+  sendFriendRequest(idFriend: Float!): FriendHistory!
   updateAccount(updateAccountInput: UpdateAccountInput!): UpdateAccountResult!
   uploadProfileImage(file: Upload!): PhotoProfile
 }

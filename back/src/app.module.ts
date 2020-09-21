@@ -8,12 +8,13 @@ import { join } from 'path';
 import configs from './configs';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
 import { AppResolver } from './app.resolver';
+
+import { UserModule } from './user/user.module';
 import { UtilsModule } from './utils/utils.module';
 import { AuthModule } from './auth/auth.module';
 import { PhotoProfileModule } from './photo-profile/photo-profile.module';
-import { FriendModule } from './friend/friend.module';
+import { FriendHistoryModule } from './friend-history/friend-history.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { FriendModule } from './friend/friend.module';
           sortSchema: true,
           playground: graphqlConfigs.playground,
           debug: graphqlConfigs.debug,
+          // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
           context: ({ req }) => ({ req }),
         };
       },
@@ -45,7 +47,7 @@ import { FriendModule } from './friend/friend.module';
     UtilsModule,
     AuthModule,
     PhotoProfileModule,
-    FriendModule,
+    FriendHistoryModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
