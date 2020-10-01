@@ -9,6 +9,6 @@ storiesOf('SuccessRegisterScreen', module)
     const Comp: React.FC<any> = () => (
       <ProviderWrapper>{story()}</ProviderWrapper>
     );
-    return <MockedNavigator component={Comp} />;
+    return <MockedNavigator component={Comp} params={{}} />;
   })
   .add('default', () => <SuccessRegisterScreen />);

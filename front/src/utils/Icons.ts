@@ -1,3 +1,4 @@
+import backArrow from '../../assets/back-arrow.png';
 import check from '../../assets/check.png';
 import icMask from '../../assets/icons/mask.png';
 import presentation1 from '../../assets/presentation1.png';
@@ -11,6 +12,7 @@ export const PRESENTATION1 = presentation1;
 export const PRESENTATION2 = presentation2;
 export const PRESENTATION3 = presentation3;
 export const PRESENTATION4 = presentation4;
+export const BACK_ARROW = backArrow;
 
 export default [
   IC_MASK,
@@ -19,4 +21,5 @@ export default [
   PRESENTATION2,
   PRESENTATION3,
   PRESENTATION4,
+  BACK_ARROW,
 ];

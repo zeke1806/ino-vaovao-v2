@@ -7,6 +7,6 @@ import { storiesOf } from '@storybook/react-native';
 storiesOf('RegisterScreen', module)
   .addDecorator((story) => {
     const Comp: React.FC = () => <ProviderWrapper>{story()}</ProviderWrapper>;
-    return <MockedNavigator component={Comp} />;
+    return <MockedNavigator component={Comp} params={{}} />;
   })
   .add('default', () => <RegisterScreen />);
