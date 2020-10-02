@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Masonry from './masonry/Masonry';
+import Masonry from './Masonry';
 import ProfileTitleText from '../ProfileTitleText';
 import { View } from 'native-base';
 
