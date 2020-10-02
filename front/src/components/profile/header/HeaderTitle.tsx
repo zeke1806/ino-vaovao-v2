@@ -7,9 +7,7 @@ export type TextProps = {
 };
 
 const HeaderTitle: React.FC<TextProps> = ({ title }) => (
-  <Text
-    style={{ color: globalStyles.colors.primary, flex: 1, fontWeight: 'bold' }}
-  >
+  <Text style={{ color: globalStyles.colors.primary, fontWeight: 'bold' }}>
     {title}
   </Text>
 );

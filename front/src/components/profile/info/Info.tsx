@@ -6,7 +6,7 @@ import { View } from 'native-base';
 
 const Info: React.FC = () => {
   return (
-    <View style={{ paddingLeft: 15 }}>
+    <View style={{ paddingHorizontal: 25 }}>
       <ProfileTitleText text="Profil" size={18} />
       <Field img={IMPORTANT} title="Status en ligne" value="Active" />
       <Field img={LOCK} title="Mot de passe" value="********" />

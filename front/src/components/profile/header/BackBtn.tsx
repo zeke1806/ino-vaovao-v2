@@ -3,7 +3,7 @@ import { Button, Thumbnail } from 'native-base';
 import { BACK_ARROW } from '../../../utils/Icons';
 
 const BackBtn: React.FC = () => (
-  <Button transparent style={{ flex: 1 }}>
+  <Button transparent>
     <Thumbnail
       source={BACK_ARROW}
       style={{
