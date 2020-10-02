@@ -6,4 +6,6 @@ export const globalStyles = {
     text1: '#303030',
     text2: '#959595',
   },
+
+  iconSize: 24,
 };
