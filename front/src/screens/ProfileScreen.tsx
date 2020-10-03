@@ -6,21 +6,24 @@ import Gallery from '../components/profile/gallery/Gallery';
 import Header from '../components/profile/header/Header';
 import Info from '../components/profile/info/Info';
 import Photo from '../components/profile/photo/Photo';
+import Spinner from 'react-native-loading-spinner-overlay';
 import { useMe } from '../graphql/user/me/me.service';
 
 const ProfileScreen: React.FC = () => {
   const { meLoading, meData } = useMe();
-  console.log({
-    meData,
-    meLoading,
-  });
+
   return (
     <Container style={styles.container}>
+      <Spinner visible={meLoading} />
       <ScrollView>
         <Header />
-        <Photo />
-        <Info />
-        <Gallery />
+        {meData && (
+          <>
+            <Photo username={meData.me.username} />
+            <Info statusConnected={meData.me.statusConnected} />
+            <Gallery />
+          </>
+        )}
       </ScrollView>
     </Container>
   );

@@ -5,7 +5,11 @@ import Image from './Image';
 import ProfileTitleText from '../ProfileTitleText';
 import { View } from 'native-base';
 
-const Photo: React.FC = () => {
+interface PhotoProps {
+  username: string;
+}
+
+const Photo: React.FC<PhotoProps> = ({ username }) => {
   return (
     <View>
       <View
@@ -25,7 +29,7 @@ const Photo: React.FC = () => {
           paddingVertical: 10,
         }}
       >
-        <ProfileTitleText text="Sarah Milord" size={20} />
+        <ProfileTitleText text={username} size={20} />
         <View style={{ marginLeft: 10 }}>
           <EditAccount />
         </View>
