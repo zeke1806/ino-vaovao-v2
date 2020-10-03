@@ -1,3 +1,4 @@
+import { ApolloClient, useApolloClient, useMutation } from '@apollo/client';
 import { LOGIN, LoginData } from './login.gql';
 import { UseFormLogin, useFormLogin } from './useFormLogin';
 import { Alert } from 'react-native';
@@ -5,16 +6,17 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { MutationLoginArgs } from '../../types';
 import { SessionDispatch } from '../../../providers/session/session.context';
 import { TOKEN } from '../../../configs';
-import { useMutation } from '@apollo/client';
 import { useSessionDispatch } from '../../../providers/session/session.consumer';
 
 export async function handleOnCompletedLogin(
   data: LoginData,
   sessionDispatch: SessionDispatch,
   resetForm: () => void,
+  apollo: ApolloClient<unknown>,
 ): Promise<void> {
   if (data.login.__typename === 'LoginToken') {
     await AsyncStorage.setItem(TOKEN, data.login.token);
+    apollo.resetStore();
     sessionDispatch({ type: 'CONNECT' });
     resetForm();
   }
@@ -41,6 +43,7 @@ type UseLogin = UseFormLogin & {
 export const useLogin = (
   _handleOnCompletedLogin = handleOnCompletedLogin,
 ): UseLogin => {
+  const apollo = useApolloClient();
   const form = useFormLogin();
   const sessionDispatch = useSessionDispatch();
 
@@ -49,7 +52,12 @@ export const useLogin = (
     MutationLoginArgs
   >(LOGIN, {
     onCompleted: (data) =>
-      _handleOnCompletedLogin(data, sessionDispatch, form.resetFormLogin),
+      _handleOnCompletedLogin(
+        data,
+        sessionDispatch,
+        form.resetFormLogin,
+        apollo,
+      ),
   });
 
   const submitLogin = (): void => {

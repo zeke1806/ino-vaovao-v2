@@ -6,11 +6,15 @@ import { MockedProvider, MockedResponse } from '@apollo/react-testing';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { handleOnCompletedLogin, useLogin } from './login.service';
 import { Alert } from 'react-native';
+import { ApolloClient } from '@apollo/client';
 import AsyncStorageMock from '@react-native-community/async-storage/jest/async-storage-mock';
 
 describe('handleOnCompletedLogin', () => {
   const sessionDispatchMock = jest.fn();
   const resetFormMock = jest.fn();
+  const apolloMock = {
+    resetStore: jest.fn(),
+  };
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -23,7 +27,12 @@ describe('handleOnCompletedLogin', () => {
         token: 'token',
       },
     };
-    await handleOnCompletedLogin(dataMock, sessionDispatchMock, resetFormMock);
+    await handleOnCompletedLogin(
+      dataMock,
+      sessionDispatchMock,
+      resetFormMock,
+      (apolloMock as unknown) as ApolloClient<unknown>,
+    );
     expect(AsyncStorageMock.setItem).toHaveBeenCalled();
     expect(sessionDispatchMock).toHaveBeenCalled();
     expect(resetFormMock).toHaveBeenCalled();
@@ -37,7 +46,12 @@ describe('handleOnCompletedLogin', () => {
         incorrectInfo: 'incorrectInfo',
       },
     };
-    await handleOnCompletedLogin(dataMock, sessionDispatchMock, resetFormMock);
+    await handleOnCompletedLogin(
+      dataMock,
+      sessionDispatchMock,
+      resetFormMock,
+      (apolloMock as unknown) as ApolloClient<unknown>,
+    );
     expect(AsyncStorageMock.setItem).not.toHaveBeenCalled();
     expect(sessionDispatchMock).not.toHaveBeenCalled();
     expect(resetFormMock).not.toHaveBeenCalled();

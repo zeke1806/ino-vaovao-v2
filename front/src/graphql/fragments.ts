@@ -4,6 +4,7 @@ export const USER_FRAG = gql`
   fragment UserFrag on User {
     id
     username
+    statusConnected
   }
 `;
 
