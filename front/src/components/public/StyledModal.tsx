@@ -6,9 +6,14 @@ import { globalStyles } from '../../styles/global';
 
 export interface StyledModalProps {
   visible: boolean;
+  onClose: () => void;
 }
 
-const StyledModal: React.FC<StyledModalProps> = ({ visible, children }) => {
+const StyledModal: React.FC<StyledModalProps> = ({
+  visible,
+  children,
+  onClose,
+}) => {
   return (
     <Modal
       animationType="slide"
@@ -25,6 +30,7 @@ const StyledModal: React.FC<StyledModalProps> = ({ visible, children }) => {
             size={globalStyles.iconSize}
             color={globalStyles.colors.icon}
             style={{ position: 'absolute', right: 10, top: 10 }}
+            onPress={onClose}
           />
           {children}
         </View>

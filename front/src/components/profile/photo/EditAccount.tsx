@@ -8,16 +8,14 @@ import SubmitBtn from '../../public/SubmitBtn';
 import VerticalFormSpace from '../../public/VerticalFormSpace';
 import { View } from 'react-native';
 import { globalStyles } from '../../../styles/global';
+import { useUpdateUser } from '../../../graphql/user/update-user/updateUser.service';
 
 const EditAccount: React.FC = () => {
+  const { modal, handleCloseModal, handleOpenModal } = useUpdateUser();
+
   return (
     <View>
-      <Button
-        transparent
-        onPress={(): void => {
-          //
-        }}
-      >
+      <Button transparent onPress={handleOpenModal}>
         <MaterialIcons
           name="update"
           size={globalStyles.iconSize}
@@ -25,7 +23,7 @@ const EditAccount: React.FC = () => {
         />
       </Button>
 
-      <StyledModal visible={true}>
+      <StyledModal visible={modal} onClose={handleCloseModal}>
         <Text>Modifier votre profile</Text>
         <NameInput
           value=""
