@@ -19,6 +19,7 @@ export async function ifDataUnchanged(
 ): Promise<UpdateAccountError> {
   if (
     data.username === currentUser.username &&
+    data.statusConnected === currentUser.statusConnected &&
     (await bcryptService.compare(data.password, currentUser.password))
   ) {
     const updateAccountError = new UpdateAccountError();
