@@ -77,6 +77,7 @@ type UpdateAccountError {
 
 input UpdateAccountInput {
   password: String!
+  statusConnected: Boolean!
   username: String!
 }
 

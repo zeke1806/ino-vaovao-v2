@@ -43,6 +43,9 @@ export class UpdateAccountInput implements Partial<User> {
 
   @Field()
   password: string;
+
+  @Field()
+  statusConnected: boolean;
 }
 
 @ObjectType()

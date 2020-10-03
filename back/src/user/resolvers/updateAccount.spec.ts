@@ -32,6 +32,7 @@ describe('UpdateAccountResolver', () => {
       const dataMock: UpdateAccountInput = {
         username: 'user',
         password: '',
+        statusConnected: false,
       };
       const currentUserMock: User = dataMock as User;
       const bcryptServiceMock: BcryptService = new BcryptService();
@@ -58,6 +59,7 @@ describe('UpdateAccountResolver', () => {
         id: 0,
         username: 'user',
         password: '',
+        statusConnected: false,
       };
       const currentUser: User = {
         ...isUserExist,
@@ -75,6 +77,7 @@ describe('UpdateAccountResolver', () => {
         id: 0,
         username: 'user',
         password: '',
+        statusConnected: false,
       };
       userService.getUserByUsername = jest.fn();
       userService.getUserById = jest.fn();
