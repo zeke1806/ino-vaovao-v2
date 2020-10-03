@@ -46,6 +46,7 @@ type PhotoProfile {
 
 type Query {
   hello: String!
+  me: User!
 }
 
 type RegisterError {
@@ -87,6 +88,7 @@ union UpdateAccountResult = UpdateAccountError | User
 scalar Upload
 
 type User {
-  id: ID!
+  id: Float!
+  statusConnected: Boolean!
   username: String!
 }
