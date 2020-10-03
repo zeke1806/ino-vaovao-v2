@@ -5,6 +5,8 @@ import { LoginInput } from '../../graphql/types';
 import NameInput from './NameInput';
 import PasswordInput from './PasswordInput';
 import { RegisterScreenProps } from '../../navigations/AuthenticationNavigator';
+import SubmitBtn from '../public/SubmitBtn';
+import VerticalFormSpace from '../public/VerticalFormSpace';
 import { globalStyles } from '../../styles/global';
 import { screenHeight } from '../../utils/Styles';
 import { useNavigation } from '@react-navigation/core';
@@ -36,7 +38,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
         }}
       />
 
-      <View style={{ height: 5 }}></View>
+      <VerticalFormSpace />
 
       <PasswordInput
         error={!!(error && !formInput.password)}
@@ -46,17 +48,10 @@ const LoginForm: React.FC<LoginFormProps> = ({
         }}
       />
 
-      <View style={{ height: 5 }}></View>
+      <VerticalFormSpace />
 
       <View style={styles.btnContainer}>
-        <Button rounded style={styles.submitBtn} onPress={onSubmit}>
-          <Text>Se connecter</Text>
-          {loading && (
-            <View style={styles.loadingCtn}>
-              <ActivityIndicator color="white" size="small" />
-            </View>
-          )}
-        </Button>
+        <SubmitBtn title="Se connecter" loading={loading} onClick={onSubmit} />
       </View>
 
       <View style={styles.seConnecterCtn}>
@@ -88,14 +83,6 @@ const styles = StyleSheet.create({
   btnContainer: {
     alignItems: 'center',
     marginTop: spaceY * 2,
-  },
-
-  loadingCtn: {
-    marginHorizontal: 10,
-  },
-
-  submitBtn: {
-    backgroundColor: globalStyles.colors.primary,
   },
 
   seConnecterCtn: {

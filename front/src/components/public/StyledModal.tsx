@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Alert, Modal, StyleSheet } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 import { View } from 'native-base';
+import { globalStyles } from '../../styles/global';
 
 export interface StyledModalProps {
   visible: boolean;
@@ -17,7 +19,15 @@ const StyledModal: React.FC<StyledModalProps> = ({ visible, children }) => {
       }}
     >
       <View style={styles.centeredView}>
-        <View style={styles.modalView}>{children}</View>
+        <View style={styles.modalView}>
+          <AntDesign
+            name="close"
+            size={globalStyles.iconSize}
+            color={globalStyles.colors.icon}
+            style={{ position: 'absolute', right: 10, top: 10 }}
+          />
+          {children}
+        </View>
       </View>
     </Modal>
   );
