@@ -1,5 +1,8 @@
 import * as React from 'react';
 import MasonryList from 'react-native-masonry-list';
+import { YellowBox } from 'react-native';
+
+YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
 
 const Masonry: React.FC = () => {
   return (
