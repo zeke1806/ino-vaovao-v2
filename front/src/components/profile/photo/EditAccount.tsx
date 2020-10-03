@@ -21,7 +21,7 @@ const EditAccount: React.FC = () => {
         />
       </Button>
 
-      <StyledModal visible={true}></StyledModal>
+      <StyledModal visible={false}></StyledModal>
     </View>
   );
 };
