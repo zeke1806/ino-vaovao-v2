@@ -1,4 +1,5 @@
 import * as React from 'react';
+import EditAccount from './EditAccount';
 import EditProfile from './EditPhoto';
 import Image from './Image';
 import ProfileTitleText from '../ProfileTitleText';
@@ -18,11 +19,16 @@ const Photo: React.FC = () => {
       </View>
       <View
         style={{
+          flexDirection: 'row',
           alignItems: 'center',
+          justifyContent: 'center',
           paddingVertical: 10,
         }}
       >
         <ProfileTitleText text="Sarah Milord" size={20} />
+        <View style={{ marginLeft: 10 }}>
+          <EditAccount />
+        </View>
       </View>
     </View>
   );
