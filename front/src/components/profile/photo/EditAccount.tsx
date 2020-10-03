@@ -11,7 +11,12 @@ import { globalStyles } from '../../../styles/global';
 import { useUpdateUser } from '../../../graphql/user/update-user/updateUser.service';
 
 const EditAccount: React.FC = () => {
-  const { modal, handleCloseModal, handleOpenModal } = useUpdateUser();
+  const {
+    state,
+    handleChange,
+    handleCloseModal,
+    handleOpenModal,
+  } = useUpdateUser('', '', false);
 
   return (
     <View>
@@ -23,23 +28,23 @@ const EditAccount: React.FC = () => {
         />
       </Button>
 
-      <StyledModal visible={modal} onClose={handleCloseModal}>
+      <StyledModal visible={state.modal} onClose={handleCloseModal}>
         <Text>Modifier votre profile</Text>
         <NameInput
-          value=""
+          value={state.name}
           error={false}
           onChange={(value: string): void => {
-            //
+            handleChange('name', value);
           }}
         />
 
         <VerticalFormSpace />
 
         <PasswordInput
-          value=""
+          value={state.password}
           error={false}
           onChange={(value: string): void => {
-            //
+            handleChange('password', value);
           }}
         />
 
@@ -58,7 +63,14 @@ const EditAccount: React.FC = () => {
               justifyContent: 'flex-start',
             }}
           >
-            <CheckBox checked={true} style={{ marginRight: 25 }} />
+            <CheckBox
+              color={globalStyles.colors.primary}
+              checked={state.statusConnected}
+              style={{ marginRight: 25 }}
+              onPress={(): void => {
+                handleChange('statusConnected', !state.statusConnected);
+              }}
+            />
             <Text>Status connecter</Text>
           </View>
         </View>
