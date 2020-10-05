@@ -41,13 +41,14 @@ export const useUpdateAccount = (
     MutationUpdateAccountArgs
   >(UPDATE_ACCOUNT, {
     onCompleted: (data) => {
-      console.log(data);
       let message = '';
       let messageType = '';
       if (data.updateAccount.__typename === 'UpdateAccountError') {
         messageType = 'Erreur';
         message =
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           data.updateAccount.usernameNotAvailable! ||
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           data.updateAccount.cannotUpdateTheSameInfo!;
       }
       if (data.updateAccount.__typename === 'User') {
