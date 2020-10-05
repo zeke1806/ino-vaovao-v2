@@ -8,7 +8,7 @@ import SubmitBtn from '../../public/SubmitBtn';
 import VerticalFormSpace from '../../public/VerticalFormSpace';
 import { View } from 'react-native';
 import { globalStyles } from '../../../styles/global';
-import { useUpdateUser } from '../../../graphql/user/update-user/updateUser.service';
+import { useUpdateAccount } from '../../../graphql/user/update-account/updateAccount.service';
 
 const EditAccount: React.FC = () => {
   const {
@@ -16,7 +16,9 @@ const EditAccount: React.FC = () => {
     handleChange,
     handleCloseModal,
     handleOpenModal,
-  } = useUpdateUser('', '', false);
+    handleSubmit,
+    loading,
+  } = useUpdateAccount('', '', false);
 
   return (
     <View>
@@ -88,10 +90,8 @@ const EditAccount: React.FC = () => {
           >
             <SubmitBtn
               title="Modifier"
-              loading={false}
-              onClick={(): void => {
-                //
-              }}
+              loading={loading}
+              onClick={handleSubmit}
             />
           </View>
         </View>
