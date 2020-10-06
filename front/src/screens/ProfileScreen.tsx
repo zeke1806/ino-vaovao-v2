@@ -19,7 +19,10 @@ const ProfileScreen: React.FC = () => {
         <Header />
         {meData && (
           <>
-            <Photo username={meData.me.username} />
+            <Photo
+              username={meData.me.username}
+              photo={meData.me.currentPhoto}
+            />
             <Info statusConnected={meData.me.statusConnected} />
             <Gallery />
           </>

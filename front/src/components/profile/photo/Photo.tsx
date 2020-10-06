@@ -2,14 +2,16 @@ import * as React from 'react';
 import EditAccount from './EditAccount';
 import EditProfile from './EditPhoto';
 import Image from './Image';
+import { PhotoProfile } from '../../../graphql/types';
 import ProfileTitleText from '../ProfileTitleText';
 import { View } from 'native-base';
 
 interface PhotoProps {
   username: string;
+  photo: PhotoProfile | null | undefined;
 }
 
-const Photo: React.FC<PhotoProps> = ({ username }) => {
+const Photo: React.FC<PhotoProps> = ({ username, photo }) => {
   return (
     <View>
       <View
@@ -18,7 +20,7 @@ const Photo: React.FC<PhotoProps> = ({ username }) => {
           position: 'relative',
         }}
       >
-        <Image />
+        {photo ? <Image img={{ uri: photo.url }} /> : <Image />}
         <EditProfile />
       </View>
       <View

@@ -48,6 +48,7 @@ export type Mutation = {
   register: RegisterResult;
   removeProfileImage: RemoveProfileImageResult;
   sendFriendRequest: FriendHistory;
+  setCurrentPhoto: Scalars['Boolean'];
   updateAccount: UpdateAccountResult;
   uploadProfileImage?: Maybe<PhotoProfile>;
 };
@@ -73,6 +74,11 @@ export type MutationSendFriendRequestArgs = {
 };
 
 
+export type MutationSetCurrentPhotoArgs = {
+  publicId: Scalars['String'];
+};
+
+
 export type MutationUpdateAccountArgs = {
   updateAccountInput: UpdateAccountInput;
 };
@@ -84,6 +90,7 @@ export type MutationUploadProfileImageArgs = {
 
 export type PhotoProfile = {
   __typename?: 'PhotoProfile';
+  current: Scalars['Boolean'];
   id: Scalars['Float'];
   publicId: Scalars['String'];
   url: Scalars['String'];
@@ -137,7 +144,9 @@ export type UpdateAccountResult = UpdateAccountError | User;
 
 export type User = {
   __typename?: 'User';
+  currentPhoto?: Maybe<PhotoProfile>;
   id: Scalars['Float'];
+  photos: Array<PhotoProfile>;
   statusConnected: Scalars['Boolean'];
   username: Scalars['String'];
 };
