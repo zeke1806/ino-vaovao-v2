@@ -24,6 +24,10 @@ export class PhotoProfile {
   @Column()
   url: string;
 
+  @Field()
+  @Column()
+  current: boolean;
+
   @ManyToOne(() => User)
   @JoinColumn({ name: 'id_user' })
   user: User;

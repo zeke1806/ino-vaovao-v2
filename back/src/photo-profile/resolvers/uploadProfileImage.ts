@@ -9,6 +9,7 @@ import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard, CurrentUser } from '../../auth/auth.guards';
 import { AuthPayload } from '../../auth/auth.model';
 import { User } from '../../user/user.entity';
+import { PhotoProfileUtils } from '../photo-profile.utils';
 
 @Resolver()
 export class UploadProfileImageResolver {
@@ -16,6 +17,7 @@ export class UploadProfileImageResolver {
     private cloudinaryService: CloudinaryService,
     private photoProfileService: PhotoProfileService,
     private userService: UserService,
+    private photoProfileUtils: PhotoProfileUtils,
   ) {}
 
   @Mutation(() => PhotoProfile, { nullable: true })
@@ -26,6 +28,7 @@ export class UploadProfileImageResolver {
     { createReadStream }: FileUpload,
   ): Promise<PhotoProfile> {
     const user = await this.userService.getUserById(authPayload.payload.id);
+    await this.photoProfileUtils.setUserCurrentProfileToFalse(user);
     return new Promise((resolve, reject) => {
       const stream = this.cloudinaryService.cloudinary.uploader.upload_stream(
         {
@@ -48,6 +51,7 @@ export class UploadProfileImageResolver {
   ): void {
     if (result) {
       const newPhotoProfile = new PhotoProfile();
+      newPhotoProfile.current = true;
       newPhotoProfile.url = result.url;
       newPhotoProfile.publicId = result.public_id;
       newPhotoProfile.user = user;

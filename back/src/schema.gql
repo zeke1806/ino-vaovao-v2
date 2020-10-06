@@ -39,6 +39,7 @@ type Mutation {
 }
 
 type PhotoProfile {
+  current: Boolean!
   id: Float!
   publicId: String!
   url: String!

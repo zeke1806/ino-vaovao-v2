@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { PhotoProfile } from './photo-profile.entity';
+import { User } from '../user/user.entity';
 
 @Injectable()
 export class PhotoProfileService {
@@ -19,6 +20,14 @@ export class PhotoProfileService {
     return this.photoProfileRepository.findOne({
       where: {
         publicId,
+      },
+    });
+  }
+
+  getUserPhotoProfiles(user: User): Promise<PhotoProfile[]> {
+    return this.photoProfileRepository.find({
+      where: {
+        user,
       },
     });
   }

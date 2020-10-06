@@ -4,11 +4,13 @@ import { PhotoProfileService } from '../photo-profile.service';
 import { UserService } from '../../user/user.service';
 import { PhotoProfile } from '../photo-profile.entity';
 import { User } from '../../user/user.entity';
+import { PhotoProfileUtils } from '../photo-profile.utils';
 
 describe('UploadProfileImageResolver', () => {
   let resolver: UploadProfileImageResolver;
   let cloudinaryService: CloudinaryService;
   let photoProfileService: PhotoProfileService;
+  let photoProfileUtils: PhotoProfileUtils;
   let userService: UserService;
 
   beforeEach(() => {
@@ -17,10 +19,14 @@ describe('UploadProfileImageResolver', () => {
       createPhotoProfile: jest.fn().mockResolvedValue(new PhotoProfile()),
     } as unknown) as PhotoProfileService;
     userService = (jest.fn() as unknown) as UserService;
+    photoProfileUtils = ({
+      setUserCurrentProfileToFalse: jest.fn(),
+    } as unknown) as PhotoProfileUtils;
     resolver = new UploadProfileImageResolver(
       cloudinaryService,
       photoProfileService,
       userService,
+      photoProfileUtils,
     );
   });
 
