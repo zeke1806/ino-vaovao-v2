@@ -34,6 +34,7 @@ type Mutation {
   register(registerInput: RegisterInput!): RegisterResult!
   removeProfileImage(photoProfilePublicId: String!): RemoveProfileImageResult!
   sendFriendRequest(idFriend: Float!): FriendHistory!
+  setCurrentPhoto(publicId: String!): Boolean!
   updateAccount(updateAccountInput: UpdateAccountInput!): UpdateAccountResult!
   uploadProfileImage(file: Upload!): PhotoProfile
 }
@@ -89,7 +90,9 @@ union UpdateAccountResult = UpdateAccountError | User
 scalar Upload
 
 type User {
+  currentPhoto: PhotoProfile
   id: Float!
+  photos: [PhotoProfile!]!
   statusConnected: Boolean!
   username: String!
 }
