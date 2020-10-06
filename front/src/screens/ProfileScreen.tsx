@@ -24,7 +24,7 @@ const ProfileScreen: React.FC = () => {
               photo={meData.me.currentPhoto}
             />
             <Info statusConnected={meData.me.statusConnected} />
-            <Gallery />
+            <Gallery photos={meData.me.photos} />
           </>
         )}
       </ScrollView>
