@@ -10,7 +10,7 @@ interface InfoProps {
 
 const Info: React.FC<InfoProps> = ({ statusConnected }) => {
   return (
-    <View style={{ paddingHorizontal: 25 }}>
+    <View>
       <ProfileTitleText text="Profil" size={18} />
       <Field
         img={IMPORTANT}

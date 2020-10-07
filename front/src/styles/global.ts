@@ -8,4 +8,5 @@ export const globalStyles = {
   },
 
   iconSize: 24,
+  screenHorizontalPadding: 10,
 };

@@ -8,6 +8,7 @@ import Info from '../components/profile/info/Info';
 import Photo from '../components/profile/photo/Photo';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { useMe } from '../api/user/me/me.service';
+import { globalStyles } from '../styles/global';
 
 const ProfileScreen: React.FC = () => {
   const { meLoading, meData } = useMe();
@@ -35,6 +36,7 @@ const ProfileScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
+    paddingHorizontal: globalStyles.screenHorizontalPadding,
   },
 });
 
