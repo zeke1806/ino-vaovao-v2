@@ -1,6 +1,6 @@
 import * as ImagePicker from 'expo-image-picker';
 import * as React from 'react';
-import { Button, Thumbnail } from 'native-base';
+import { Button, Thumbnail, View } from 'native-base';
 import { PENCIL } from '../../../utils/Icons';
 import { ReactNativeFile } from 'apollo-upload-client';
 import { Spinner } from '../../public/SubmitBtn';
@@ -30,27 +30,27 @@ const EditPhoto: React.FC = () => {
   };
 
   return (
-    <Button
-      transparent
+    <View
       style={{
         position: 'absolute',
         bottom: 0,
         left: '30%',
       }}
-      onPress={pickImage}
     >
       {loading ? (
-        <Spinner color={globalStyles.colors.primary} />
+        <Spinner color={globalStyles.colors.primary} size="large" />
       ) : (
-        <Thumbnail
-          source={PENCIL}
-          style={{
-            width: globalStyles.iconSize * 2,
-            height: globalStyles.iconSize * 2,
-          }}
-        />
+        <Button transparent onPress={pickImage}>
+          <Thumbnail
+            source={PENCIL}
+            style={{
+              width: globalStyles.iconSize * 2,
+              height: globalStyles.iconSize * 2,
+            }}
+          />
+        </Button>
       )}
-    </Button>
+    </View>
   );
 };
 
