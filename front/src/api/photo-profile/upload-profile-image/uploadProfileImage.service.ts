@@ -15,10 +15,13 @@ export const useUploadProfileImage = (): UseUploadProfileImage => {
   const [upload, { loading }] = useMutation<
     UploadProfileImageData,
     MutationUploadProfileImageArgs
-  >(UPLOAD_PROFILE_IMAGE);
+  >(UPLOAD_PROFILE_IMAGE, {
+    onCompleted({ uploadProfileImage }) {
+      //
+    },
+  });
 
   const submit = (file: ReactNativeFile): void => {
-    console.log(file);
     upload({ variables: { file } });
   };
 

@@ -16,6 +16,7 @@ const Masonry: React.FC<MasonryProps> = ({ photos }) => {
       columns={3}
       images={photos.map((photo) => ({
         uri: photo.url,
+        id: photo.publicId,
         // dimensions: { width: 1080, height: 1920 },
       }))}
       emptyView={(): JSX.Element => <Text>Vide</Text>}

@@ -9,6 +9,7 @@ export interface GalleryProps {
 }
 
 const Gallery: React.FC<GalleryProps> = ({ photos }) => {
+  console.log(photos);
   return (
     <View style={{ paddingHorizontal: 25 }}>
       <ProfileTitleText size={18} text="Photos" />

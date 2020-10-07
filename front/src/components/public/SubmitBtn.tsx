@@ -3,6 +3,10 @@ import { Button, Text, View } from 'native-base';
 import { ActivityIndicator } from 'react-native';
 import { globalStyles } from '../../styles/global';
 
+export const Spinner: React.FC<{
+  color: string;
+}> = ({ color }) => <ActivityIndicator color={color} size="small" />;
+
 export interface SubmitBtnProps {
   loading: boolean;
   title: string;
@@ -18,7 +22,7 @@ const SubmitBtn: React.FC<SubmitBtnProps> = ({ loading, title, onClick }) => (
     <Text>{title}</Text>
     {loading && (
       <View style={{ marginHorizontal: 10 }}>
-        <ActivityIndicator color="white" size="small" />
+        <Spinner color="white" />
       </View>
     )}
   </Button>

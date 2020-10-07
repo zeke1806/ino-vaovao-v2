@@ -1,4 +1,4 @@
-import { PHOTO_PROFILE } from '../../fragments';
+import { PHOTO_PROFILE_FRAG } from '../../fragments';
 import { PhotoProfile } from '../../types';
 import { gql } from '@apollo/client';
 
@@ -9,8 +9,8 @@ export interface UploadProfileImageData {
 export const UPLOAD_PROFILE_IMAGE = gql`
   mutation UploadProfileImage($file: Upload!) {
     uploadProfileImage(file: $file) {
-      ...ProfileImageFrag
+      ...PhotoProfileFrag
     }
   }
-  ${PHOTO_PROFILE}
+  ${PHOTO_PROFILE_FRAG}
 `;

@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Button, Thumbnail } from 'native-base';
 import { PENCIL } from '../../../utils/Icons';
 import { ReactNativeFile } from 'apollo-upload-client';
+import { Spinner } from '../../public/SubmitBtn';
 import { globalStyles } from '../../../styles/global';
 import { usePermissionPickImage } from '../../../utils/permissionPickImage';
 import { useUploadProfileImage } from '../../../api/photo-profile/upload-profile-image/uploadProfileImage.service';
@@ -38,13 +39,17 @@ const EditPhoto: React.FC = () => {
       }}
       onPress={pickImage}
     >
-      <Thumbnail
-        source={PENCIL}
-        style={{
-          width: globalStyles.iconSize * 2,
-          height: globalStyles.iconSize * 2,
-        }}
-      />
+      {loading ? (
+        <Spinner color={globalStyles.colors.primary} />
+      ) : (
+        <Thumbnail
+          source={PENCIL}
+          style={{
+            width: globalStyles.iconSize * 2,
+            height: globalStyles.iconSize * 2,
+          }}
+        />
+      )}
     </Button>
   );
 };

@@ -1,7 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const PHOTO_PROFILE = gql`
+export const PHOTO_PROFILE_FRAG = gql`
   fragment PhotoProfileFrag on PhotoProfile {
+    id
     publicId
     url
   }
@@ -12,14 +13,7 @@ export const USER_FRAG = gql`
     id
     username
     statusConnected
-    currentPhoto {
-      ...PhotoProfileFrag
-    }
-    photos {
-      ...PhotoProfileFrag
-    }
   }
-  ${PHOTO_PROFILE}
 `;
 
 export const REGISTER_ERROR_FRAG = gql`
