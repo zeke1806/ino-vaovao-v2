@@ -16,11 +16,13 @@ const Masonry: React.FC<MasonryProps> = ({ photos }) => {
       columns={3}
       images={photos.map((photo) => ({
         uri: photo.url,
-        dimensions: { width: 1080, height: 1920 },
+        // dimensions: { width: 1080, height: 1920 },
       }))}
       emptyView={(): JSX.Element => <Text>Vide</Text>}
       imageContainerStyle={{
         backgroundColor: 'transparent',
+        maxWidth: 1080,
+        maxHeight: 1920,
       }}
     />
   );

@@ -1,9 +1,10 @@
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { HTTP_LINK, TOKEN } from '../configs';
 import AsyncStorage from '@react-native-community/async-storage';
+import { createUploadLink } from 'apollo-upload-client';
 import { setContext } from '@apollo/client/link/context';
 
-const httpLink = createHttpLink({
+const uploadLink = createUploadLink({
   uri: HTTP_LINK,
 });
 
@@ -20,6 +21,6 @@ const authLink = setContext(async (_, { headers }) => {
 });
 
 export const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: authLink.concat(uploadLink),
   cache: new InMemoryCache(),
 });
