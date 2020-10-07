@@ -2,7 +2,7 @@ import * as React from 'react';
 import RegisterForm, { RegisterFormProps } from './RegisterForm';
 import { RegisterScreenProps } from '../../navigations/AuthenticationNavigator';
 import { useNavigation } from '@react-navigation/core';
-import { useRegister } from '../../graphql/user/register/register.service';
+import { useRegister } from '../../api/user/register/register.service';
 
 const RegisterFormCtn: React.FC = () => {
   const navigation = useNavigation<RegisterScreenProps>();

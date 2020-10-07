@@ -7,7 +7,7 @@ import Header from '../components/profile/header/Header';
 import Info from '../components/profile/info/Info';
 import Photo from '../components/profile/photo/Photo';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { useMe } from '../graphql/user/me/me.service';
+import { useMe } from '../api/user/me/me.service';
 
 const ProfileScreen: React.FC = () => {
   const { meLoading, meData } = useMe();

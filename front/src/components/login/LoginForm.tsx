@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 import { Button, Text, View } from 'native-base';
-import { LoginInput } from '../../graphql/types';
+import { LoginInput } from '../../api/types';
 import NameInput from './NameInput';
 import PasswordInput from './PasswordInput';
 import { RegisterScreenProps } from '../../navigations/AuthenticationNavigator';

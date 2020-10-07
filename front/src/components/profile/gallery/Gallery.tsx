@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Masonry from './Masonry';
-import { PhotoProfile } from '../../../graphql/types';
+import { PhotoProfile } from '../../../api/types';
 import ProfileTitleText from '../ProfileTitleText';
 import { View } from 'native-base';
 

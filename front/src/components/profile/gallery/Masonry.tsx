@@ -1,6 +1,6 @@
 import * as React from 'react';
 import MasonryList from 'react-native-masonry-list';
-import { PhotoProfile } from '../../../graphql/types';
+import { PhotoProfile } from '../../../api/types';
 import { Text } from 'native-base';
 import { YellowBox } from 'react-native';
 

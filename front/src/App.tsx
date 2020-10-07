@@ -7,7 +7,7 @@ import { ApolloProvider } from '@apollo/client';
 import { AppLoading } from 'expo';
 import { ContextProvider } from './providers';
 import RootNavigator from './navigations/RootStackNavigator';
-import { client } from './graphql/apollo';
+import { client } from './api/apollo';
 import { handleBoot } from './utils/handleBoot';
 import { loadAssetsAsync } from './utils/loadAssetsAsync';
 

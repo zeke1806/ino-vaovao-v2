@@ -8,7 +8,7 @@ import SubmitBtn from '../../public/SubmitBtn';
 import VerticalFormSpace from '../../public/VerticalFormSpace';
 import { View } from 'react-native';
 import { globalStyles } from '../../../styles/global';
-import { useUpdateAccount } from '../../../graphql/user/update-account/updateAccount.service';
+import { useUpdateAccount } from '../../../api/user/update-account/updateAccount.service';
 
 const EditAccount: React.FC = () => {
   const {
