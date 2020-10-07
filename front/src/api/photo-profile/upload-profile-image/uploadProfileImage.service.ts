@@ -18,6 +18,7 @@ export const useUploadProfileImage = (): UseUploadProfileImage => {
   >(UPLOAD_PROFILE_IMAGE);
 
   const submit = (file: ReactNativeFile): void => {
+    console.log(file);
     upload({ variables: { file } });
   };
 

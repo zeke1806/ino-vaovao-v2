@@ -2,11 +2,14 @@ import * as ImagePicker from 'expo-image-picker';
 import * as React from 'react';
 import { Button, Thumbnail } from 'native-base';
 import { PENCIL } from '../../../utils/Icons';
+import { ReactNativeFile } from 'apollo-upload-client';
 import { globalStyles } from '../../../styles/global';
 import { usePermissionPickImage } from '../../../utils/permissionPickImage';
+import { useUploadProfileImage } from '../../../api/photo-profile/upload-profile-image/uploadProfileImage.service';
 
 const EditPhoto: React.FC = () => {
   usePermissionPickImage();
+  const { loading, submit } = useUploadProfileImage();
   const pickImage = async (): Promise<void> => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -16,7 +19,12 @@ const EditPhoto: React.FC = () => {
     });
 
     if (!result.cancelled) {
-      console.log(result.uri);
+      const file = new ReactNativeFile({
+        uri: result.uri,
+        name: 'image',
+        type: 'image/jpeg',
+      });
+      submit(file);
     }
   };
 
