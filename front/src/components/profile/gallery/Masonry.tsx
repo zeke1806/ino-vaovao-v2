@@ -1,8 +1,10 @@
 import * as React from 'react';
 import MasonryList from 'react-native-masonry-list';
 import { PhotoProfile } from '../../../api/types';
+import { ProfileScreenProps } from '../../../navigations/ProfileNavigator';
 import { Text } from 'native-base';
 import { YellowBox } from 'react-native';
+import { useNavigation } from '@react-navigation/core';
 
 YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
 
@@ -11,6 +13,12 @@ export interface MasonryProps {
 }
 
 const Masonry: React.FC<MasonryProps> = ({ photos }) => {
+  const navigation = useNavigation<ProfileScreenProps>();
+
+  const handlePress = (item: PhotoProfile, index: number): void => {
+    console.log({ item, index });
+  };
+
   return (
     <MasonryList
       columns={3}
@@ -25,6 +33,7 @@ const Masonry: React.FC<MasonryProps> = ({ photos }) => {
         maxWidth: 1080,
         maxHeight: 1920,
       }}
+      onPressImage={handlePress}
     />
   );
 };
