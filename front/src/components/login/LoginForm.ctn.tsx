@@ -1,6 +1,6 @@
 import * as React from 'react';
 import LoginForm, { LoginFormProps } from './LoginForm';
-import { useLogin } from '../../graphql/auth/login/login.service';
+import { useLogin } from '../../api/auth/login/login.service';
 
 const LoginFormCtn: React.FC = () => {
   const {

@@ -8,6 +8,11 @@ interface Configs {
   server: ServerConfigs;
   graphql: GqlModuleOptions;
   database: ConnectionOptions;
+  cloudinary: {
+    cloud_name: string;
+    api_key: string;
+    api_secret: string;
+  };
 }
 
 export default (): Configs => {
@@ -30,10 +35,16 @@ export default (): Configs => {
       password: process.env.TYPEORM_PASSWORD,
       database: process.env.TYPEORM_DATABASE,
       entities: ['dist/**/*.entity{.ts,.js}'],
-      synchronize: false,
+      synchronize: process.env.TYPEORM_SYNCHRONIZE === 'true',
       migrations: ['dist/migrations/*{.ts,.js}'],
       migrationsTableName: 'migrations_typeorm',
-      migrationsRun: true,
+      migrationsRun: process.env.TYPEORM_MIGRATIONS_RUN === 'true',
+    },
+
+    cloudinary: {
+      cloud_name: process.env.CLOUDINARY_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
     },
   };
 };

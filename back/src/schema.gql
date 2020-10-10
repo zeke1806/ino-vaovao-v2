@@ -2,6 +2,18 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type FriendHistory {
+  friend: User!
+  status: FriendHistoryStatus!
+  user: User!
+}
+
+enum FriendHistoryStatus {
+  Accepted
+  Declined
+  Pending
+}
+
 type LoginError {
   incorrectInfo: String!
 }
@@ -20,11 +32,23 @@ type LoginToken {
 type Mutation {
   login(loginInput: LoginInput!): LoginResult!
   register(registerInput: RegisterInput!): RegisterResult!
+  removeProfileImage(photoProfilePublicId: String!): RemoveProfileImageResult!
+  sendFriendRequest(idFriend: Float!): FriendHistory!
+  setCurrentPhoto(publicId: String!): Boolean!
   updateAccount(updateAccountInput: UpdateAccountInput!): UpdateAccountResult!
+  uploadProfileImage(file: Upload!): PhotoProfile
+}
+
+type PhotoProfile {
+  current: Boolean!
+  id: Float!
+  publicId: String!
+  url: String!
 }
 
 type Query {
   hello: String!
+  me: User!
 }
 
 type RegisterError {
@@ -39,6 +63,16 @@ input RegisterInput {
 
 union RegisterResult = RegisterError | User
 
+type RemoveProfileImageError {
+  notUserPhoto: String!
+}
+
+type RemoveProfileImageOk {
+  status: Boolean!
+}
+
+union RemoveProfileImageResult = RemoveProfileImageError | RemoveProfileImageOk
+
 type UpdateAccountError {
   cannotUpdateTheSameInfo: String
   usernameNotAvailable: String
@@ -46,12 +80,19 @@ type UpdateAccountError {
 
 input UpdateAccountInput {
   password: String!
+  statusConnected: Boolean!
   username: String!
 }
 
 union UpdateAccountResult = UpdateAccountError | User
 
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
 type User {
-  id: ID!
+  currentPhoto: PhotoProfile
+  id: Float!
+  photos: [PhotoProfile!]!
+  statusConnected: Boolean!
   username: String!
 }

@@ -1,9 +1,12 @@
 import * as React from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
-import { Button, Input, Item, Text, View } from 'native-base';
-import { AntDesign } from '@expo/vector-icons';
-import { LoginInput } from '../../graphql/types';
+import { Button, Text, View } from 'native-base';
+import { LoginInput } from '../../api/types';
+import NameInput from './NameInput';
+import PasswordInput from './PasswordInput';
 import { RegisterScreenProps } from '../../navigations/AuthenticationNavigator';
+import SubmitBtn from '../public/SubmitBtn';
+import VerticalFormSpace from '../public/VerticalFormSpace';
 import { globalStyles } from '../../styles/global';
 import { screenHeight } from '../../utils/Styles';
 import { useNavigation } from '@react-navigation/core';
@@ -24,66 +27,31 @@ const LoginForm: React.FC<LoginFormProps> = ({
   loading,
 }) => {
   const navigation = useNavigation<RegisterScreenProps>();
-  const [secureText, setSecureText] = React.useState(true);
-
-  const toogleSecureTextEntry = (): void => {
-    setSecureText(!secureText);
-  };
 
   return (
     <View style={styles.container}>
-      <Item error={!!(error && !formInput.username)}>
-        <AntDesign
-          name="smileo"
-          size={24}
-          color={globalStyles.colors.icon}
-          style={styles.marginRight}
-        />
-        <Input
-          placeholder="Nom"
-          value={formInput.username}
-          onChangeText={(text): void => {
-            onChange('username', text);
-          }}
-        />
-      </Item>
+      <NameInput
+        value={formInput.username}
+        error={!!(error && !formInput.username)}
+        onChange={(value: string): void => {
+          onChange('username', value);
+        }}
+      />
 
-      <View style={{ height: 5 }}></View>
+      <VerticalFormSpace />
 
-      <Item error={!!(error && !formInput.password)}>
-        <AntDesign
-          name="lock"
-          size={24}
-          color={globalStyles.colors.icon}
-          style={styles.marginRight}
-        />
-        <Input
-          placeholder="Mot de passe"
-          value={formInput.password}
-          secureTextEntry={secureText}
-          onChangeText={(text): void => {
-            onChange('password', text);
-          }}
-        />
-        <AntDesign
-          name={secureText ? 'eye' : 'eyeo'}
-          size={24}
-          color={globalStyles.colors.icon}
-          onPress={toogleSecureTextEntry}
-        />
-      </Item>
+      <PasswordInput
+        error={!!(error && !formInput.password)}
+        value={formInput.password}
+        onChange={(value: string): void => {
+          onChange('password', value);
+        }}
+      />
 
-      <View style={{ height: 5 }}></View>
+      <VerticalFormSpace />
 
       <View style={styles.btnContainer}>
-        <Button rounded style={styles.submitBtn} onPress={onSubmit}>
-          <Text>Se connecter</Text>
-          {loading && (
-            <View style={styles.loadingCtn}>
-              <ActivityIndicator color="white" size="small" />
-            </View>
-          )}
-        </Button>
+        <SubmitBtn title="Se connecter" loading={loading} onClick={onSubmit} />
       </View>
 
       <View style={styles.seConnecterCtn}>
@@ -117,22 +85,10 @@ const styles = StyleSheet.create({
     marginTop: spaceY * 2,
   },
 
-  loadingCtn: {
-    marginHorizontal: 10,
-  },
-
-  submitBtn: {
-    backgroundColor: globalStyles.colors.primary,
-  },
-
   seConnecterCtn: {
     flexDirection: 'column',
     justifyContent: 'center',
     marginTop: spaceY,
-  },
-
-  marginRight: {
-    marginRight: 15,
   },
 });
 
