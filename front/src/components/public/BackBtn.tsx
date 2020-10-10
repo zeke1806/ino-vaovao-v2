@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, Thumbnail } from 'native-base';
-import { BACK_ARROW } from '../../../utils/Icons';
+import { BACK_ARROW } from '../../utils/Icons';
 
 const BackBtn: React.FC = () => (
   <Button transparent>

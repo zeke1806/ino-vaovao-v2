@@ -1,23 +1,23 @@
 import * as React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import Constants from 'expo-constants';
-import { Container } from 'native-base';
+import BackBtn from '../components/public/BackBtn';
 import Gallery from '../components/profile/gallery/Gallery';
-import Header from '../components/profile/header/Header';
+import Header from '../components/public/header/Header';
 import Info from '../components/profile/info/Info';
+import Logout from '../components/profile/header/Logout';
 import Photo from '../components/profile/photo/Photo';
+import ScreenContainer from '../components/public/ScreenContainer';
+import { ScrollView } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { globalStyles } from '../styles/global';
 import { useMe } from '../api/user/me/me.service';
 
 const ProfileScreen: React.FC = () => {
   const { meLoading, meData } = useMe();
 
   return (
-    <Container style={styles.container}>
+    <ScreenContainer>
       <Spinner visible={meLoading} />
       <ScrollView>
-        <Header />
+        <Header left={<BackBtn />} title="Profile" right={<Logout />} />
         {meData && (
           <>
             <Photo
@@ -29,15 +29,8 @@ const ProfileScreen: React.FC = () => {
           </>
         )}
       </ScrollView>
-    </Container>
+    </ScreenContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: Constants.statusBarHeight,
-    paddingHorizontal: globalStyles.screenHorizontalPadding,
-  },
-});
 
 export default ProfileScreen;

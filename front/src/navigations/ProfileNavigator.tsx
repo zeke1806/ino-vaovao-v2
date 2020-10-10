@@ -22,19 +22,20 @@ export type ProfileScreenProps = StackNavigationProp<
   'Profile'
 >;
 
+export type PhotoScreenNavigation = StackNavigationProp<
+  ProfileNavigatorParamList,
+  'Photo'
+>;
+export type PhotoScreenRoute = RouteProp<ProfileNavigatorParamList, 'Photo'>;
 export interface PhotoScreenNavigationProps {
-  navigation: StackNavigationProp<ProfileNavigatorParamList, 'Photo'>;
-  route: RouteProp<ProfileNavigatorParamList, 'Photo'>;
+  navigation: PhotoScreenNavigation;
+  route: PhotoScreenRoute;
 }
 
 const ProfileNavigator: React.FC = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="Profile"
-        component={ProfileScreen}
-      />
+    <Stack.Navigator headerMode="none">
+      <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Photo" component={PhotoScreen} />
     </Stack.Navigator>
   );

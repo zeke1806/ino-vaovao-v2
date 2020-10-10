@@ -1,17 +1,19 @@
 import * as React from 'react';
-import BackBtn from './BackBtn';
 import HeaderTitle from './HeaderTitle';
-import Logout from './Logout';
 import { StyleSheet } from 'react-native';
 import { View } from 'native-base';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  left?: JSX.Element;
+  title: string;
+  right?: JSX.Element;
+}
+
+const Header: React.FC<HeaderProps> = ({ left, title, right }) => {
   return (
     <View style={styles.container}>
-      <View style={{ flex: 1 }}>
-        <BackBtn />
-      </View>
-      <HeaderTitle title={'Modifier Profile'} />
+      <View style={{ flex: 1 }}>{left}</View>
+      <HeaderTitle title={title} />
       <View
         style={{
           flex: 1,
@@ -20,7 +22,7 @@ const Header: React.FC = () => {
           justifyContent: 'flex-end',
         }}
       >
-        <Logout />
+        {right}
       </View>
     </View>
   );

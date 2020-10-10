@@ -9,4 +9,9 @@ export const globalStyles = {
 
   iconSize: 24,
   screenHorizontalPadding: 10,
+
+  overlay: {
+    opacity: 0.9,
+    backgroundColor: 'black',
+  },
 };
