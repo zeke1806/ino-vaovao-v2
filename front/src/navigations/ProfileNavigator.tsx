@@ -3,12 +3,16 @@ import {
   StackNavigationProp,
   createStackNavigator,
 } from '@react-navigation/stack';
+import { PhotoProfile } from '../api/types';
 import PhotoScreen from '../screens/PhotoScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import { RouteProp } from '@react-navigation/core';
 
 type ProfileNavigatorParamList = {
   Profile: undefined;
-  Photo: undefined;
+  Photo: {
+    photo: PhotoProfile;
+  };
 };
 
 const Stack = createStackNavigator<ProfileNavigatorParamList>();
@@ -18,15 +22,19 @@ export type ProfileScreenProps = StackNavigationProp<
   'Profile'
 >;
 
-export type PhotoScreenProps = StackNavigationProp<
-  ProfileNavigatorParamList,
-  'Photo'
->;
+export interface PhotoScreenNavigationProps {
+  navigation: StackNavigationProp<ProfileNavigatorParamList, 'Photo'>;
+  route: RouteProp<ProfileNavigatorParamList, 'Photo'>;
+}
 
 const ProfileNavigator: React.FC = () => {
   return (
-    <Stack.Navigator headerMode="none">
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+    <Stack.Navigator>
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Profile"
+        component={ProfileScreen}
+      />
       <Stack.Screen name="Photo" component={PhotoScreen} />
     </Stack.Navigator>
   );

@@ -1,17 +1,11 @@
 import * as React from 'react';
-import { Text, View } from 'native-base';
-import { PhotoScreenProps as NavigationProps } from '../navigations/ProfileNavigator';
+import { PhotoScreenNavigationProps } from '../navigations/ProfileNavigator';
+import { Text } from 'react-native';
 
-interface PhotoScreenProps {
-  navigation: NavigationProps;
-}
+type PhotoScreenProps = PhotoScreenNavigationProps;
 
-const PhotoScreen: React.FC<PhotoScreenProps> = () => {
-  return (
-    <View>
-      <Text>Photo screen</Text>
-    </View>
-  );
+const PhotoScreen: React.FC<PhotoScreenProps> = ({ navigation, route }) => {
+  return <Text>Photo screen</Text>;
 };
 
 export default PhotoScreen;

@@ -16,7 +16,9 @@ const Masonry: React.FC<MasonryProps> = ({ photos }) => {
   const navigation = useNavigation<ProfileScreenProps>();
 
   const handlePress = (item: PhotoProfile, index: number): void => {
-    console.log({ item, index });
+    navigation.navigate('Photo', {
+      photo: item,
+    });
   };
 
   return (
