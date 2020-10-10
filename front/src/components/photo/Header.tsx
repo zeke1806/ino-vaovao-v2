@@ -1,12 +1,16 @@
 import * as React from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { PhotoScreenNavigation } from '../../navigations/ProfileNavigator';
+import RemovePhoto from './RemovePhoto';
 import { View } from 'native-base';
-import { alert } from '../../utils/alert';
 import { globalStyles } from '../../styles/global';
 import { useNavigation } from '@react-navigation/core';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  publicId: string;
+}
+
+const Header: React.FC<HeaderProps> = ({ publicId }) => {
   const navigation = useNavigation<PhotoScreenNavigation>();
   return (
     <View
@@ -23,20 +27,7 @@ const Header: React.FC = () => {
         color="white"
         onPress={navigation.goBack}
       />
-      <MaterialIcons
-        name="clear"
-        size={globalStyles.iconSize}
-        color="white"
-        onPress={(): void => {
-          alert(
-            'Confirmation',
-            'La photo sera deffinitivement supprimer',
-            'Enregistrer',
-            'default',
-            () => console.log('lemonde'),
-          );
-        }}
-      />
+      <RemovePhoto publicId={publicId} />
     </View>
   );
 };

@@ -10,11 +10,11 @@ import { globalStyles } from '../styles/global';
 type PhotoScreenProps = PhotoScreenNavigationProps;
 
 const PhotoScreen: React.FC<PhotoScreenProps> = ({ route }) => {
-  const { uri, dimensions } = route.params.photo;
+  const { uri, dimensions, id } = route.params.photo;
 
   return (
     <Container style={[styles.container, globalStyles.overlay]}>
-      <Header />
+      <Header publicId={id as string} />
       <Visualize
         uri={uri as string}
         dimensions={{
