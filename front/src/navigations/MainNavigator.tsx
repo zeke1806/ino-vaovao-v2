@@ -3,11 +3,12 @@ import {
   StackNavigationProp,
   createStackNavigator,
 } from '@react-navigation/stack';
+import HomeNavigator from './HomeNavigator';
 import HomeScreen from '../screens/HomeScreen';
 import ProfileNavigator from './ProfileNavigator';
 
 type MainNavigatorParamList = {
-  Home: undefined;
+  HomeNavigator: undefined;
   ProfileNavigator: undefined;
 };
 
@@ -15,7 +16,7 @@ const Stack = createStackNavigator<MainNavigatorParamList>();
 
 export type HomeScreenProps = StackNavigationProp<
   MainNavigatorParamList,
-  'Home'
+  'HomeNavigator'
 >;
 
 export type ProfileScreenProps = StackNavigationProp<
@@ -26,8 +27,8 @@ export type ProfileScreenProps = StackNavigationProp<
 const MainNavigator: React.FC = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
       <Stack.Screen name="ProfileNavigator" component={ProfileNavigator} />
-      <Stack.Screen name="Home" component={HomeScreen} />
     </Stack.Navigator>
   );
 };

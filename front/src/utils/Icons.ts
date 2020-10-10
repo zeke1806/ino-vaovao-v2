@@ -11,6 +11,8 @@ import presentation1 from '../../assets/presentation1.png';
 import presentation2 from '../../assets/presentation2.png';
 import presentation3 from '../../assets/presentation3.png';
 import presentation4 from '../../assets/presentation4.png';
+import tabBarDiscovery from '../../assets/web_design_64px.png';
+import tabBarDiscussion from '../../assets/communication_50px.png';
 
 export const IC_MASK = icMask;
 export const CHECK = check;
@@ -23,6 +25,8 @@ export const FAKE_PROFILE = fakeProfile;
 export const PENCIL = pencil;
 export const IMPORTANT = important;
 export const LOCK = lock;
+export const TAB_BAR_DISCOVERY = tabBarDiscovery;
+export const TAB_BAR_DISCUSSION = tabBarDiscussion;
 
 export default [
   IC_MASK,
@@ -36,4 +40,6 @@ export default [
   PENCIL,
   IMPORTANT,
   LOCK,
+  TAB_BAR_DISCUSSION,
+  TAB_BAR_DISCOVERY,
 ];
