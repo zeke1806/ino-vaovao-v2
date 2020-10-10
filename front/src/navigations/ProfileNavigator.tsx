@@ -3,7 +3,6 @@ import {
   StackNavigationProp,
   createStackNavigator,
 } from '@react-navigation/stack';
-import { PhotoProfile } from '../api/types';
 import PhotoScreen from '../screens/PhotoScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import { RouteProp } from '@react-navigation/core';
@@ -11,7 +10,7 @@ import { RouteProp } from '@react-navigation/core';
 type ProfileNavigatorParamList = {
   Profile: undefined;
   Photo: {
-    photo: PhotoProfile;
+    photo: Record<string, unknown>;
   };
 };
 
