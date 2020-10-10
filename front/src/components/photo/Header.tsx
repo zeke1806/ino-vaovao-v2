@@ -28,8 +28,12 @@ const Header: React.FC = () => {
         size={globalStyles.iconSize}
         color="white"
         onPress={(): void => {
-          alert('Confirmation', '', 'Enregistrer', 'default', () =>
-            console.log('lemonde'),
+          alert(
+            'Confirmation',
+            'La photo sera deffinitivement supprimer',
+            'Enregistrer',
+            'default',
+            () => console.log('lemonde'),
           );
         }}
       />
