@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Container, Text, View } from 'native-base';
-import { Image, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
+import { Container } from 'native-base';
 import Header from '../components/photo/Header';
 import { PhotoScreenNavigationProps } from '../navigations/ProfileNavigator';
-import SubmitBtn from '../components/public/SubmitBtn';
+import { StyleSheet } from 'react-native';
+import Visualize from '../components/photo/Visualize';
 import { globalStyles } from '../styles/global';
 
 type PhotoScreenProps = PhotoScreenNavigationProps;
@@ -15,41 +15,13 @@ const PhotoScreen: React.FC<PhotoScreenProps> = ({ route }) => {
   return (
     <Container style={[styles.container, globalStyles.overlay]}>
       <Header />
-      <View
-        style={{
-          position: 'relative',
-          flex: 1,
-          margin: globalStyles.screenHorizontalPadding,
-          justifyContent: 'center',
+      <Visualize
+        uri={uri as string}
+        dimensions={{
+          width: (dimensions as Record<string, unknown>).width as number,
+          height: (dimensions as Record<string, unknown>).height as number,
         }}
-      >
-        <Image
-          source={{ uri: uri as string }}
-          style={{
-            flex: 0.7,
-          }}
-        />
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            marginTop: 10,
-          }}
-        >
-          <SubmitBtn
-            title="Actuel"
-            onClick={(): void => {
-              //
-            }}
-            loading={false}
-          />
-          <Text style={{ color: 'white' }}>
-            {(dimensions as Record<string, unknown>).width} X{' '}
-            {(dimensions as Record<string, unknown>).height}
-          </Text>
-        </View>
-      </View>
+      />
     </Container>
   );
 };
