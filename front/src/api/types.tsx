@@ -1,8 +1,6 @@
 import { gql } from '@apollo/client';
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -24,7 +22,7 @@ export type FriendHistory = {
 export enum FriendHistoryStatus {
   Accepted = 'Accepted',
   Declined = 'Declined',
-  Pending = 'Pending',
+  Pending = 'Pending'
 }
 
 export type LoginError = {
@@ -55,29 +53,36 @@ export type Mutation = {
   uploadProfileImage?: Maybe<PhotoProfile>;
 };
 
+
 export type MutationLoginArgs = {
   loginInput: LoginInput;
 };
+
 
 export type MutationRegisterArgs = {
   registerInput: RegisterInput;
 };
 
+
 export type MutationRemoveProfileImageArgs = {
   photoProfilePublicId: Scalars['String'];
 };
+
 
 export type MutationSendFriendRequestArgs = {
   idFriend: Scalars['Float'];
 };
 
+
 export type MutationSetCurrentPhotoArgs = {
   publicId: Scalars['String'];
 };
 
+
 export type MutationUpdateAccountArgs = {
   updateAccountInput: UpdateAccountInput;
 };
+
 
 export type MutationUploadProfileImageArgs = {
   file: Scalars['Upload'];
@@ -120,9 +125,7 @@ export type RemoveProfileImageOk = {
   status: Scalars['Boolean'];
 };
 
-export type RemoveProfileImageResult =
-  | RemoveProfileImageError
-  | RemoveProfileImageOk;
+export type RemoveProfileImageResult = RemoveProfileImageError | RemoveProfileImageOk;
 
 export type UpdateAccountError = {
   __typename?: 'UpdateAccountError';
@@ -137,6 +140,7 @@ export type UpdateAccountInput = {
 };
 
 export type UpdateAccountResult = UpdateAccountError | User;
+
 
 export type User = {
   __typename?: 'User';
