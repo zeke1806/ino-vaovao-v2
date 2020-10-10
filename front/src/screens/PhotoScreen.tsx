@@ -16,6 +16,7 @@ const PhotoScreen: React.FC<PhotoScreenProps> = ({ route }) => {
     <Container style={[styles.container, globalStyles.overlay]}>
       <Header publicId={id as string} />
       <Visualize
+        publicId={id as string}
         uri={uri as string}
         dimensions={{
           width: (dimensions as Record<string, unknown>).width as number,

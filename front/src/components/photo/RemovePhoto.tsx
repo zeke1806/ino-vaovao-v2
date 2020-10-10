@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { alert } from '../../utils/alert';
 import { globalStyles } from '../../styles/global';
 import { useRemoveProfileImage } from '../../api/photo-profile/remove-profile-image/removeProfileImage.service';
 

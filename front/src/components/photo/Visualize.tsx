@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Text, View } from 'native-base';
 import { Image } from 'react-native';
-import SubmitBtn from '../public/SubmitBtn';
+import SetPhotoAsCurrent from './SetPhotoAsCurrent';
 import { globalStyles } from '../../styles/global';
 
 interface VisualizeProps {
+  publicId: string;
   uri: string;
   dimensions: {
     width: number;
@@ -12,7 +13,7 @@ interface VisualizeProps {
   };
 }
 
-const Visualize: React.FC<VisualizeProps> = ({ uri, dimensions }) => {
+const Visualize: React.FC<VisualizeProps> = ({ uri, dimensions, publicId }) => {
   return (
     <View
       style={{
@@ -38,13 +39,7 @@ const Visualize: React.FC<VisualizeProps> = ({ uri, dimensions }) => {
           marginTop: 10,
         }}
       >
-        <SubmitBtn
-          title="Actuel"
-          onClick={(): void => {
-            //
-          }}
-          loading={false}
-        />
+        <SetPhotoAsCurrent publicId={publicId} />
         <Text style={{ color: 'white' }}>
           {dimensions.width} X {dimensions.height}
         </Text>
