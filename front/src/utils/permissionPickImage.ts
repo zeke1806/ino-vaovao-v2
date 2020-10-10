@@ -15,7 +15,6 @@ export const usePermissionPickImage = (): void => {
             'Erreur',
             'Sorry, we need camera roll permissions to make this work!',
             'Cancel',
-            'cancel',
           );
         }
       }

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Alert } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { alert } from '../../utils/alert';
@@ -22,12 +23,21 @@ const RemovePhoto: React.FC<RemovePhoto> = ({ publicId }) => {
         size={globalStyles.iconSize}
         color="white"
         onPress={(): void => {
-          alert(
+          Alert.alert(
             'Confirmation',
             'La photo sera deffinitivement supprimer',
-            'Enregistrer',
-            'default',
-            submit,
+            [
+              {
+                text: 'Enregistrer',
+                style: 'default',
+                onPress: submit,
+              },
+              {
+                text: 'Cancel',
+                style: 'cancel',
+              },
+            ],
+            { cancelable: false },
           );
         }}
       />

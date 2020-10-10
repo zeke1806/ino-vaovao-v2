@@ -1,20 +1,13 @@
 import { Alert } from 'react-native';
 
-export function alert(
-  title: string,
-  content: string,
-  btnText: string,
-  style: 'cancel' | 'default' | 'destructive' | undefined,
-  cb?: () => void,
-): void {
+export function alert(title: string, content: string, btnText: string): void {
   Alert.alert(
     title,
     content,
     [
       {
         text: btnText,
-        style,
-        onPress: cb,
+        style: 'cancel',
       },
     ],
     { cancelable: false },
