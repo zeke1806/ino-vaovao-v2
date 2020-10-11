@@ -14,6 +14,9 @@ import presentation2 from '../../assets/presentation2.png';
 import presentation3 from '../../assets/presentation3.png';
 import presentation4 from '../../assets/presentation4.png';
 import search from '../../assets/search_50px.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import springMood from '../../assets/spring-mood.jpg';
 import suggestionFriend from '../../assets/add_user_male_64px.png';
 import tabBarDiscovery from '../../assets/web_design_64px.png';
 import tabBarDiscussion from '../../assets/communication_50px.png';
@@ -35,6 +38,7 @@ export const SEARCH = search;
 export const PENCIL_LIGHT = pencilLight;
 export const CONTACT = contact;
 export const SUGGESTION_FRIEND = suggestionFriend;
+export const SPRING_MOOD = springMood;
 
 export default [
   IC_MASK,
@@ -54,4 +58,5 @@ export default [
   PENCIL_LIGHT,
   CONTACT,
   SUGGESTION_FRIEND,
+  SPRING_MOOD,
 ];

@@ -7,7 +7,7 @@ import { globalStyles } from '../../../styles/global';
 
 const fakeData = [
   {
-    title: 'Cuisine',
+    title: 'Fashion',
     color: globalStyles.colors.primary,
   },
   {

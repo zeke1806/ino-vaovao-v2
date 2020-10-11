@@ -29,4 +29,15 @@ export const globalStyles = {
 
     elevation: 6,
   },
+
+  textShadow: {
+    textShadowColor: '#000',
+    textShadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    textShadowRadius: 2.62,
+
+    elevation: 6,
+  },
 };
