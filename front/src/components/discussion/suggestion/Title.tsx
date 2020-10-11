@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Text, View } from 'native-base';
 import { Image } from 'react-native';
 import { SUGGESTION_FRIEND } from '../../../utils/Icons';
+import Titles from '../../public/Titles';
+import { View } from 'native-base';
 import { globalStyles } from '../../../styles/global';
 
 const Title: React.FC = () => (
@@ -19,9 +20,7 @@ const Title: React.FC = () => (
         marginRight: globalStyles.space,
       }}
     />
-    <Text style={{ color: globalStyles.colors.h2, fontWeight: 'bold' }}>
-      Suggestion d&apos;amis
-    </Text>
+    <Titles text="Suggestion d'amis" type="h2" />
   </View>
 );
 

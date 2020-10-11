@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, Thumbnail, View } from 'native-base';
 import { ImageSourcePropType } from 'react-native';
+import Titles from '../../public/Titles';
 import { globalStyles } from '../../../styles/global';
 
 const Field: React.FC<{
@@ -24,15 +25,10 @@ const Field: React.FC<{
       }}
     />
     <View>
-      <Text
-        style={{
-          fontWeight: 'bold',
-          color: globalStyles.colors.h3,
-          marginBottom: 10,
-        }}
-      >
-        {title}
-      </Text>
+      <View style={{ marginBottom: globalStyles.space }}>
+        <Titles text={title} type="h3" />
+      </View>
+
       <Text>{value}</Text>
     </View>
   </View>
