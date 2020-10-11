@@ -5,7 +5,9 @@ import { ListRenderItem } from 'react-native';
 import { globalStyles } from '../../../styles/global';
 
 const DiscussionList: React.FC = () => {
-  const renderItem: ListRenderItem<never> | null | undefined = () => <Item />;
+  const renderItem: ListRenderItem<never> | null | undefined = () => (
+    <Item view={false} />
+  );
 
   return (
     <FlatList

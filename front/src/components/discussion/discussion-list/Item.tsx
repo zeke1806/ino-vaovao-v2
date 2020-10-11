@@ -1,9 +1,13 @@
 import * as React from 'react';
-import CommonAvatar from '../../public/CommonAvatar';
 import { Text, View } from 'native-base';
+import CommonAvatar from '../../public/CommonAvatar';
 import { globalStyles } from '../../../styles/global';
 
-const Item: React.FC = () => {
+interface ItemProps {
+  view: boolean;
+}
+
+const Item: React.FC<ItemProps> = ({ view }) => {
   const space = globalStyles.space;
   return (
     <View
@@ -27,8 +31,12 @@ const Item: React.FC = () => {
           paddingLeft: globalStyles.space,
         }}
       >
-        <Text>Name</Text>
-        <Text>Message</Text>
+        <Text style={{ color: '#3F3F3F' }}>Name</Text>
+        {view ? (
+          <Text>Message</Text>
+        ) : (
+          <Text style={{ fontWeight: 'bold' }}>Message</Text>
+        )}
       </View>
     </View>
   );
