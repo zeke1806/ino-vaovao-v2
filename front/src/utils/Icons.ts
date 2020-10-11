@@ -14,6 +14,7 @@ import presentation2 from '../../assets/presentation2.png';
 import presentation3 from '../../assets/presentation3.png';
 import presentation4 from '../../assets/presentation4.png';
 import search from '../../assets/search_50px.png';
+import suggestionFriend from '../../assets/add_user_male_64px.png';
 import tabBarDiscovery from '../../assets/web_design_64px.png';
 import tabBarDiscussion from '../../assets/communication_50px.png';
 
@@ -33,6 +34,7 @@ export const TAB_BAR_DISCUSSION = tabBarDiscussion;
 export const SEARCH = search;
 export const PENCIL_LIGHT = pencilLight;
 export const CONTACT = contact;
+export const SUGGESTION_FRIEND = suggestionFriend;
 
 export default [
   IC_MASK,
@@ -51,4 +53,5 @@ export default [
   SEARCH,
   PENCIL_LIGHT,
   CONTACT,
+  SUGGESTION_FRIEND,
 ];

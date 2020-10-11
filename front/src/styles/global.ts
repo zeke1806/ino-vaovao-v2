@@ -8,6 +8,7 @@ export const globalStyles = {
   },
 
   iconSize: 24,
+  space: 12,
   screenHorizontalPadding: 10,
 
   overlay: {
