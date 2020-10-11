@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, View } from 'native-base';
 import CommonAvatar from '../../public/CommonAvatar';
+import IndicatorBadge from '../../public/IndicatorBadge';
 import { globalStyles } from '../../../styles/global';
 
 interface ItemProps {
@@ -37,6 +38,14 @@ const Item: React.FC<ItemProps> = ({ view }) => {
         ) : (
           <Text style={{ fontWeight: 'bold' }}>Message</Text>
         )}
+      </View>
+
+      <View
+        style={{
+          justifyContent: 'center',
+        }}
+      >
+        {!view && <IndicatorBadge color="grey" />}
       </View>
     </View>
   );

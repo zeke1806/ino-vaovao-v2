@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { Badge, Thumbnail } from 'native-base';
 import { ImageSourcePropType, View } from 'react-native';
 import { FAKE_PROFILE } from '../../utils/Icons';
+import IndicatorBadge from './IndicatorBadge';
+import { Thumbnail } from 'native-base';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface CommonAvatarProps {
@@ -28,17 +29,15 @@ const CommonAvatar: React.FC<CommonAvatarProps> = ({
       <View style={{ position: 'relative', alignSelf: 'flex-start' }}>
         <Thumbnail {...SIZE} source={img || FAKE_PROFILE} />
         {connected && (
-          <Badge
+          <View
             style={{
               position: 'absolute',
-              width: 15,
-              height: 15,
-              borderRadius: 100,
-              backgroundColor: '#34C673',
               bottom: 0,
               right: 0,
             }}
-          ></Badge>
+          >
+            <IndicatorBadge color="#34C673" />
+          </View>
         )}
       </View>
     </TouchableOpacity>
