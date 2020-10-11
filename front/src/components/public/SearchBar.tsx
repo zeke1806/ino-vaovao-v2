@@ -25,7 +25,7 @@ const SearchBar: React.FC = () => {
           marginRight: globalStyles.iconSize,
         }}
       />
-      <TextInput placeholder="Search" />
+      <TextInput placeholder="Recherche" />
     </View>
   );
 };
