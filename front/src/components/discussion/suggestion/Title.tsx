@@ -9,7 +9,6 @@ const Title: React.FC = () => (
     style={{
       flexDirection: 'row',
       alignItems: 'center',
-      paddingVertical: globalStyles.space,
     }}
   >
     <Image

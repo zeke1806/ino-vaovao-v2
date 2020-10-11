@@ -54,8 +54,9 @@ const HomeNavigator: React.FC = () => {
         keyboardHidesTabBar: true,
         style: {
           backgroundColor: 'transparent',
-          borderTopWidth: 0,
+          borderTopWidth: 1,
           elevation: 0,
+          height: globalStyles.iconSize * 3,
         },
         activeTintColor: globalStyles.colors.primary,
         labelStyle: {
@@ -63,7 +64,8 @@ const HomeNavigator: React.FC = () => {
           fontSize: 15,
         },
         tabStyle: {
-          paddingBottom: 2,
+          paddingTop: globalStyles.space * 2,
+          paddingBottom: globalStyles.space / 4,
         },
       }}
     >
