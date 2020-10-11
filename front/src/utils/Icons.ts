@@ -1,5 +1,6 @@
 import backArrow from '../../assets/back-arrow.png';
 import check from '../../assets/check.png';
+import contact from '../../assets/checked_user_male_64px.png';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import fakeProfile from '../../assets/fake-profile.jpg';
@@ -7,10 +8,12 @@ import icMask from '../../assets/icons/mask.png';
 import important from '../../assets/box_important_100px.png';
 import lock from '../../assets/lock_50px.png';
 import pencil from '../../assets/pencil_128px.png';
+import pencilLight from '../../assets/edit_50px.png';
 import presentation1 from '../../assets/presentation1.png';
 import presentation2 from '../../assets/presentation2.png';
 import presentation3 from '../../assets/presentation3.png';
 import presentation4 from '../../assets/presentation4.png';
+import search from '../../assets/search_50px.png';
 import tabBarDiscovery from '../../assets/web_design_64px.png';
 import tabBarDiscussion from '../../assets/communication_50px.png';
 
@@ -27,6 +30,9 @@ export const IMPORTANT = important;
 export const LOCK = lock;
 export const TAB_BAR_DISCOVERY = tabBarDiscovery;
 export const TAB_BAR_DISCUSSION = tabBarDiscussion;
+export const SEARCH = search;
+export const PENCIL_LIGHT = pencilLight;
+export const CONTACT = contact;
 
 export default [
   IC_MASK,
@@ -42,4 +48,7 @@ export default [
   LOCK,
   TAB_BAR_DISCUSSION,
   TAB_BAR_DISCOVERY,
+  SEARCH,
+  PENCIL_LIGHT,
+  CONTACT,
 ];
