@@ -51,9 +51,9 @@ const HomeNavigator: React.FC = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
+        keyboardHidesTabBar: true,
         style: {
           backgroundColor: 'transparent',
-          position: 'absolute',
           borderTopWidth: 0,
           elevation: 0,
         },

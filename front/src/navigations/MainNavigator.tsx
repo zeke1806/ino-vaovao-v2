@@ -4,7 +4,6 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 import HomeNavigator from './HomeNavigator';
-import HomeScreen from '../screens/HomeScreen';
 import ProfileNavigator from './ProfileNavigator';
 
 type MainNavigatorParamList = {
