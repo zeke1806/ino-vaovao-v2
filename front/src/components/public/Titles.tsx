@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
 
   h2: {
-    fontWeight: '900',
+    fontWeight: 'bold',
     color: '#505050',
   },
 
