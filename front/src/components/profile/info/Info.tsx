@@ -11,7 +11,7 @@ interface InfoProps {
 const Info: React.FC<InfoProps> = ({ statusConnected }) => {
   return (
     <View>
-      <ProfileTitleText text="Profil" size={18} />
+      <ProfileTitleText text="Profil" />
       <Field
         img={IMPORTANT}
         title="Status en ligne"

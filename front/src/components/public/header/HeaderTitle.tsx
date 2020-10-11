@@ -1,15 +1,12 @@
 import * as React from 'react';
-import { Text } from 'native-base';
-import { globalStyles } from '../../../styles/global';
+import Title from '../Titles';
 
 export type TextProps = {
   title: string;
 };
 
 const HeaderTitle: React.FC<TextProps> = ({ title }) => (
-  <Text style={{ color: globalStyles.colors.primary, fontWeight: 'bold' }}>
-    {title}
-  </Text>
+  <Title text={title} type="h1" />
 );
 
 export default HeaderTitle;

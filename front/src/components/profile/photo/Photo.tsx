@@ -31,7 +31,7 @@ const Photo: React.FC<PhotoProps> = ({ username, photo }) => {
           paddingVertical: 10,
         }}
       >
-        <ProfileTitleText text={username} size={20} />
+        <ProfileTitleText text={username} />
         <View style={{ marginLeft: 10 }}>
           <EditAccount />
         </View>

@@ -11,7 +11,7 @@ export interface GalleryProps {
 const Gallery: React.FC<GalleryProps> = ({ photos }) => {
   return (
     <View>
-      <ProfileTitleText size={18} text="Photos" />
+      <ProfileTitleText text="Photos" />
       <Masonry photos={photos} />
     </View>
   );

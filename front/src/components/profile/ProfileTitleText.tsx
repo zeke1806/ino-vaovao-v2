@@ -1,20 +1,8 @@
 import * as React from 'react';
-import { Text } from 'native-base';
-import { globalStyles } from '../../styles/global';
+import Title from '../public/Titles';
 
 const ProfileTitleText: React.FC<{
   text: string;
-  size: number;
-}> = ({ text, size }) => (
-  <Text
-    style={{
-      color: globalStyles.colors.h2,
-      fontWeight: 'bold',
-      fontSize: size,
-    }}
-  >
-    {text}
-  </Text>
-);
+}> = ({ text }) => <Title text={text} type="h2" />;
 
 export default ProfileTitleText;
