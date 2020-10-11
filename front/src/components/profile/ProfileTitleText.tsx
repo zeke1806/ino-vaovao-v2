@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Text } from 'native-base';
+import { globalStyles } from '../../styles/global';
 
 const ProfileTitleText: React.FC<{
   text: string;
@@ -7,7 +8,7 @@ const ProfileTitleText: React.FC<{
 }> = ({ text, size }) => (
   <Text
     style={{
-      color: '#44597C',
+      color: globalStyles.colors.h2,
       fontWeight: 'bold',
       fontSize: size,
     }}

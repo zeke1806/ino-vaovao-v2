@@ -19,7 +19,7 @@ const Title: React.FC = () => (
         marginRight: globalStyles.space,
       }}
     />
-    <Text style={{ color: '#505050', fontWeight: 'bold' }}>
+    <Text style={{ color: globalStyles.colors.h2, fontWeight: 'bold' }}>
       Suggestion d&apos;amis
     </Text>
   </View>

@@ -27,7 +27,7 @@ const Field: React.FC<{
       <Text
         style={{
           fontWeight: 'bold',
-          color: '#262626',
+          color: globalStyles.colors.h3,
           marginBottom: 10,
         }}
       >

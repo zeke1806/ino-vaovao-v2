@@ -3,6 +3,8 @@ export const globalStyles = {
     primary: '#E8808C',
     secondary: '#56D6DF',
     icon: '#B9B9C7',
+    h2: '#505050',
+    h3: '#262626',
     text1: '#303030',
     text2: '#959595',
   },
