@@ -20,6 +20,7 @@ import springMood from '../../assets/spring-mood.jpg';
 import suggestionFriend from '../../assets/add_user_male_64px.png';
 import tabBarDiscovery from '../../assets/web_design_64px.png';
 import tabBarDiscussion from '../../assets/communication_50px.png';
+import unselect from '../../assets/minus_60px.png';
 
 export const IC_MASK = icMask;
 export const CHECK = check;
@@ -39,6 +40,7 @@ export const PENCIL_LIGHT = pencilLight;
 export const CONTACT = contact;
 export const SUGGESTION_FRIEND = suggestionFriend;
 export const SPRING_MOOD = springMood;
+export const UNSELECT = unselect;
 
 export default [
   IC_MASK,
@@ -59,4 +61,5 @@ export default [
   CONTACT,
   SUGGESTION_FRIEND,
   SPRING_MOOD,
+  UNSELECT,
 ];
