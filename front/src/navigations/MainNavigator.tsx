@@ -5,10 +5,12 @@ import {
 } from '@react-navigation/stack';
 import HomeNavigator from './HomeNavigator';
 import ProfileNavigator from './ProfileNavigator';
+import SelectRecipientScreen from '../screens/SelectRecipientScreen';
 
 type MainNavigatorParamList = {
   HomeNavigator: undefined;
   ProfileNavigator: undefined;
+  SelectRecipient: undefined;
 };
 
 const Stack = createStackNavigator<MainNavigatorParamList>();
@@ -28,6 +30,7 @@ const MainNavigator: React.FC = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
       <Stack.Screen name="ProfileNavigator" component={ProfileNavigator} />
+      <Stack.Screen name="SelectRecipient" component={SelectRecipientScreen} />
     </Stack.Navigator>
   );
 };
