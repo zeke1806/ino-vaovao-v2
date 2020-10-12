@@ -28,7 +28,7 @@ const CommonAvatar: React.FC<CommonAvatarProps> = ({
   })();
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity disabled={!onPress} onPress={onPress}>
       <View
         style={{
           alignItems: 'center',
