@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
-import SuggestionItem from './SuggestionItem';
+import CommonAvatar from '../../public/CommonAvatar';
 
 const List: React.FC = () => {
   const renderItem: ListRenderItem<never> | null | undefined = () => (
-    <SuggestionItem />
+    <CommonAvatar size="medium" name="ngia" />
   );
 
   return (
