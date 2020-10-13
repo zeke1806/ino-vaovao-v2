@@ -1,32 +1,25 @@
 import * as React from 'react';
-import { Image, TextInput, View } from 'react-native';
+import { Image } from 'react-native';
+import RoundedInput from './RoundedInput';
 import { SEARCH } from '../../utils/Icons';
 import { globalStyles } from '../../styles/global';
 
 const SearchBar: React.FC = () => {
+  const iconSize = globalStyles.iconSize;
   return (
-    <View
-      style={[
-        globalStyles.elevation,
-        {
-          backgroundColor: 'white',
-          borderRadius: 100,
-          padding: 10,
-          flexDirection: 'row',
-          alignItems: 'center',
-        },
-      ]}
-    >
-      <Image
-        source={SEARCH}
-        style={{
-          width: globalStyles.iconSize,
-          height: globalStyles.iconSize,
-          marginRight: globalStyles.iconSize,
-        }}
-      />
-      <TextInput placeholder="Recherche" />
-    </View>
+    <RoundedInput
+      placeholder="Recherche"
+      leftIcon={
+        <Image
+          source={SEARCH}
+          style={{
+            width: iconSize,
+            height: iconSize,
+            marginRight: iconSize,
+          }}
+        />
+      }
+    />
   );
 };
 

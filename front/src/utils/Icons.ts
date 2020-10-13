@@ -1,3 +1,4 @@
+import asterisk from '../../assets/asterisk_128px.png';
 import backArrow from '../../assets/back-arrow.png';
 import check from '../../assets/check.png';
 import contact from '../../assets/checked_user_male_64px.png';
@@ -41,6 +42,7 @@ export const CONTACT = contact;
 export const SUGGESTION_FRIEND = suggestionFriend;
 export const SPRING_MOOD = springMood;
 export const UNSELECT = unselect;
+export const ASTERISK = asterisk;
 
 export default [
   IC_MASK,
@@ -62,4 +64,5 @@ export default [
   SUGGESTION_FRIEND,
   SPRING_MOOD,
   UNSELECT,
+  ASTERISK,
 ];
