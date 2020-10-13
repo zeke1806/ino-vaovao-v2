@@ -4,20 +4,24 @@ import Item from './Item';
 import { ListRenderItem } from 'react-native';
 import { globalStyles } from '../../../styles/global';
 
-const DiscussionList: React.FC = () => {
+interface DiscussionList {
+  before?: React.FC<unknown>;
+}
+
+const DiscussionList: React.FC<DiscussionList> = ({ before: Before }) => {
   const renderItem: ListRenderItem<never> | null | undefined = () => (
     <Item view={false} />
   );
 
   return (
     <FlatList
-      contentContainerStyle={{ marginTop: globalStyles.space }}
       showsVerticalScrollIndicator={false}
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       data={[...Array(10)].map((_, i) => i)}
       renderItem={renderItem}
       // keyExtractor={}
+      ListHeaderComponent={Before || null}
     />
   );
 };

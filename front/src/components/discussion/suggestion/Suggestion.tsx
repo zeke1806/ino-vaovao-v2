@@ -6,7 +6,7 @@ import { globalStyles } from '../../../styles/global';
 
 const Suggestion: React.FC = () => {
   return (
-    <View style={{ marginTop: globalStyles.space }}>
+    <View style={{ marginVertical: globalStyles.space }}>
       <Title />
       <List />
     </View>

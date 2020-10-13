@@ -8,8 +8,7 @@ const DiscussionScreen: React.FC = () => {
   return (
     <ScreenContainer>
       <Header />
-      <Suggestion />
-      <DiscussionList />
+      <DiscussionList before={Suggestion} />
     </ScreenContainer>
   );
 };
