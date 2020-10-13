@@ -37,11 +37,11 @@ export type SelectRecipientScreenProps = StackNavigationProp<
 const MainNavigator: React.FC = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="MessageScreen" component={MessageScreen} />
       <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
       <Stack.Screen name="ProfileNavigator" component={ProfileNavigator} />
       <Stack.Screen name="SelectRecipient" component={SelectRecipientScreen} />
       <Stack.Screen name="NameGroupScreen" component={NameGroupScreen} />
-      <Stack.Screen name="MessageScreen" component={MessageScreen} />
     </Stack.Navigator>
   );
 };
