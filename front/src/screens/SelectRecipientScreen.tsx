@@ -4,7 +4,7 @@ import Header from '../components/public/header/Header';
 import NextBtn from '../components/select-recipient/NextBtn';
 import ScreenContainer from '../components/public/ScreenContainer';
 import Search from '../components/select-recipient/Search';
-import Selected from '../components/select-recipient/selected/Selected';
+import Selected from '../components/select-recipient/selected-list/SelectedList';
 
 const SelectRecipient: React.FC = () => {
   return (

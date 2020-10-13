@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 import CommonAvatar from '../../public/CommonAvatar';
+import Item from './Item';
 import { globalStyles } from '../../../styles/global';
 
-const Selected: React.FC = () => {
-  const renderItem: ListRenderItem<unknown> | null | undefined = () => (
-    <CommonAvatar size="medium" name="ngia" />
-  );
+const SelectedList: React.FC = () => {
+  const renderItem: ListRenderItem<unknown> | null | undefined = () => <Item />;
   return (
     <FlatList
       horizontal
@@ -19,4 +18,4 @@ const Selected: React.FC = () => {
   );
 };
 
-export default Selected;
+export default SelectedList;
