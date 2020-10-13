@@ -8,7 +8,7 @@ export interface State {
 }
 
 const initialState: State = {
-  selectedRecipient: [],
+  selectedRecipient: [1],
 };
 
 // Action
