@@ -6,11 +6,16 @@ import { ListRenderItem } from 'react-native';
 import { globalStyles } from '../../../styles/global';
 import { useDiscoveryState } from '../../../providers/discovery/discovery.consumer';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const randomColor = require('randomcolor');
+
 const List: React.FC = () => {
   const { categories } = useDiscoveryState();
 
   type R = ListRenderItem<DISCOVERY_CATEGORIES> | null | undefined;
-  const renderItem: R = ({ item }) => <Item title={item} color={'#000'} />;
+  const renderItem: R = ({ item }) => (
+    <Item title={item} color={randomColor()} />
+  );
 
   return (
     <FlatList
