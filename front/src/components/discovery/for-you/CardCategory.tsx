@@ -21,11 +21,15 @@ const CardCategory: React.FC<CardCategoryProps> = ({
 }) => {
   return (
     <View
-      style={{
-        width: '48%',
-        height: globalStyles.iconSize * 8,
-        margin: globalStyles.space / 4,
-      }}
+      style={[
+        globalStyles.elevation,
+        {
+          width: '48%',
+          height: globalStyles.iconSize * 8,
+          margin: globalStyles.space / 4,
+          borderRadius: globalStyles.space,
+        },
+      ]}
     >
       <ImageBackground
         source={image ? { uri: image } : SPRING_MOOD}
