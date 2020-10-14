@@ -1,20 +1,11 @@
 import * as React from 'react';
 import { Text, View } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
+import { DISCOVERY_CATEGORIES } from '../../../configs';
 import { FlatList } from 'react-native-gesture-handler';
 import { ListRenderItem } from 'react-native';
 import { globalStyles } from '../../../styles/global';
-
-const fakeData = [
-  {
-    title: 'Fashion',
-    color: globalStyles.colors.primary,
-  },
-  {
-    title: 'Film',
-    color: globalStyles.colors.secondary,
-  },
-];
+import { useDiscoveryState } from '../../../providers/discovery/discovery.consumer';
 
 interface ItemProps {
   title: string;
@@ -56,10 +47,13 @@ const Item: React.FC<ItemProps> = ({ title, color }) => {
 };
 
 const List: React.FC = () => {
-  type R = ListRenderItem<{ title: string; color: string }> | null | undefined;
+  const { categories } = useDiscoveryState();
+
+  type R = ListRenderItem<DISCOVERY_CATEGORIES> | null | undefined;
   const renderItem: R = ({ item }) => (
-    <Item title={item.title} color={item.color} />
+    <Item title={item.toUpperCase()} color={'#000'} />
   );
+
   return (
     <FlatList
       contentContainerStyle={{
@@ -68,7 +62,7 @@ const List: React.FC = () => {
       horizontal
       showsHorizontalScrollIndicator={false}
       renderItem={renderItem}
-      data={fakeData}
+      data={categories}
     />
   );
 };

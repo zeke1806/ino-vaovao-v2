@@ -1,8 +1,10 @@
 import * as React from 'react';
 import CardCategory from './CardCategory';
 import { View } from 'native-base';
+import { useDiscoveryState } from '../../../providers/discovery/discovery.consumer';
 
 const List: React.FC = () => {
+  const { categories } = useDiscoveryState();
   return (
     <View
       style={{
@@ -11,7 +13,7 @@ const List: React.FC = () => {
         flexWrap: 'wrap',
       }}
     >
-      {[...Array(5)].map((_, i) => (
+      {categories.map((_, i) => (
         <CardCategory key={i} />
       ))}
     </View>

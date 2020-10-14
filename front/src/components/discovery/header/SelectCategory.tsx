@@ -1,5 +1,9 @@
 import * as React from 'react';
 import { Button, Text, View } from 'native-base';
+import {
+  useDiscoveryDispatch,
+  useDiscoveryState,
+} from '../../../providers/discovery/discovery.consumer';
 import { AntDesign } from '@expo/vector-icons';
 import StyledModal from '../../public/StyledModal';
 import StyledModalCheckbox from '../../public/StyledModalCheckbox';
@@ -7,6 +11,8 @@ import { globalStyles } from '../../../styles/global';
 
 const SelectGategory: React.FC = () => {
   const { colors, iconSize } = globalStyles;
+  const discoveryState = useDiscoveryState();
+  const discoveryDispatch = useDiscoveryDispatch();
   const [open, setOpen] = React.useState(false);
 
   const openDialog = (): void => setOpen(true);
@@ -21,16 +27,16 @@ const SelectGategory: React.FC = () => {
         <Text>Choix des categories</Text>
         <StyledModalCheckbox
           title="Cuisine"
-          value={false}
+          value={discoveryState.categories.includes('recipe')}
           onChange={(): void => {
-            //
+            discoveryDispatch({ type: 'TOOGLE', category: 'recipe' });
           }}
         />
         <StyledModalCheckbox
           title="Film"
-          value={false}
+          value={discoveryState.categories.includes('movie')}
           onChange={(): void => {
-            //
+            discoveryDispatch({ type: 'TOOGLE', category: 'movie' });
           }}
         />
       </StyledModal>

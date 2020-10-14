@@ -4,7 +4,7 @@ import { DISCOVERY_CATEGORIES } from '../../configs';
 
 // State
 export interface State {
-  categories: Array<string>;
+  categories: Array<DISCOVERY_CATEGORIES>;
 }
 
 const initialState: State = {
@@ -12,18 +12,25 @@ const initialState: State = {
 };
 
 // Action
-interface SelectCategoryAction {
-  type: 'SELECT_CATEGORY';
+interface ToogleAction {
+  type: 'TOOGLE';
   category: DISCOVERY_CATEGORIES;
 }
 
-type Actions = SelectCategoryAction;
+type Actions = ToogleAction;
 export type Dispatch = (action: Actions) => void;
 
 // Reducer
 const reducer = produce((draft: Draft<State>, action: Actions) => {
   switch (action.type) {
-    case 'SELECT_CATEGORY':
+    case 'TOOGLE':
+      if (draft.categories.includes(action.category)) {
+        draft.categories = draft.categories.filter(
+          (c) => c !== action.category,
+        );
+      } else {
+        draft.categories.push(action.category);
+      }
       break;
   }
 });
