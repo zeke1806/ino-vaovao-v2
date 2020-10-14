@@ -12,7 +12,7 @@ import { globalStyles } from '../styles/global';
 
 type TabParamList = {
   Discussion: undefined;
-  Discovery: undefined;
+  Decouverte: undefined;
 };
 
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -29,9 +29,9 @@ export type DiscussionScreenNavigationProps = {
 
 export type DiscoveryScreenNavigation = BottomTabNavigationProp<
   TabParamList,
-  'Discovery'
+  'Decouverte'
 >;
-export type DiscoveryScreenRoute = RouteProp<TabParamList, 'Discovery'>;
+export type DiscoveryScreenRoute = RouteProp<TabParamList, 'Decouverte'>;
 export type DiscoveryScreenNavigationProps = {
   navigation: DiscoveryScreenNavigation;
   route: DiscoveryScreenRoute;
@@ -84,7 +84,7 @@ const HomeNavigator: React.FC = () => {
             return <Icon img={TAB_BAR_DISCOVERY} />;
           },
         }}
-        name="Discovery"
+        name="Decouverte"
         component={DiscoveryScreen}
       />
     </Tab.Navigator>
