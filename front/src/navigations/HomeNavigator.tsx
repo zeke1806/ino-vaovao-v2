@@ -72,20 +72,20 @@ const HomeNavigator: React.FC = () => {
       <Tab.Screen
         options={{
           tabBarIcon(): React.ReactNode {
-            return <Icon img={TAB_BAR_DISCUSSION} />;
-          },
-        }}
-        name="Discussion"
-        component={DiscussionScreen}
-      />
-      <Tab.Screen
-        options={{
-          tabBarIcon(): React.ReactNode {
             return <Icon img={TAB_BAR_DISCOVERY} />;
           },
         }}
         name="Decouverte"
         component={DiscoveryScreen}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon(): React.ReactNode {
+            return <Icon img={TAB_BAR_DISCUSSION} />;
+          },
+        }}
+        name="Discussion"
+        component={DiscussionScreen}
       />
     </Tab.Navigator>
   );

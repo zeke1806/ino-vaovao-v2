@@ -4,6 +4,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import NameInput from '../../login/NameInput';
 import PasswordInput from '../../login/PasswordInput';
 import StyledModal from '../../public/StyledModal';
+import StyledModalCheckbox from '../../public/StyledModalCheckbox';
 import SubmitBtn from '../../public/SubmitBtn';
 import VerticalFormSpace from '../../public/VerticalFormSpace';
 import { View } from 'react-native';
@@ -52,30 +53,13 @@ const EditAccount: React.FC = () => {
 
         <VerticalFormSpace />
 
-        <View
-          style={{
-            flexDirection: 'row',
-            marginTop: 10,
+        <StyledModalCheckbox
+          title="Status connecter"
+          value={state.statusConnected}
+          onChange={(): void => {
+            handleChange('statusConnected', !state.statusConnected);
           }}
-        >
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-            }}
-          >
-            <CheckBox
-              color={globalStyles.colors.primary}
-              checked={state.statusConnected}
-              style={{ marginRight: 25 }}
-              onPress={(): void => {
-                handleChange('statusConnected', !state.statusConnected);
-              }}
-            />
-            <Text>Status connecter</Text>
-          </View>
-        </View>
+        />
 
         <VerticalFormSpace />
         <VerticalFormSpace />
