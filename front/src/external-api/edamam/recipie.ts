@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { EDAMAM_URL } from '../../configs';
 import axios from 'axios';
+import { getRandomInt } from '../../utils/getRandomInt';
+
+function selectRecipe(total: number): number {
+  return Math.floor(Math.random() * Math.floor(total));
+}
 
 export const useRecipie = (
   recipieId?: string,
@@ -13,13 +18,14 @@ export const useRecipie = (
 
   React.useEffect(() => {
     const url = recipieId
-      ? `${EDAMAM_URL}&q=chicken&to=1`
-      : `${EDAMAM_URL}&q=chicken&to=1`;
+      ? `${EDAMAM_URL}&q=chicken`
+      : `${EDAMAM_URL}&q=chicken`;
 
     const asyncF = async (): Promise<any> => {
       setLoading(true);
       const result = await axios.get(url);
-      setRecipie(result.data.hits[0]);
+      const hits = result.data.hits;
+      setRecipie(hits[getRandomInt(hits.length)]);
     };
     asyncF();
   }, []);

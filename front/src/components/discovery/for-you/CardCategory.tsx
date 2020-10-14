@@ -4,7 +4,21 @@ import { ImageBackground } from 'react-native';
 import { SPRING_MOOD } from '../../../utils/Icons';
 import { globalStyles } from '../../../styles/global';
 
-const CardCategory: React.FC = () => {
+interface CardCategoryProps {
+  categoryTitle: string;
+  categoryItemTitle: string;
+  categoryItemContent: string;
+  categoryItemSideContent: string;
+  image: string;
+}
+
+const CardCategory: React.FC<CardCategoryProps> = ({
+  categoryTitle,
+  categoryItemTitle,
+  categoryItemContent,
+  categoryItemSideContent,
+  image,
+}) => {
   return (
     <View
       style={{
@@ -14,7 +28,7 @@ const CardCategory: React.FC = () => {
       }}
     >
       <ImageBackground
-        source={SPRING_MOOD}
+        source={image ? { uri: image } : SPRING_MOOD}
         style={{
           flex: 1,
           justifyContent: 'space-around',
@@ -31,7 +45,7 @@ const CardCategory: React.FC = () => {
             globalStyles.textShadow,
           ]}
         >
-          Fashion
+          {categoryTitle}
         </Text>
 
         <Text
@@ -44,7 +58,7 @@ const CardCategory: React.FC = () => {
             globalStyles.textShadow,
           ]}
         >
-          MEJIWOO SPRING MOOD
+          {categoryItemTitle}
         </Text>
 
         <Text
@@ -57,7 +71,7 @@ const CardCategory: React.FC = () => {
             globalStyles.textShadow,
           ]}
         >
-          RUBIS BLUS{'\n'}KRAN PANTS{'\n'}MARTIN TRENSH COA
+          {categoryItemContent}
         </Text>
         <Text
           style={[
@@ -65,7 +79,7 @@ const CardCategory: React.FC = () => {
             globalStyles.textShadow,
           ]}
         >
-          Il y a 3 min
+          {categoryItemSideContent}
         </Text>
       </ImageBackground>
     </View>
