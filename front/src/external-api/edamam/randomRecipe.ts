@@ -3,9 +3,9 @@ import { EDAMAM_URL } from '../../configs';
 import axios from 'axios';
 import { getRandomInt } from '../../utils/getRandomInt';
 
-export const useRandomRecipie = (
-  recipieId?: string,
-): {
+const nbItem = 100;
+
+export const useRandomRecipie = (): {
   loading: boolean;
   recipe: any;
 } => {
@@ -13,9 +13,7 @@ export const useRandomRecipie = (
   const [recipe, setRecipie] = React.useState<any>(null);
 
   React.useEffect(() => {
-    const url = recipieId
-      ? `${EDAMAM_URL}&q=chicken`
-      : `${EDAMAM_URL}&q=chicken`;
+    const url = `${EDAMAM_URL}&q=chicken&to=${nbItem}`;
 
     const asyncF = async (): Promise<any> => {
       setLoading(true);

@@ -3,10 +3,10 @@ import { ANILIST_URL } from '../../configs';
 import Axios from 'axios';
 import { getRandomInt } from '../../utils/getRandomInt';
 
-const nbPage = 10;
+const nbPerPage = 100;
 const GQL = `
 query {
-  Page(page: 1, perPage: ${nbPage}) {
+  Page(page: 1, perPage: ${nbPerPage}) {
     media {
       title {
         romaji
@@ -49,7 +49,7 @@ export const useRandomAnime = (): {
           query: GQL,
         },
       });
-      setMedia(result.data.data.Page.media[getRandomInt(nbPage)]);
+      setMedia(result.data.data.Page.media[getRandomInt(nbPerPage)]);
       setLoading(false);
     };
     asyncF();
