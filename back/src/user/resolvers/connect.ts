@@ -29,7 +29,7 @@ export class ConnectResovler {
       connected: user.statusConnected
     };
     this.pubSubService.pubSub.publish(EVENT, pub);
-    return true;
+    return user.statusConnected;
   }
 
   @Subscription(() => Boolean, {
