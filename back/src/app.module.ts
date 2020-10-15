@@ -27,6 +27,7 @@ import { FriendHistoryModule } from './friend-history/friend-history.module';
       useFactory: (configService: ConfigService) => {
         const graphqlConfigs = configService.get<GqlModuleOptions>('graphql');
         return {
+          installSubscriptionHandlers: true,
           autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
           sortSchema: true,
           playground: graphqlConfigs.playground,
@@ -52,4 +53,4 @@ import { FriendHistoryModule } from './friend-history/friend-history.module';
   controllers: [AppController],
   providers: [AppService, AppResolver],
 })
-export class AppModule {}
+export class AppModule { }

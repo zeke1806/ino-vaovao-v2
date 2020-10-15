@@ -30,6 +30,7 @@ type LoginToken {
 }
 
 type Mutation {
+  connect: Boolean!
   login(loginInput: LoginInput!): LoginResult!
   register(registerInput: RegisterInput!): RegisterResult!
   removeProfileImage(photoProfilePublicId: String!): RemoveProfileImageResult!
@@ -72,6 +73,10 @@ type RemoveProfileImageOk {
 }
 
 union RemoveProfileImageResult = RemoveProfileImageError | RemoveProfileImageOk
+
+type Subscription {
+  connectEvent(id: Float!): Boolean!
+}
 
 type UpdateAccountError {
   cannotUpdateTheSameInfo: String
