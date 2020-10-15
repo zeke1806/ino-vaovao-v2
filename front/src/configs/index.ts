@@ -11,4 +11,4 @@ export const EDAMAM_URL = `https://api.edamam.com/search?app_id=${EDAMAM_APP_ID}
 
 export const ANILIST_URL = 'https://graphql.anilist.co';
 
-export type DISCOVERY_CATEGORIES = 'recipe' | 'movie';
+export type DISCOVERY_CATEGORIES = 'recipe' | 'anime';

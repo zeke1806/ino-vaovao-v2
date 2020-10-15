@@ -3,11 +3,7 @@ import { EDAMAM_URL } from '../../configs';
 import axios from 'axios';
 import { getRandomInt } from '../../utils/getRandomInt';
 
-function selectRecipe(total: number): number {
-  return Math.floor(Math.random() * Math.floor(total));
-}
-
-export const useRecipie = (
+export const useRandomRecipie = (
   recipieId?: string,
 ): {
   loading: boolean;

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Text, View } from 'native-base';
+import CardAnime from './CardAnime';
 import CardRecipe from './CardRecipe';
+import { View } from 'native-base';
 import { useDiscoveryState } from '../../../providers/discovery/discovery.consumer';
 
 const List: React.FC = () => {
@@ -17,8 +18,8 @@ const List: React.FC = () => {
         switch (categ) {
           case 'recipe':
             return <CardRecipe key={categ} />;
-          case 'movie':
-            return <Text>movie categorie</Text>;
+          case 'anime':
+            return <CardAnime key={categ} />;
         }
       })}
     </View>

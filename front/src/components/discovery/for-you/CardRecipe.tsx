@@ -1,9 +1,9 @@
 import * as React from 'react';
 import CardCategory from './CardCategory';
-import { useRecipie } from '../../../external-api/edamam/recipie';
+import { useRandomRecipie } from '../../../external-api/edamam/randomRecipe';
 
 const CardRecipe: React.FC = () => {
-  const { loading, recipe } = useRecipie();
+  const { loading, recipe } = useRandomRecipie();
 
   const categoryItemTitle = ((): string => {
     return recipe ? recipe.recipe.label : '';

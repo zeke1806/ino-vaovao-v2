@@ -33,10 +33,10 @@ const SelectGategory: React.FC = () => {
           }}
         />
         <StyledModalCheckbox
-          title="Film"
-          value={discoveryState.categories.includes('movie')}
+          title="Anime"
+          value={discoveryState.categories.includes('anime')}
           onChange={(): void => {
-            discoveryDispatch({ type: 'TOOGLE', category: 'movie' });
+            discoveryDispatch({ type: 'TOOGLE', category: 'anime' });
           }}
         />
       </StyledModal>
