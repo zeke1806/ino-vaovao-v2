@@ -26,6 +26,7 @@ type LoginToken {
 type Mutation {
   acceptFriendRequest(userId: Float!): Friend!
   connect: Boolean!
+  declineFriendRequest(userId: Float!): Boolean!
   disconnect: Boolean!
   login(loginInput: LoginInput!): LoginResult!
   register(registerInput: RegisterInput!): RegisterResult!

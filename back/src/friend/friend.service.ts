@@ -18,4 +18,8 @@ export class FriendService {
   saveFriend(friend: Friend): Promise<Friend> {
     return this.friendRepository.save(friend);
   }
+
+  removeFriend(friend: Friend): Promise<Friend> {
+    return this.friendRepository.remove(friend);
+  }
 }
