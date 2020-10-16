@@ -14,7 +14,7 @@ import { UserModule } from './user/user.module';
 import { UtilsModule } from './utils/utils.module';
 import { AuthModule } from './auth/auth.module';
 import { PhotoProfileModule } from './photo-profile/photo-profile.module';
-import { FriendHistoryModule } from './friend-history/friend-history.module';
+import { FriendModule } from './friend/friend.module';
 
 @Module({
   imports: [
@@ -48,7 +48,7 @@ import { FriendHistoryModule } from './friend-history/friend-history.module';
     UtilsModule,
     AuthModule,
     PhotoProfileModule,
-    FriendHistoryModule,
+    FriendModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
