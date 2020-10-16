@@ -13,7 +13,7 @@ interface Publication {
 }
 
 @Resolver()
-export class ConnectResovler {
+export class ConnectResolver {
   constructor(
     private pubSubService: PubSubService,
     private userService: UserService
