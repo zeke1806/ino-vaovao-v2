@@ -53,4 +53,4 @@ import { FriendModule } from './friend/friend.module';
   controllers: [AppController],
   providers: [AppService, AppResolver],
 })
-export class AppModule { }
+export class AppModule {}
