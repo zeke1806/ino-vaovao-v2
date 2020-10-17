@@ -11,7 +11,7 @@ export class UserResolverFields {
   @ResolveField(() => PhotoProfile)
   async currentPhoto(@Root() user: User): Promise<PhotoProfile> {
     const photos = await this.photoProfileService.getUserPhotoProfiles(user);
-    return photos.find(photo => photo.current) || null;
+    return photos.find((photo) => photo.current) || null;
   }
 
   @ResolveField(() => [PhotoProfile])

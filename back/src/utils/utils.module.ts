@@ -11,4 +11,4 @@ import { PubSubService } from './pubSub.service';
   providers: [BcryptService, CloudinaryService, PubSubService],
   exports: [BcryptService, CloudinaryService, PubSubService],
 })
-export class UtilsModule { }
+export class UtilsModule {}

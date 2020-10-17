@@ -5,5 +5,5 @@ import { SendFriendRequestResolver } from './sendFriendRequest';
 export const FriendHistoryResolvers = [
   SendFriendRequestResolver,
   AcceptFriendRequestResolver,
-  DeclineFriendRequestResolver
+  DeclineFriendRequestResolver,
 ];

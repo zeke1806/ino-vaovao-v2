@@ -1,12 +1,12 @@
-import { UseGuards } from "@nestjs/common";
-import { Args, Mutation, Resolver, Subscription } from "@nestjs/graphql";
+import { UseGuards } from '@nestjs/common';
+import { Args, Mutation, Resolver, Subscription } from '@nestjs/graphql';
 
-import { CurrentUser, GqlAuthGuard } from "../../auth/auth.guards";
-import { AuthPayload } from "../../auth/auth.model";
-import { UserService } from "../../user/user.service";
-import { PubSubService } from "../../utils/pubSub.service";
-import { Friend } from "../friend.entity";
-import { FriendService } from "../friend.service";
+import { CurrentUser, GqlAuthGuard } from '../../auth/auth.guards';
+import { AuthPayload } from '../../auth/auth.model';
+import { UserService } from '../../user/user.service';
+import { PubSubService } from '../../utils/pubSub.service';
+import { Friend } from '../friend.entity';
+import { FriendService } from '../friend.service';
 
 const EVENT = 'sendFriendRequestEvent';
 
@@ -15,14 +15,14 @@ export class SendFriendRequestResolver {
   constructor(
     private userService: UserService,
     private friendService: FriendService,
-    private pubSubService: PubSubService
-  ) { }
+    private pubSubService: PubSubService,
+  ) {}
 
   @Mutation(() => Friend)
   @UseGuards(GqlAuthGuard)
   async sendFriendRequest(
     @CurrentUser() authPayload: AuthPayload,
-    @Args('friendId') friendId: number
+    @Args('friendId') friendId: number,
   ): Promise<Friend> {
     const user = await this.userService.getUserById(authPayload.payload.id);
     const friend = await this.userService.getUserById(friendId);
@@ -39,7 +39,7 @@ export class SendFriendRequestResolver {
   }
 
   @Subscription(() => Friend, {
-    resolve: (pub: Friend) => pub
+    resolve: (pub: Friend) => pub,
   })
   sendFriendRequestEvent(): AsyncIterator<unknown, any, undefined> {
     return this.pubSubService.pubSub.asyncIterator(EVENT);

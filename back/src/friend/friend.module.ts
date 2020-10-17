@@ -10,4 +10,4 @@ import { FriendService } from './friend.service';
   imports: [TypeOrmModule.forFeature([Friend]), UserModule],
   providers: [...FriendHistoryResolvers, FriendService],
 })
-export class FriendModule { }
+export class FriendModule {}

@@ -16,17 +16,19 @@ interface Publication {
 export class ConnectResolver {
   constructor(
     private pubSubService: PubSubService,
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+  ) {}
 
   @Mutation(() => Boolean)
   @UseGuards(GqlAuthGuard)
   async connect(@CurrentUser() authPayload: AuthPayload): Promise<boolean> {
-    const { payload: { id } } = authPayload;
+    const {
+      payload: { id },
+    } = authPayload;
     const user = await this.userService.getUserById(id);
     const pub: Publication = {
       id,
-      connected: user.statusConnected
+      connected: user.statusConnected,
     };
     this.pubSubService.pubSub.publish(EVENT, pub);
     return user.statusConnected;
@@ -34,7 +36,7 @@ export class ConnectResolver {
 
   @Subscription(() => Boolean, {
     filter: (pub: Publication, vars: { id: number }) => {
-      return pub.id === vars.id
+      return pub.id === vars.id;
     },
 
     resolve: (pub: Publication) => {

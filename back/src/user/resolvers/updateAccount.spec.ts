@@ -61,7 +61,7 @@ describe('UpdateAccountResolver', () => {
         password: '',
         statusConnected: false,
         photos: [],
-        currentPhoto: null
+        currentPhoto: null,
       };
       const currentUser: User = {
         ...isUserExist,
@@ -81,7 +81,7 @@ describe('UpdateAccountResolver', () => {
         password: '',
         statusConnected: false,
         photos: [],
-        currentPhoto: null
+        currentPhoto: null,
       };
       userService.getUserByUsername = jest.fn();
       userService.getUserById = jest.fn();

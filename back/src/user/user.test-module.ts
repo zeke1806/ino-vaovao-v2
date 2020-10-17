@@ -7,7 +7,7 @@ import { UtilsModule } from '../utils/utils.module';
 import { ConfigModule } from '@nestjs/config';
 import configs from '../configs';
 
-class UserRepositoryFake { }
+class UserRepositoryFake {}
 
 export async function userTestModule(): Promise<TestingModule> {
   return Test.createTestingModule({
@@ -15,7 +15,7 @@ export async function userTestModule(): Promise<TestingModule> {
       ConfigModule.forRoot({
         load: [configs],
       }),
-      UtilsModule
+      UtilsModule,
     ],
     providers: [
       ...UserResolvers,

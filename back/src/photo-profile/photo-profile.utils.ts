@@ -9,7 +9,7 @@ export class PhotoProfileUtils {
   async setUserCurrentProfileToFalse(user: User): Promise<void> {
     const photos = await this.photoProfileService.getUserPhotoProfiles(user);
     await Promise.all(
-      photos.map(async photo => {
+      photos.map(async (photo) => {
         if (photo.current) photo.current = false;
         return this.photoProfileService.createPhotoProfile(photo);
       }),

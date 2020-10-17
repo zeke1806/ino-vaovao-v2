@@ -8,8 +8,8 @@ import { Friend } from './friend.entity';
 export class FriendService {
   constructor(
     @InjectRepository(Friend)
-    private friendRepository: Repository<Friend>
-  ) { }
+    private friendRepository: Repository<Friend>,
+  ) {}
 
   findByUserAndFriend(user: User, friend: User): Promise<Friend> {
     return this.friendRepository.findOne({ where: { user, friend } });

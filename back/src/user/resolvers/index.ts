@@ -9,5 +9,5 @@ export const UserResolvers = [
   UpdateAccountResolver,
   MeResolver,
   ConnectResolver,
-  DisconnectResolver
+  DisconnectResolver,
 ];
