@@ -5,19 +5,19 @@ import { User } from '../user/user.entity';
 
 @ObjectType()
 @Entity()
-export class Friend {
+export class FriendHistory {
   @ManyToOne(() => User, { primary: true })
-  @JoinColumn()
+  @JoinColumn({ name: 'user' })
   @Field()
   user: User;
-  @RelationId((friend: Friend) => friend.user)
+  @RelationId((friend: FriendHistory) => friend.user)
   userId: number;
 
   @ManyToOne(() => User, { primary: true })
-  @JoinColumn()
+  @JoinColumn({ name: 'friend' })
   @Field()
   friend: User;
-  @RelationId((friend: Friend) => friend.friend)
+  @RelationId((friend: FriendHistory) => friend.friend)
   friendId: number;
 
   @Field()

@@ -5,8 +5,8 @@ import { CurrentUser, GqlAuthGuard } from '../../auth/auth.guards';
 import { AuthPayload } from '../../auth/auth.model';
 import { UserService } from '../../user/user.service';
 import { PubSubService } from '../../utils/pubSub.service';
-import { Friend } from '../friend.entity';
-import { FriendService } from '../friend.service';
+import { FriendHistory } from '../friend-history.entity';
+import { FriendHistoryService } from '../friend-history.service';
 
 const EVENT = 'sendFriendRequestEvent';
 
@@ -14,32 +14,32 @@ const EVENT = 'sendFriendRequestEvent';
 export class SendFriendRequestResolver {
   constructor(
     private userService: UserService,
-    private friendService: FriendService,
+    private friendHistoryService: FriendHistoryService,
     private pubSubService: PubSubService,
   ) {}
 
-  @Mutation(() => Friend)
+  @Mutation(() => FriendHistory)
   @UseGuards(GqlAuthGuard)
   async sendFriendRequest(
     @CurrentUser() authPayload: AuthPayload,
     @Args('friendId') friendId: number,
-  ): Promise<Friend> {
+  ): Promise<FriendHistory> {
     const user = await this.userService.getUserById(authPayload.payload.id);
     const friend = await this.userService.getUserById(friendId);
 
-    const newFriendRequest = new Friend();
+    const newFriendRequest = new FriendHistory();
     newFriendRequest.user = user;
     newFriendRequest.friend = friend;
     newFriendRequest.accepted = false;
-    const result = await this.friendService.saveFriend(newFriendRequest);
+    const result = await this.friendHistoryService.saveFriend(newFriendRequest);
 
     this.pubSubService.pubSub.publish(EVENT, result);
 
     return result;
   }
 
-  @Subscription(() => Friend, {
-    resolve: (pub: Friend) => pub,
+  @Subscription(() => FriendHistory, {
+    resolve: (pub: FriendHistory) => pub,
   })
   sendFriendRequestEvent(): AsyncIterator<unknown, any, undefined> {
     return this.pubSubService.pubSub.asyncIterator(EVENT);

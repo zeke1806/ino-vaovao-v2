@@ -3,13 +3,13 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { CurrentUser, GqlAuthGuard } from '../../auth/auth.guards';
 import { AuthPayload } from '../../auth/auth.model';
 import { UserService } from '../../user/user.service';
-import { FriendService } from '../friend.service';
+import { FriendHistoryService } from '../friend-history.service';
 
 @Resolver()
 export class DeclineFriendRequestResolver {
   constructor(
     private userService: UserService,
-    private friendService: FriendService,
+    private friendHistoryService: FriendHistoryService,
   ) {}
 
   @Mutation(() => Boolean)
@@ -21,13 +21,13 @@ export class DeclineFriendRequestResolver {
     const user = await this.userService.getUserById(userId);
     const friend = await this.userService.getUserById(authPayload.payload.id);
 
-    const friendRequest = await this.friendService.findByUserAndFriend(
+    const friendRequest = await this.friendHistoryService.findByUserAndFriend(
       user,
       friend,
     );
     friendRequest.user = user;
     friendRequest.friend = friend;
-    const removedFriendRequest = await this.friendService.removeFriend(
+    const removedFriendRequest = await this.friendHistoryService.removeFriend(
       friendRequest,
     );
 

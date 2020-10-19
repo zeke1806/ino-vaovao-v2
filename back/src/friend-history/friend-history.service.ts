@@ -2,24 +2,24 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../user/user.entity';
-import { Friend } from './friend.entity';
+import { FriendHistory } from './friend-history.entity';
 
 @Injectable()
-export class FriendService {
+export class FriendHistoryService {
   constructor(
-    @InjectRepository(Friend)
-    private friendRepository: Repository<Friend>,
+    @InjectRepository(FriendHistory)
+    private friendRepository: Repository<FriendHistory>,
   ) {}
 
-  findByUserAndFriend(user: User, friend: User): Promise<Friend> {
+  findByUserAndFriend(user: User, friend: User): Promise<FriendHistory> {
     return this.friendRepository.findOne({ where: { user, friend } });
   }
 
-  saveFriend(friend: Friend): Promise<Friend> {
+  saveFriend(friend: FriendHistory): Promise<FriendHistory> {
     return this.friendRepository.save(friend);
   }
 
-  removeFriend(friend: Friend): Promise<Friend> {
+  removeFriend(friend: FriendHistory): Promise<FriendHistory> {
     return this.friendRepository.remove(friend);
   }
 }

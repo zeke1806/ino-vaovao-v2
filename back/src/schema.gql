@@ -2,7 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Friend {
+type FriendHistory {
   accepted: Boolean!
   friend: User!
   user: User!
@@ -24,14 +24,14 @@ type LoginToken {
 }
 
 type Mutation {
-  acceptFriendRequest(userId: Float!): Friend!
+  acceptFriendRequest(userId: Float!): FriendHistory!
   connect: Boolean!
   declineFriendRequest(userId: Float!): Boolean!
   disconnect: Boolean!
   login(loginInput: LoginInput!): LoginResult!
   register(registerInput: RegisterInput!): RegisterResult!
   removeProfileImage(photoProfilePublicId: String!): RemoveProfileImageResult!
-  sendFriendRequest(friendId: Float!): Friend!
+  sendFriendRequest(friendId: Float!): FriendHistory!
   setCurrentPhoto(publicId: String!): Boolean!
   updateAccount(updateAccountInput: UpdateAccountInput!): UpdateAccountResult!
   uploadProfileImage(file: Upload!): PhotoProfile
@@ -72,10 +72,10 @@ type RemoveProfileImageOk {
 union RemoveProfileImageResult = RemoveProfileImageError | RemoveProfileImageOk
 
 type Subscription {
-  acceptFriendRequestEvent: Friend!
+  acceptFriendRequestEvent: FriendHistory!
   connectEvent(id: Float!): Boolean!
   disconnectEvent(id: Float!): Boolean!
-  sendFriendRequestEvent: Friend!
+  sendFriendRequestEvent: FriendHistory!
 }
 
 type UpdateAccountError {

@@ -5,8 +5,8 @@ import { AuthPayload } from '../../auth/auth.model';
 
 import { UserService } from '../../user/user.service';
 import { PubSubService } from '../../utils/pubSub.service';
-import { Friend } from '../friend.entity';
-import { FriendService } from '../friend.service';
+import { FriendHistory } from '../friend-history.entity';
+import { FriendHistoryService } from '../friend-history.service';
 
 const EVENT = 'acceptFriendRequestEvent';
 
@@ -14,42 +14,42 @@ const EVENT = 'acceptFriendRequestEvent';
 export class AcceptFriendRequestResolver {
   constructor(
     private userService: UserService,
-    private friendService: FriendService,
+    private friendHistoryService: FriendHistoryService,
     private pubSubService: PubSubService,
   ) {}
 
-  @Mutation(() => Friend)
+  @Mutation(() => FriendHistory)
   @UseGuards(GqlAuthGuard)
   async acceptFriendRequest(
     @CurrentUser() authPayload: AuthPayload,
     @Args('userId') userId: number,
-  ): Promise<Friend> {
+  ): Promise<FriendHistory> {
     const user = await this.userService.getUserById(userId);
     const friend = await this.userService.getUserById(authPayload.payload.id);
 
-    const friendRequest = await this.friendService.findByUserAndFriend(
+    const friendRequest = await this.friendHistoryService.findByUserAndFriend(
       user,
       friend,
     );
     friendRequest.user = user;
     friendRequest.friend = friend;
     friendRequest.accepted = true;
-    const result = await this.friendService.saveFriend(friendRequest);
+    const result = await this.friendHistoryService.saveFriend(friendRequest);
 
     this.pubSubService.pubSub.publish(EVENT, result);
 
     // reverse friend relation
-    const newFriend = new Friend();
+    const newFriend = new FriendHistory();
     newFriend.user = friend;
     newFriend.friend = user;
     newFriend.accepted = true;
-    await this.friendService.saveFriend(newFriend);
+    await this.friendHistoryService.saveFriend(newFriend);
 
     return result;
   }
 
-  @Subscription(() => Friend, {
-    resolve: (pub: Friend) => pub,
+  @Subscription(() => FriendHistory, {
+    resolve: (pub: FriendHistory) => pub,
   })
   acceptFriendRequestEvent(): AsyncIterator<unknown, any, undefined> {
     return this.pubSubService.pubSub.asyncIterator(EVENT);
