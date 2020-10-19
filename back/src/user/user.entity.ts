@@ -17,7 +17,7 @@ export class User {
   password: string;
 
   @Field()
-  @Column({ default: false })
+  @Column({ name: 'status_connected', default: false })
   statusConnected: boolean;
 
   @Field(() => PhotoProfile, { nullable: true })

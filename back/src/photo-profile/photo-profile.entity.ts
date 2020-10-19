@@ -29,7 +29,7 @@ export class PhotoProfile {
   current: boolean;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'id_user' })
+  @JoinColumn({ name: 'user' })
   user: User;
   @RelationId((photoProfile: PhotoProfile) => photoProfile.user)
   idUser: number;
