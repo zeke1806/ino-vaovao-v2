@@ -10,4 +10,16 @@ export class DiscussionService {
     @InjectRepository(Discussion)
     private discussionRepository: Repository<Discussion>,
   ) {}
+
+  getDiscussionById(id: number): Promise<Discussion> {
+    return this.discussionRepository.findOne(id);
+  }
+
+  saveDiscussion(discussion: Discussion): Promise<Discussion> {
+    return this.discussionRepository.save(discussion);
+  }
+
+  removeDiscussion(discussion: Discussion): Promise<Discussion> {
+    return this.discussionRepository.remove(discussion);
+  }
 }

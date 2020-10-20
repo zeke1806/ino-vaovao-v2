@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Discussion {
+  creator: String!
+  id: Float!
+  name: String
+}
+
 type FriendHistory {
   accepted: Boolean!
   friend: User!
@@ -30,7 +36,9 @@ type Mutation {
   disconnect: User!
   login(loginInput: LoginInput!): LoginResult!
   register(registerInput: RegisterInput!): RegisterResult!
+  removeDiscussion(id: Float!): Discussion!
   removeProfileImage(photoProfilePublicId: String!): RemoveProfileImageResult!
+  saveDiscussion(discussionData: SaveDiscussionInput!): Discussion!
   sendFriendRequest(friendId: Float!): FriendHistory!
   setCurrentPhoto(publicId: String!): Boolean!
   updateAccount(updateAccountInput: UpdateAccountInput!): UpdateAccountResult!
@@ -72,6 +80,11 @@ type RemoveProfileImageOk {
 }
 
 union RemoveProfileImageResult = RemoveProfileImageError | RemoveProfileImageOk
+
+input SaveDiscussionInput {
+  id: Float
+  name: String
+}
 
 type Subscription {
   acceptFriendRequestEvent: FriendHistory!

@@ -4,7 +4,7 @@ import { User } from '../user/user.entity';
 
 @Entity()
 export class DiscussionUser {
-  @ManyToOne(() => Discussion, { primary: true })
+  @ManyToOne(() => Discussion, { primary: true, onDelete: 'CASCADE' })
   @JoinColumn()
   discussion: number;
 
