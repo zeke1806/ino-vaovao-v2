@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DiscussionUserModule } from '../discussion-user/discussion-user.module';
 import { UserModule } from '../user/user.module';
@@ -10,9 +10,10 @@ import { DiscussionResolvers } from './resolvers';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Discussion]),
-    UserModule,
-    DiscussionUserModule,
+    forwardRef(() => UserModule),
+    forwardRef(() => DiscussionUserModule),
   ],
   providers: [DiscussionService, ...DiscussionResolvers],
+  exports: [DiscussionService],
 })
 export class DiscussionModule {}

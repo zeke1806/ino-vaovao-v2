@@ -1,9 +1,7 @@
-import { ObjectType } from '@nestjs/graphql';
 import { Column, Entity, JoinColumn, ManyToOne, RelationId } from 'typeorm';
 import { Discussion } from '../discussion/discussion.entity';
 import { User } from '../user/user.entity';
 
-@ObjectType()
 @Entity()
 export class DiscussionUser {
   @ManyToOne(() => Discussion, { primary: true, onDelete: 'CASCADE' })

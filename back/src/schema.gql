@@ -2,6 +2,11 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input AffectUsersToDiscussionInput {
+  discussionId: Float!
+  usersId: [Float!]!
+}
+
 type Discussion {
   id: Float!
   name: String
@@ -30,6 +35,7 @@ type LoginToken {
 
 type Mutation {
   acceptFriendRequest(userId: Float!): FriendHistory!
+  affectUsersToDiscussion(affectData: AffectUsersToDiscussionInput!): Boolean!
   connect: User!
   declineFriendRequest(userId: Float!): Boolean!
   disconnect: User!
