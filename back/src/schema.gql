@@ -45,6 +45,7 @@ type PhotoProfile {
 }
 
 type Query {
+  friendRequests: [User!]!
   friendSuggestion: [User!]!
   hello: String!
   me: User!
