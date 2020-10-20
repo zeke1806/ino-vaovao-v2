@@ -10,6 +10,7 @@ import RootNavigator from './navigations/RootStackNavigator';
 import { client } from './api/apollo';
 import { handleBoot } from './utils/handleBoot';
 import { loadAssetsAsync } from './utils/loadAssetsAsync';
+import { useGlobalNotifier } from './api/notifier';
 
 export const ProviderWrapper: React.FC = ({ children }) => {
   return (
@@ -20,6 +21,7 @@ export const ProviderWrapper: React.FC = ({ children }) => {
 };
 
 function App(): React.ReactElement {
+  useGlobalNotifier();
   const [loading, setLoading] = React.useState(false);
   const sessionState = useSessionState();
   const sessionDispatch = useSessionDispatch();

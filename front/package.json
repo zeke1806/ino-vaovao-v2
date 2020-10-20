@@ -45,6 +45,7 @@
     "native-base": "^2.13.14",
     "randomcolor": "^0.6.2",
     "react": "16.11.0",
+    "react-apollo-network-status": "^5.0.1",
     "react-dom": "16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.0.tar.gz",
     "react-native-gesture-handler": "~1.6.0",
