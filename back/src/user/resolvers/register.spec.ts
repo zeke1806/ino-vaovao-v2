@@ -3,7 +3,7 @@ import { TestingModule } from '@nestjs/testing';
 import { userTestModule } from '../user.test-module';
 import { UserService } from '../user.service';
 import { RegisterResolver } from './register';
-import { RegisterInput, RegisterError } from '../user.model';
+import { RegisterInput, RegisterError } from '../user.types';
 import { User } from '../user.entity';
 import { BcryptService } from '../../utils/bcrypt.service';
 

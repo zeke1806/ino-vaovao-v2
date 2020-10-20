@@ -1,6 +1,6 @@
 import { Resolver, Mutation, Args } from '@nestjs/graphql';
 
-import { RegisterInput, RegisterResult, RegisterError } from '../user.model';
+import { RegisterInput, RegisterResult, RegisterError } from '../user.types';
 import { UserService } from '../user.service';
 import { User } from '../user.entity';
 import { BcryptService } from '../../utils/bcrypt.service';

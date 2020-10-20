@@ -26,4 +26,12 @@ export class UserService {
   updateUser(newUser: User): Promise<User> {
     return this.userRepository.save(newUser);
   }
+
+  async friendSuggestion(friends: number[], userId: number): Promise<User[]> {
+    return this.userRepository
+      .createQueryBuilder('user')
+      .where('user.id NOT IN (:...friends)', { friends })
+      .andWhere('user.id != :userId', { userId })
+      .getMany();
+  }
 }

@@ -3,6 +3,7 @@ import { UpdateAccountResolver } from './updateAccount';
 import { MeResolver } from './me';
 import { ConnectResolver } from './connect';
 import { DisconnectResolver } from './disconnect';
+import { FriendSuggestionResolver } from './friendSuggestion';
 
 export const UserResolvers = [
   RegisterResolver,
@@ -10,4 +11,5 @@ export const UserResolvers = [
   MeResolver,
   ConnectResolver,
   DisconnectResolver,
+  FriendSuggestionResolver,
 ];

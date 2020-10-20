@@ -7,7 +7,7 @@ import { UserService } from '../user.service';
 import { BcryptService } from '../../utils/bcrypt.service';
 import { Repository } from 'typeorm';
 import { User } from '../user.entity';
-import { UpdateAccountError, UpdateAccountInput } from '../user.model';
+import { UpdateAccountError, UpdateAccountInput } from '../user.types';
 import { AuthPayload } from '../../auth/auth.model';
 
 describe('UpdateAccountResolver', () => {

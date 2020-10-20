@@ -6,7 +6,7 @@ import {
   UpdateAccountInput,
   UpdateAccountResult,
   UpdateAccountError,
-} from '../user.model';
+} from '../user.types';
 import { UserService } from '../user.service';
 import { GqlAuthGuard, CurrentUser } from '../../auth/auth.guards';
 import { AuthPayload } from '../../auth/auth.model';

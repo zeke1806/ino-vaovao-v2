@@ -8,7 +8,7 @@ import {
   RemoveProfileImageResult,
   RemoveProfileImageError,
   RemoveProfileImageOk,
-} from '../photo-profile.model';
+} from '../photo-profile.types';
 
 @Resolver()
 export class RemoveProfileImageResolver {

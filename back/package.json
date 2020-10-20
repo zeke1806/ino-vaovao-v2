@@ -67,6 +67,7 @@
     "eslint-plugin-import": "^2.20.1",
     "husky": "^4.3.0",
     "jest": "26.0.1",
+    "object-sizeof": "^1.6.1",
     "passport": "^0.4.1",
     "prettier": "^1.19.1",
     "supertest": "^4.0.2",

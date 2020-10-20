@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, SelectQueryBuilder } from 'typeorm';
 import { User } from '../user/user.entity';
 import { FriendHistory } from './friend-history.entity';
 
@@ -21,5 +21,16 @@ export class FriendHistoryService {
 
   removeFriend(friend: FriendHistory): Promise<FriendHistory> {
     return this.friendRepository.remove(friend);
+  }
+
+  async getFriends(userId: number): Promise<number[]> {
+    return (
+      await this.friendRepository
+        .createQueryBuilder('friendh')
+        .select('friendh.friend')
+        .where('friendh.user = :userId', { userId })
+        .andWhere('friendh.accepted = :accepted', { accepted: true })
+        .getRawMany<Pick<FriendHistory, 'friend'>>()
+    ).map(v => (v.friend as unknown) as number);
   }
 }
