@@ -1,16 +1,13 @@
-import { Args, Mutation, Resolver, Subscription } from '@nestjs/graphql';
+import { Mutation, Resolver, Subscription } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
 import { CurrentUser, GqlAuthGuard } from '../../auth/auth.guards';
 import { AuthPayload } from '../../auth/auth.model';
 import { PubSubService } from '../../utils/pubSub.service';
 import { UserService } from '../user.service';
+import { User } from '../user.entity';
 
 const EVENT = 'connectEvent';
-interface Publication {
-  id: number;
-  connected: boolean;
-}
 
 @Resolver()
 export class ConnectResolver {
@@ -19,31 +16,23 @@ export class ConnectResolver {
     private userService: UserService,
   ) {}
 
-  @Mutation(() => Boolean)
+  @Mutation(() => User)
   @UseGuards(GqlAuthGuard)
-  async connect(@CurrentUser() authPayload: AuthPayload): Promise<boolean> {
+  async connect(@CurrentUser() authPayload: AuthPayload): Promise<User> {
     const {
       payload: { id },
     } = authPayload;
     const user = await this.userService.getUserById(id);
-    const pub: Publication = {
-      id,
-      connected: user.statusConnected,
-    };
-    this.pubSubService.pubSub.publish(EVENT, pub);
-    return user.statusConnected;
+    user.statusConnected = user.statusConnected || false;
+
+    this.pubSubService.pubSub.publish(EVENT, user);
+    return user;
   }
 
-  @Subscription(() => Boolean, {
-    filter: (pub: Publication, vars: { id: number }) => {
-      return pub.id === vars.id;
-    },
-
-    resolve: (pub: Publication) => {
-      return pub.connected;
-    },
+  @Subscription(() => User, {
+    resolve: (pub) => pub,
   })
-  connectEvent(@Args('id') id: number): AsyncIterator<unknown, any, undefined> {
+  connectEvent(): AsyncIterator<unknown, any, undefined> {
     return this.pubSubService.pubSub.asyncIterator(EVENT);
   }
 }

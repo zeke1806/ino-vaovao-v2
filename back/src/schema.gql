@@ -25,9 +25,9 @@ type LoginToken {
 
 type Mutation {
   acceptFriendRequest(userId: Float!): FriendHistory!
-  connect: Boolean!
+  connect: User!
   declineFriendRequest(userId: Float!): Boolean!
-  disconnect: Boolean!
+  disconnect: User!
   login(loginInput: LoginInput!): LoginResult!
   register(registerInput: RegisterInput!): RegisterResult!
   removeProfileImage(photoProfilePublicId: String!): RemoveProfileImageResult!
@@ -73,8 +73,8 @@ union RemoveProfileImageResult = RemoveProfileImageError | RemoveProfileImageOk
 
 type Subscription {
   acceptFriendRequestEvent: FriendHistory!
-  connectEvent(id: Float!): Boolean!
-  disconnectEvent(id: Float!): Boolean!
+  connectEvent: User!
+  disconnectEvent: User!
   sendFriendRequestEvent: FriendHistory!
 }
 
