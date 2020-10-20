@@ -1,14 +1,23 @@
-import { Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { ObjectType } from '@nestjs/graphql';
+import { Column, Entity, JoinColumn, ManyToOne, RelationId } from 'typeorm';
 import { Discussion } from '../discussion/discussion.entity';
 import { User } from '../user/user.entity';
 
+@ObjectType()
 @Entity()
 export class DiscussionUser {
   @ManyToOne(() => Discussion, { primary: true, onDelete: 'CASCADE' })
   @JoinColumn()
-  discussion: number;
+  discussion: Discussion;
+  @RelationId((discussionUser: DiscussionUser) => discussionUser.discussion)
+  discussionId: number;
 
   @ManyToOne(() => User, { primary: true })
   @JoinColumn()
-  user: number;
+  user: User;
+  @RelationId((discussionUser: DiscussionUser) => discussionUser.user)
+  userId: number;
+
+  @Column({ default: false })
+  creator: boolean;
 }

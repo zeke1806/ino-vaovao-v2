@@ -3,7 +3,6 @@
 # ------------------------------------------------------
 
 type Discussion {
-  creator: String!
   id: Float!
   name: String
 }

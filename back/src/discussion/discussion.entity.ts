@@ -11,8 +11,4 @@ export class Discussion {
   @Column({ nullable: true })
   @Field({ nullable: true })
   name: string;
-
-  @Column()
-  @Field()
-  creator: string;
 }
