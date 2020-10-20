@@ -15,6 +15,9 @@ import { UtilsModule } from './utils/utils.module';
 import { AuthModule } from './auth/auth.module';
 import { PhotoProfileModule } from './photo-profile/photo-profile.module';
 import { FriendHistoryModule } from './friend-history/friend-history.module';
+import { MessageModule } from './message/message.module';
+import { DiscussionModule } from './discussion/discussion.module';
+import { DiscussionUserModule } from './discussion-user/discussion-user.module';
 
 @Module({
   imports: [
@@ -49,6 +52,9 @@ import { FriendHistoryModule } from './friend-history/friend-history.module';
     AuthModule,
     PhotoProfileModule,
     FriendHistoryModule,
+    MessageModule,
+    DiscussionModule,
+    DiscussionUserModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
