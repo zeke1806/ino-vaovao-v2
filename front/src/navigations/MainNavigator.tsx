@@ -1,15 +1,17 @@
 import * as React from 'react';
+
 import {
   StackNavigationProp,
   createStackNavigator,
 } from '@react-navigation/stack';
+
 import { DISCOVERY_CATEGORIES } from '../configs';
-import { RouteProp } from '@react-navigation/core';
 import DiscoveryCategoryScreen from '../screens/DiscoveryCategoryScreen';
 import HomeNavigator from './HomeNavigator';
 import MessageScreen from '../screens/MessageScreen';
 import NameGroupScreen from '../screens/NameGroupScreen';
 import ProfileNavigator from './ProfileNavigator';
+import { RouteProp } from '@react-navigation/core';
 import SelectRecipientScreen from '../screens/SelectRecipientScreen';
 
 type MainNavigatorParamList = {
