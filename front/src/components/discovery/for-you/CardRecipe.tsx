@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import CardCategory from './CardCategory';
 import { HomeScreenProps } from '../../../navigations/MainNavigator';
 import { useNavigation } from '@react-navigation/core';
@@ -35,7 +36,7 @@ const CardRecipe: React.FC = () => {
       categoryItemSideContent={categoryItemSideContent}
       image={image}
       onPress={(): void =>
-        navigation.navigate('DiscoveryCategory', { type: 'recipe' })
+        navigation.navigate('RecipesScreen', { type: 'recipe' })
       }
     />
   );

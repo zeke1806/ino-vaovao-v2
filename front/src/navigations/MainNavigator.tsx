@@ -6,11 +6,11 @@ import {
 } from '@react-navigation/stack';
 
 import { DISCOVERY_CATEGORIES } from '../configs';
-import DiscoveryCategoryScreen from '../screens/DiscoveryCategoryScreen';
 import HomeNavigator from './HomeNavigator';
 import MessageScreen from '../screens/MessageScreen';
 import NameGroupScreen from '../screens/NameGroupScreen';
 import ProfileNavigator from './ProfileNavigator';
+import RecipesScreen from '../screens/RecipesScreen';
 import { RouteProp } from '@react-navigation/core';
 import SelectRecipientScreen from '../screens/SelectRecipientScreen';
 
@@ -20,7 +20,7 @@ type MainNavigatorParamList = {
   SelectRecipient: undefined;
   NameGroupScreen: undefined;
   MessageScreen: undefined;
-  DiscoveryCategory: {
+  RecipesScreen: {
     type: DISCOVERY_CATEGORIES;
   };
 };
@@ -42,14 +42,14 @@ export type SelectRecipientScreenProps = StackNavigationProp<
   'SelectRecipient'
 >;
 
-export type DiscoveryCategoryScreenProps = StackNavigationProp<
+export type RecipesScreenProps = StackNavigationProp<
   MainNavigatorParamList,
-  'DiscoveryCategory'
+  'RecipesScreen'
 >;
 
-export type DiscoveryCategoryRouteProp = RouteProp<
+export type RecipesScreenRouteProp = RouteProp<
   MainNavigatorParamList,
-  'DiscoveryCategory'
+  'RecipesScreen'
 >;
 
 const MainNavigator: React.FC = () => {
@@ -60,10 +60,7 @@ const MainNavigator: React.FC = () => {
       <Stack.Screen name="SelectRecipient" component={SelectRecipientScreen} />
       <Stack.Screen name="NameGroupScreen" component={NameGroupScreen} />
       <Stack.Screen name="MessageScreen" component={MessageScreen} />
-      <Stack.Screen
-        name="DiscoveryCategory"
-        component={DiscoveryCategoryScreen}
-      />
+      <Stack.Screen name="RecipesScreen" component={RecipesScreen} />
     </Stack.Navigator>
   );
 };
