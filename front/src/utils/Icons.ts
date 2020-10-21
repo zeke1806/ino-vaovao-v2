@@ -4,7 +4,7 @@ import check from '../../assets/check.png';
 import contact from '../../assets/checked_user_male_64px.png';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import fakeProfile from '../../assets/fake-profile.jpg';
+import fakeProfile from '../../assets/fake-profile.png';
 import icMask from '../../assets/icons/mask.png';
 import important from '../../assets/box_important_100px.png';
 import lock from '../../assets/lock_50px.png';
