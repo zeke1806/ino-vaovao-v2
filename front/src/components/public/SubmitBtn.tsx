@@ -1,11 +1,13 @@
 import * as React from 'react';
+
 import { Button, Text, View } from 'native-base';
+
 import { ActivityIndicator } from 'react-native';
 import { globalStyles } from '../../styles/global';
 
 export const Spinner: React.FC<{
-  color: string | undefined;
-  size: number | 'small' | 'large' | undefined;
+  color?: string;
+  size?: number | 'small' | 'large';
 }> = ({ color, size }) => <ActivityIndicator color={color} size={size} />;
 
 export interface SubmitBtnProps {
