@@ -1,30 +1,28 @@
 import * as React from 'react';
 
-import { Text, View } from 'native-base';
+import { ListRenderItem, View } from 'react-native';
 
 import CardRecipe from '../public/CardRecipe';
 import { FlatList } from 'react-native-gesture-handler';
-import { HomeScreenProps } from '../../navigations/MainNavigator';
-import { ListRenderItem } from 'react-native';
 import { globalStyles } from '../../styles/global';
-import { useNavigation } from '@react-navigation/core';
-import { useRandomRecipie } from '../../external-api/edamam/randomRecipe';
+import { useRecipes } from '../../external-api/edamam/recipes';
 
 const List: React.FC = () => {
-  const { loading, recipe } = useRandomRecipie();
-  const navigation = useNavigation<HomeScreenProps>();
+  const { recipes, loading } = useRecipes();
 
-  const renderItem: ListRenderItem<any> | null | undefined = () => (
-    <CardRecipe recipe={recipe} />
-  );
+  const renderItem: ListRenderItem<any> | null | undefined = ({ item }) => {
+    return <CardRecipe recipe={item} />;
+  };
 
   return (
-    <FlatList
-      data={[1, 2]}
-      renderItem={renderItem}
-      numColumns={2}
-      style={{ marginTop: globalStyles.space }}
-    />
+    <View>
+      <FlatList
+        data={recipes}
+        renderItem={renderItem}
+        numColumns={2}
+        style={{ marginTop: globalStyles.space }}
+      />
+    </View>
   );
 };
 

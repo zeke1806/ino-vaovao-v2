@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import CardCategory from '../discovery/for-you/CardCategory';
-import { formatRecipeCardData } from '../../external-api/edamam/recipeCardData';
+import { formatRecipeCardData } from '../../external-api/edamam/formatRecipeCardData';
 
 interface CardRecipeProp {
   recipe: any;
