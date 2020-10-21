@@ -1,5 +1,10 @@
 import * as React from 'react';
 
+import {
+  useDiscoveryDispatch,
+  useDiscoveryState,
+} from '../providers/discovery/discovery.consumer';
+
 import BackBtn from '../components/public/BackBtn';
 import Header from '../components/public/header/Header';
 import List from '../components/recipes/List';
@@ -12,10 +17,18 @@ const RecipesScreen: React.FC = () => {
   const {
     params: { type },
   } = useRoute<RecipesScreenRouteProp>();
+  const dispatch = useDiscoveryDispatch();
+  const { searchRecipe } = useDiscoveryState();
+
   return (
     <ScreenContainer>
       <Header left={<BackBtn />} title={type.toUpperCase()} />
-      <SearchBar />
+      <SearchBar
+        value={searchRecipe}
+        onChange={(value): void => {
+          dispatch({ type: 'CHANGE_SEARCH_RECIPE', value });
+        }}
+      />
       <List />
     </ScreenContainer>
   );

@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { TextInput } from 'react-native';
 import { View } from 'native-base';
 import { globalStyles } from '../../styles/global';
@@ -7,12 +8,16 @@ interface RoundedInput {
   placeholder: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 const RoundedInput: React.FC<RoundedInput> = ({
   placeholder,
   leftIcon,
   rightIcon,
+  value,
+  onChange,
 }) => {
   return (
     <View
@@ -30,7 +35,11 @@ const RoundedInput: React.FC<RoundedInput> = ({
     >
       <View style={{ flexDirection: 'row' }}>
         {leftIcon}
-        <TextInput placeholder={placeholder} />
+        <TextInput
+          placeholder={placeholder}
+          value={value}
+          onChangeText={onChange}
+        />
       </View>
       {rightIcon}
     </View>

@@ -1,14 +1,18 @@
 import * as React from 'react';
+
 import produce, { Draft } from 'immer';
+
 import { DISCOVERY_CATEGORIES } from '../../configs';
 
 // State
 export interface State {
   categories: Array<DISCOVERY_CATEGORIES>;
+  searchRecipe: string;
 }
 
 const initialState: State = {
   categories: [],
+  searchRecipe: '',
 };
 
 // Action
@@ -17,7 +21,12 @@ interface ToogleAction {
   category: DISCOVERY_CATEGORIES;
 }
 
-type Actions = ToogleAction;
+interface ChangeSearchRecipeAction {
+  type: 'CHANGE_SEARCH_RECIPE';
+  value: string;
+}
+
+type Actions = ToogleAction | ChangeSearchRecipeAction;
 export type Dispatch = (action: Actions) => void;
 
 // Reducer
@@ -31,6 +40,10 @@ const reducer = produce((draft: Draft<State>, action: Actions) => {
       } else {
         draft.categories.push(action.category);
       }
+      break;
+
+    case 'CHANGE_SEARCH_RECIPE':
+      draft.searchRecipe = action.value;
       break;
   }
 });
