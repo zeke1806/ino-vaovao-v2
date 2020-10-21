@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Text, View } from 'native-base';
-import { ImageBackground } from 'react-native';
+import { ImageBackground, TouchableOpacity } from 'react-native';
 import { SPRING_MOOD } from '../../../utils/Icons';
+import { Text } from 'native-base';
 import { globalStyles } from '../../../styles/global';
 
 interface CardCategoryProps {
@@ -10,6 +10,7 @@ interface CardCategoryProps {
   categoryItemContent: string;
   categoryItemSideContent: string;
   image: string;
+  onPress?: () => void;
 }
 
 const CardCategory: React.FC<CardCategoryProps> = ({
@@ -18,9 +19,12 @@ const CardCategory: React.FC<CardCategoryProps> = ({
   categoryItemContent,
   categoryItemSideContent,
   image,
+  onPress,
 }) => {
   return (
-    <View
+    <TouchableOpacity
+      disabled={!onPress}
+      onPress={onPress}
       style={[
         globalStyles.elevation,
         {
@@ -86,7 +90,7 @@ const CardCategory: React.FC<CardCategoryProps> = ({
           {categoryItemSideContent}
         </Text>
       </ImageBackground>
-    </View>
+    </TouchableOpacity>
   );
 };
 

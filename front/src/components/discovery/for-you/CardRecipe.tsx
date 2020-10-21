@@ -1,8 +1,11 @@
 import * as React from 'react';
 import CardCategory from './CardCategory';
+import { HomeScreenProps } from '../../../navigations/MainNavigator';
+import { useNavigation } from '@react-navigation/core';
 import { useRandomRecipie } from '../../../external-api/edamam/randomRecipe';
 
 const CardRecipe: React.FC = () => {
+  const navigation = useNavigation<HomeScreenProps>();
   const { loading, recipe } = useRandomRecipie();
 
   const categoryItemTitle = ((): string => {
@@ -31,6 +34,9 @@ const CardRecipe: React.FC = () => {
       categoryItemContent={categoryItemContent}
       categoryItemSideContent={categoryItemSideContent}
       image={image}
+      onPress={(): void =>
+        navigation.navigate('DiscoveryCategory', { type: 'recipe' })
+      }
     />
   );
 };

@@ -3,6 +3,9 @@ import {
   StackNavigationProp,
   createStackNavigator,
 } from '@react-navigation/stack';
+import { DISCOVERY_CATEGORIES } from '../configs';
+import { RouteProp } from '@react-navigation/core';
+import DiscoveryCategoryScreen from '../screens/DiscoveryCategoryScreen';
 import HomeNavigator from './HomeNavigator';
 import MessageScreen from '../screens/MessageScreen';
 import NameGroupScreen from '../screens/NameGroupScreen';
@@ -15,6 +18,9 @@ type MainNavigatorParamList = {
   SelectRecipient: undefined;
   NameGroupScreen: undefined;
   MessageScreen: undefined;
+  DiscoveryCategory: {
+    type: DISCOVERY_CATEGORIES;
+  };
 };
 
 const Stack = createStackNavigator<MainNavigatorParamList>();
@@ -34,6 +40,16 @@ export type SelectRecipientScreenProps = StackNavigationProp<
   'SelectRecipient'
 >;
 
+export type DiscoveryCategoryScreenProps = StackNavigationProp<
+  MainNavigatorParamList,
+  'DiscoveryCategory'
+>;
+
+export type DiscoveryCategoryRouteProp = RouteProp<
+  MainNavigatorParamList,
+  'DiscoveryCategory'
+>;
+
 const MainNavigator: React.FC = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -42,6 +58,10 @@ const MainNavigator: React.FC = () => {
       <Stack.Screen name="SelectRecipient" component={SelectRecipientScreen} />
       <Stack.Screen name="NameGroupScreen" component={NameGroupScreen} />
       <Stack.Screen name="MessageScreen" component={MessageScreen} />
+      <Stack.Screen
+        name="DiscoveryCategory"
+        component={DiscoveryCategoryScreen}
+      />
     </Stack.Navigator>
   );
 };
