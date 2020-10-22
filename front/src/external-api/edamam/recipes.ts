@@ -46,7 +46,8 @@ export const useRecipes = (): UseRecipes => {
 
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      // 429 error
+      setLoading(false);
     }
   };
 

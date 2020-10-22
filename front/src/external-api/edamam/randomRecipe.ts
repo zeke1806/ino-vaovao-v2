@@ -19,10 +19,15 @@ export const useRandomRecipie = (): {
     const url = `${EDAMAM_URL}&q=chicken&to=${nbItem}`;
 
     const asyncF = async (): Promise<any> => {
-      setLoading(true);
-      const result = await axios.get(url);
-      const hits = result.data.hits;
-      setRecipie(hits[getRandomInt(hits.length)]);
+      try {
+        setLoading(true);
+        const result = await axios.get(url);
+        const hits = result.data.hits;
+        setRecipie(hits[getRandomInt(hits.length)]);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
     };
 
     if (categories.includes('recipe')) asyncF();

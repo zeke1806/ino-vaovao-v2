@@ -21,6 +21,7 @@ const List: React.FC = () => {
       renderItem={renderItem}
       numColumns={2}
       style={{ marginTop: globalStyles.space }}
+      keyExtractor={(item): string => item.recipe.label}
       ListHeaderComponent={
         <View style={{ marginVertical: globalStyles.space }}>
           {loading && (
