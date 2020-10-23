@@ -6,6 +6,7 @@ import {
 } from '@react-navigation/stack';
 
 import { DISCOVERY_CATEGORIES } from '../configs';
+import DiscoveryDetailScreen from '../screens/DiscoveryDetailScreen';
 import HomeNavigator from './HomeNavigator';
 import MessageScreen from '../screens/MessageScreen';
 import NameGroupScreen from '../screens/NameGroupScreen';
@@ -22,6 +23,11 @@ type MainNavigatorParamList = {
   MessageScreen: undefined;
   RecipesScreen: {
     type: DISCOVERY_CATEGORIES;
+  };
+  DiscoveryDetail: {
+    image: string;
+    title: string;
+    content: string;
   };
 };
 
@@ -52,6 +58,11 @@ export type RecipesScreenRouteProp = RouteProp<
   'RecipesScreen'
 >;
 
+export type DiscoveryDetailScreenRouteProp = RouteProp<
+  MainNavigatorParamList,
+  'DiscoveryDetail'
+>;
+
 const MainNavigator: React.FC = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -61,6 +72,7 @@ const MainNavigator: React.FC = () => {
       <Stack.Screen name="NameGroupScreen" component={NameGroupScreen} />
       <Stack.Screen name="MessageScreen" component={MessageScreen} />
       <Stack.Screen name="RecipesScreen" component={RecipesScreen} />
+      <Stack.Screen name="DiscoveryDetail" component={DiscoveryDetailScreen} />
     </Stack.Navigator>
   );
 };

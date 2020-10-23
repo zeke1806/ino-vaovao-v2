@@ -5,14 +5,24 @@ import SubmitBtn, { Spinner } from '../public/SubmitBtn';
 
 import CardRecipe from '../public/CardRecipe';
 import { FlatList } from 'react-native-gesture-handler';
+import { RecipesScreenProps } from '../../navigations/MainNavigator';
+import { formatRecipeDetails } from '../../external-api/edamam/formatRecipeDetail';
 import { globalStyles } from '../../styles/global';
+import { useNavigation } from '@react-navigation/core';
 import { useRecipes } from '../../external-api/edamam/recipes';
 
 const List: React.FC = () => {
   const { recipes, loading, more } = useRecipes();
+  const navigation = useNavigation<RecipesScreenProps>();
+
+  const navigateToDetail = (recipe: any): void => {
+    navigation.navigate('DiscoveryDetail', formatRecipeDetails(recipe));
+  };
 
   const renderItem: ListRenderItem<any> | null | undefined = ({ item }) => {
-    return <CardRecipe recipe={item} />;
+    return (
+      <CardRecipe recipe={item} onPress={(): void => navigateToDetail(item)} />
+    );
   };
 
   return (
