@@ -6,7 +6,7 @@ import ScreenContainer from '../components/public/ScreenContainer';
 import { Text } from 'native-base';
 
 const RequestScreen: React.FC = () => {
-  return <Text>friend screen</Text>;
+  return <Text>request screen</Text>;
 };
 
 export default RequestScreen;

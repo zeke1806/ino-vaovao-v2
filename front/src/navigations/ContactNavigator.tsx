@@ -33,6 +33,9 @@ const ContactNavigator: React.FC = () => {
           indicatorStyle: {
             backgroundColor: globalStyles.colors.primary,
           },
+          style: {
+            marginBottom: globalStyles.space,
+          },
         }}
       >
         <Tab.Screen

@@ -1,12 +1,16 @@
 import * as React from 'react';
 
-import BackBtn from '../components/public/BackBtn';
-import Header from '../components/public/header/Header';
-import ScreenContainer from '../components/public/ScreenContainer';
-import { Text } from 'native-base';
+import List from '../components/friend/List';
+import Search from '../components/select-recipient/Search';
+import { View } from 'native-base';
 
 const FriendScreen: React.FC = () => {
-  return <Text>friend screen</Text>;
+  return (
+    <View>
+      <Search />
+      <List />
+    </View>
+  );
 };
 
 export default FriendScreen;
