@@ -33,7 +33,7 @@ const Right: React.FC = () => {
         navigation.navigate('ContactNavigator');
       })}
       {icon(PENCIL_LIGHT, () => {
-        navigation.navigate('SelectRecipient');
+        navigation.navigate('MessageNavigator');
       })}
     </View>
   );

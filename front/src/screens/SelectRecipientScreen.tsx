@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import BackBtn from '../components/public/BackBtn';
 import Header from '../components/public/header/Header';
 import NextBtn from '../components/select-recipient/NextBtn';
@@ -7,7 +8,7 @@ import Search from '../components/select-recipient/Search';
 import SelectedList from '../components/select-recipient/selected-list/SelectedList';
 import Suggestion from '../components/select-recipient/suggestion/Suggestion';
 
-const SelectRecipient: React.FC = () => {
+const SelectRecipientScreen: React.FC = () => {
   return (
     <ScreenContainer>
       <Header
@@ -22,4 +23,4 @@ const SelectRecipient: React.FC = () => {
   );
 };
 
-export default SelectRecipient;
+export default SelectRecipientScreen;
