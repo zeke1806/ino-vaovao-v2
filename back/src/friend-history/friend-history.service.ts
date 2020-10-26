@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, SelectQueryBuilder } from 'typeorm';
 import { User } from '../user/user.entity';
 import { FriendHistory } from './friend-history.entity';
 
@@ -23,25 +23,21 @@ export class FriendHistoryService {
     return this.friendRepository.remove(friend);
   }
 
-  async getFriends(userId: number): Promise<number[]> {
-    return (
-      await this.friendRepository
-        .createQueryBuilder('friendh')
-        .select('friendh.friend')
-        .where('friendh.user = :userId', { userId })
-        .andWhere('friendh.accepted = :accepted', { accepted: true })
-        .getRawMany<Pick<FriendHistory, 'friend'>>()
-    ).map(v => (v.friend as unknown) as number);
+  createFriendsIdQB(userId: number): SelectQueryBuilder<FriendHistory> {
+    return this.friendRepository
+      .createQueryBuilder('friendh')
+      .select('friendh.friend')
+      .where(`friendh.user = ${userId}`)
+      .andWhere(`friendh.accepted = ${true}`);
   }
 
-  async getRequests(friendId: number): Promise<number[]> {
-    return (
-      await this.friendRepository
-        .createQueryBuilder('friendh')
-        .select('friendh.user')
-        .where('friendh.friend = :friendId', { friendId })
-        .andWhere('friendh.accepted = :accepted', { accepted: false })
-        .getRawMany<Pick<FriendHistory, 'user'>>()
-    ).map(v => (v.user as unknown) as number);
+  createUsersWhoSentMeARequestIdQB(
+    userId: number,
+  ): SelectQueryBuilder<FriendHistory> {
+    return this.friendRepository
+      .createQueryBuilder('friendh')
+      .select('friendh.user')
+      .where(`friendh.friend = ${userId}`)
+      .andWhere(`friendh.accepted = ${false}`);
   }
 }

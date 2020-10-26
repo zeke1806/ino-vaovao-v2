@@ -19,9 +19,17 @@ export class FriendSuggestionResolver {
   async friendSuggestion(
     @CurrentUser() authPayload: AuthPayload,
   ): Promise<User[]> {
-    const friends = await this.friendHistoryService.getFriends(
+    const friendsIdQB = this.friendHistoryService.createFriendsIdQB(
       authPayload.payload.id,
     );
-    return this.userService.friendSuggestion(friends, authPayload.payload.id);
+    const friendsWhoSentMeARequestIdQB = this.friendHistoryService.createUsersWhoSentMeARequestIdQB(
+      authPayload.payload.id,
+    );
+
+    return this.userService.friendSuggestion(
+      authPayload.payload.id,
+      friendsIdQB,
+      friendsWhoSentMeARequestIdQB,
+    );
   }
 }

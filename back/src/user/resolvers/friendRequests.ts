@@ -18,9 +18,10 @@ export class FriendRequestsResolver {
   async friendRequests(
     @CurrentUser() authPayload: AuthPayload,
   ): Promise<User[]> {
-    const requests = await this.friendHistoryService.getRequests(
-      authPayload.payload.id,
-    );
-    return Promise.all(requests.map(r => this.userService.getUserById(r)));
+    const requests = await this.friendHistoryService
+      .createUsersWhoSentMeARequestIdQB(authPayload.payload.id)
+      .getRawMany<{ user: number }>();
+
+    return Promise.all(requests.map(f => this.userService.getUserById(f.user)));
   }
 }

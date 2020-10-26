@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { Repository, SelectQueryBuilder } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { User } from './user.entity';
+import { FriendHistory } from '../friend-history/friend-history.entity';
 
 @Injectable()
 export class UserService {
@@ -27,11 +28,16 @@ export class UserService {
     return this.userRepository.save(newUser);
   }
 
-  async friendSuggestion(friends: number[], userId: number): Promise<User[]> {
+  async friendSuggestion(
+    userId: number,
+    friendsIdQB: SelectQueryBuilder<FriendHistory>,
+    friendsWhoSentMeARequestIdQB: SelectQueryBuilder<FriendHistory>,
+  ): Promise<User[]> {
     return this.userRepository
       .createQueryBuilder('user')
-      .where('user.id NOT IN (:...friends)', { friends })
-      .andWhere('user.id != :userId', { userId })
+      .where(`user.id NOT IN (${friendsIdQB.getQuery()})`)
+      .andWhere(`user.id NOT IN (${friendsWhoSentMeARequestIdQB.getQuery()})`)
+      .andWhere(`user.id != ${userId}`)
       .getMany();
   }
 }
