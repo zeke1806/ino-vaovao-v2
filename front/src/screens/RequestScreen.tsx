@@ -5,8 +5,8 @@ import Header from '../components/public/header/Header';
 import ScreenContainer from '../components/public/ScreenContainer';
 import { Text } from 'native-base';
 
-const FriendScreen: React.FC = () => {
+const RequestScreen: React.FC = () => {
   return <Text>friend screen</Text>;
 };
 
-export default FriendScreen;
+export default RequestScreen;
