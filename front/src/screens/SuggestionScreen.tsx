@@ -1,9 +1,16 @@
 import * as React from 'react';
 
-import { Text } from 'native-base';
+import List from '../components/suggestion/List';
+import SuggSearch from '../components/suggestion/SuggSearch';
+import { View } from 'native-base';
 
 const SuggestionScreen: React.FC = () => {
-  return <Text>Suggestion screen</Text>;
+  return (
+    <View>
+      <SuggSearch />
+      <List />
+    </View>
+  );
 };
 
 export default SuggestionScreen;

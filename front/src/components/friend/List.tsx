@@ -1,4 +1,5 @@
 import * as React from 'react';
+import * as flatListStyle from '../contact-navigator/listStyle';
 
 import { ListRenderItem, View } from 'react-native';
 
@@ -28,10 +29,7 @@ const List: React.FC = () => {
     <FlatList
       data={[0, 1]}
       renderItem={renderItem}
-      contentContainerStyle={{
-        alignItems: 'center',
-        marginTop: globalStyles.space,
-      }}
+      contentContainerStyle={flatListStyle.contentContainerStyle}
     />
   );
 };

@@ -1,12 +1,16 @@
 import * as React from 'react';
 
-import BackBtn from '../components/public/BackBtn';
-import Header from '../components/public/header/Header';
-import ScreenContainer from '../components/public/ScreenContainer';
-import { Text } from 'native-base';
+import List from '../components/request/List';
+import Search from '../components/request/Search';
+import { View } from 'native-base';
 
 const RequestScreen: React.FC = () => {
-  return <Text>request screen</Text>;
+  return (
+    <View>
+      <Search />
+      <List />
+    </View>
+  );
 };
 
 export default RequestScreen;

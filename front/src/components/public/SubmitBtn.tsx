@@ -14,18 +14,26 @@ export interface SubmitBtnProps {
   loading: boolean;
   title: string;
   onClick: () => void;
+  btnColor?: string;
+  spinnerColor?: string;
 }
 
-const SubmitBtn: React.FC<SubmitBtnProps> = ({ loading, title, onClick }) => (
+const SubmitBtn: React.FC<SubmitBtnProps> = ({
+  loading,
+  title,
+  onClick,
+  btnColor,
+  spinnerColor,
+}) => (
   <Button
     rounded
-    style={{ backgroundColor: globalStyles.colors.primary }}
+    style={{ backgroundColor: btnColor || globalStyles.colors.primary }}
     onPress={onClick}
   >
     <Text>{title}</Text>
     {loading && (
       <View style={{ marginHorizontal: 10 }}>
-        <Spinner color="white" size="small" />
+        <Spinner color={spinnerColor || 'white'} size="small" />
       </View>
     )}
   </Button>
