@@ -29,7 +29,7 @@ const List: React.FC = () => {
                 key={categ}
                 recipe={recipe}
                 onPress={(): void =>
-                  navigation.navigate('RecipesScreen', { type: 'recipe' })
+                  navigation.navigate('DiscoveryNavigator', { type: 'recipe' })
                 }
               />
             );

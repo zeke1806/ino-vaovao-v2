@@ -7,11 +7,10 @@ import {
 
 import ContactNavigator from './ContactNavigator';
 import { DISCOVERY_CATEGORIES } from '../configs';
-import DiscoveryDetailScreen from '../screens/DiscoveryDetailScreen';
+import DiscoveryNavigator from './DiscoveryNavigator';
 import HomeNavigator from './HomeNavigator';
 import MessageNavigator from './MessageNavigator';
 import ProfileNavigator from './ProfileNavigator';
-import RecipesScreen from '../screens/RecipesScreen';
 import { RouteProp } from '@react-navigation/core';
 
 type MainNavigatorParamList = {
@@ -19,13 +18,8 @@ type MainNavigatorParamList = {
   ProfileNavigator: undefined;
   ContactNavigator: undefined;
   MessageNavigator: undefined;
-  RecipesScreen: {
+  DiscoveryNavigator: {
     type: DISCOVERY_CATEGORIES;
-  };
-  DiscoveryDetail: {
-    image: string;
-    title: string;
-    content: string;
   };
 };
 
@@ -36,19 +30,9 @@ export type HomeNavigatorProps = StackNavigationProp<
   'HomeNavigator'
 >;
 
-export type RecipesScreenProps = StackNavigationProp<
+export type DiscoveryNavigatorRouteProp = RouteProp<
   MainNavigatorParamList,
-  'RecipesScreen'
->;
-
-export type RecipesScreenRouteProp = RouteProp<
-  MainNavigatorParamList,
-  'RecipesScreen'
->;
-
-export type DiscoveryDetailScreenRouteProp = RouteProp<
-  MainNavigatorParamList,
-  'DiscoveryDetail'
+  'DiscoveryNavigator'
 >;
 
 const MainNavigator: React.FC = () => {
@@ -58,8 +42,7 @@ const MainNavigator: React.FC = () => {
       <Stack.Screen name="ProfileNavigator" component={ProfileNavigator} />
       <Stack.Screen name="ContactNavigator" component={ContactNavigator} />
       <Stack.Screen name="MessageNavigator" component={MessageNavigator} />
-      <Stack.Screen name="RecipesScreen" component={RecipesScreen} />
-      <Stack.Screen name="DiscoveryDetail" component={DiscoveryDetailScreen} />
+      <Stack.Screen name="DiscoveryNavigator" component={DiscoveryNavigator} />
     </Stack.Navigator>
   );
 };
