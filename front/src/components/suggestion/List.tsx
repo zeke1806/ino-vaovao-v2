@@ -16,7 +16,7 @@ const List: React.FC = () => {
         style={{
           marginTop: globalStyles.space,
           flexDirection: 'row',
-          alignItems: 'flex-start',
+          alignItems: 'center',
           justifyContent: 'space-between',
         }}
       >
@@ -26,7 +26,7 @@ const List: React.FC = () => {
           <View style={{ flexDirection: 'row' }}>
             <View style={{ marginRight: globalStyles.space }}>
               <SubmitBtn
-                title="Confirmer"
+                title="Envoyer"
                 onClick={(): void => {
                   //
                 }}
@@ -34,14 +34,14 @@ const List: React.FC = () => {
                 btnColor={globalStyles.colors.secondary}
               />
             </View>
-            <SubmitBtn
+            {/* <SubmitBtn
               title="Annuler"
               onClick={(): void => {
                 //
               }}
               loading={false}
               btnColor="blabla"
-            />
+            /> */}
           </View>
         </View>
       </View>
