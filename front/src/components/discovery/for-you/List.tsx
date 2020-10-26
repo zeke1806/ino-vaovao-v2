@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import CardAnime from './CardAnime';
 import CardRecipe from '../../public/CardRecipe';
-import { HomeScreenProps } from '../../../navigations/MainNavigator';
+import { HomeNavigatorProps } from '../../../navigations/MainNavigator';
 import { View } from 'native-base';
 import { useDiscoveryState } from '../../../providers/discovery/discovery.consumer';
 import { useNavigation } from '@react-navigation/core';
@@ -11,7 +11,7 @@ import { useRandomRecipie } from '../../../external-api/edamam/randomRecipe';
 const List: React.FC = () => {
   const { categories } = useDiscoveryState();
   const { loading, recipe } = useRandomRecipie();
-  const navigation = useNavigation<HomeScreenProps>();
+  const navigation = useNavigation<HomeNavigatorProps>();
 
   return (
     <View

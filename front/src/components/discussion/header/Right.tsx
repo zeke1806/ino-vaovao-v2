@@ -1,13 +1,15 @@
 import * as React from 'react';
+
 import { CONTACT, PENCIL_LIGHT } from '../../../utils/Icons';
 import { Image, ImageSourcePropType, TouchableOpacity } from 'react-native';
-import { HomeScreenProps } from '../../../navigations/MainNavigator';
+
+import { HomeNavigatorProps } from '../../../navigations/MainNavigator';
 import { View } from 'native-base';
 import { globalStyles } from '../../../styles/global';
 import { useNavigation } from '@react-navigation/core';
 
 const Right: React.FC = () => {
-  const navigation = useNavigation<HomeScreenProps>();
+  const navigation = useNavigation<HomeNavigatorProps>();
 
   const icon = (
     img: ImageSourcePropType,
@@ -27,7 +29,9 @@ const Right: React.FC = () => {
 
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-      {icon(CONTACT)}
+      {icon(CONTACT, () => {
+        navigation.navigate('ContactNavigator');
+      })}
       {icon(PENCIL_LIGHT, () => {
         navigation.navigate('SelectRecipient');
       })}

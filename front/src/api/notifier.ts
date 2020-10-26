@@ -7,7 +7,6 @@ const {
 
 const useGlobalNotifier = (): void => {
   const status = useApolloNetworkStatus();
-  console.log(status);
 };
 
 export { notifierLink, useGlobalNotifier };

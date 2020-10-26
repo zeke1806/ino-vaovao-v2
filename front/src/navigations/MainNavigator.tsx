@@ -5,6 +5,7 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 
+import ContactNavigator from './ContactNavigator';
 import { DISCOVERY_CATEGORIES } from '../configs';
 import DiscoveryDetailScreen from '../screens/DiscoveryDetailScreen';
 import HomeNavigator from './HomeNavigator';
@@ -18,6 +19,7 @@ import SelectRecipientScreen from '../screens/SelectRecipientScreen';
 type MainNavigatorParamList = {
   HomeNavigator: undefined;
   ProfileNavigator: undefined;
+  ContactNavigator: undefined;
   SelectRecipient: undefined;
   NameGroupScreen: undefined;
   MessageScreen: undefined;
@@ -33,7 +35,7 @@ type MainNavigatorParamList = {
 
 const Stack = createStackNavigator<MainNavigatorParamList>();
 
-export type HomeScreenProps = StackNavigationProp<
+export type HomeNavigatorProps = StackNavigationProp<
   MainNavigatorParamList,
   'HomeNavigator'
 >;
@@ -68,6 +70,7 @@ const MainNavigator: React.FC = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
       <Stack.Screen name="ProfileNavigator" component={ProfileNavigator} />
+      <Stack.Screen name="ContactNavigator" component={ContactNavigator} />
       <Stack.Screen name="SelectRecipient" component={SelectRecipientScreen} />
       <Stack.Screen name="NameGroupScreen" component={NameGroupScreen} />
       <Stack.Screen name="MessageScreen" component={MessageScreen} />
