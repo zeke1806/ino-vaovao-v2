@@ -1,8 +1,15 @@
 import * as React from 'react';
+
+import {
+  DefaultTheme,
+  NavigationContainer,
+  Theme,
+} from '@react-navigation/native';
 import {
   useSessionDispatch,
   useSessionState,
 } from './providers/session/session.consumer';
+
 import { ApolloProvider } from '@apollo/client';
 import { AppLoading } from 'expo';
 import { ContextProvider } from './providers';
@@ -12,10 +19,20 @@ import { handleBoot } from './utils/handleBoot';
 import { loadAssetsAsync } from './utils/loadAssetsAsync';
 import { useGlobalNotifier } from './api/notifier';
 
+const MyTheme: Theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: '#fff',
+  },
+};
+
 export const ProviderWrapper: React.FC = ({ children }) => {
   return (
     <ContextProvider>
-      <ApolloProvider client={client}>{children}</ApolloProvider>
+      <ApolloProvider client={client}>
+        <NavigationContainer theme={MyTheme}>{children}</NavigationContainer>
+      </ApolloProvider>
     </ContextProvider>
   );
 };
