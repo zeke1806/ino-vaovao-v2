@@ -23,3 +23,15 @@ export const REGISTER_ERROR_FRAG = gql`
     usernameNotAvailable
   }
 `;
+
+export const FRIEND_HISTORY_FRAG = gql`
+  fragment FriendHistoryFrag on FriendHistory {
+    user {
+      id
+    }
+    friend {
+      id
+    }
+    accepted
+  }
+`;

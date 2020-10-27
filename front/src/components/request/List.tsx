@@ -3,6 +3,7 @@ import * as listStyle from '../contact-navigator/listStyle';
 
 import { Text, View } from 'native-base';
 
+import AcceptBtn from './AcceptBtn';
 import CommonAvatar from '../public/CommonAvatar';
 import { FlatList } from 'react-native-gesture-handler';
 import { ListRenderItem } from 'react-native';
@@ -34,14 +35,7 @@ const List: React.FC = () => {
           </Text>
           <View style={{ flexDirection: 'row' }}>
             <View style={{ marginRight: globalStyles.space }}>
-              <SubmitBtn
-                title="Confirmer"
-                onClick={(): void => {
-                  //
-                }}
-                loading={false}
-                btnColor={globalStyles.colors.secondary}
-              />
+              <AcceptBtn userId={item.id} />
             </View>
             <SubmitBtn
               title="Supprimer"
