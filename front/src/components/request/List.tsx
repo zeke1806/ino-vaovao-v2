@@ -5,6 +5,7 @@ import { Text, View } from 'native-base';
 
 import AcceptBtn from './AcceptBtn';
 import CommonAvatar from '../public/CommonAvatar';
+import DeclineBtn from './DeclineBtn';
 import { FlatList } from 'react-native-gesture-handler';
 import { ListRenderItem } from 'react-native';
 import SubmitBtn from '../public/SubmitBtn';
@@ -37,14 +38,7 @@ const List: React.FC = () => {
             <View style={{ marginRight: globalStyles.space }}>
               <AcceptBtn userId={item.id} />
             </View>
-            <SubmitBtn
-              title="Supprimer"
-              onClick={(): void => {
-                //
-              }}
-              loading={false}
-              btnColor="blabla"
-            />
+            <DeclineBtn userId={item.id} />
           </View>
         </View>
       </View>
