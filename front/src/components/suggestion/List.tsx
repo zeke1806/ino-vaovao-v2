@@ -7,10 +7,14 @@ import CommonAvatar from '../public/CommonAvatar';
 import { FlatList } from 'react-native-gesture-handler';
 import { ListRenderItem } from 'react-native';
 import SubmitBtn from '../public/SubmitBtn';
+import { User } from '../../api/types';
 import { globalStyles } from '../../styles/global';
+import { useFriendSuggestion } from '../../api/user/friend-suggestion/friendSuggestion.service';
 
 const List: React.FC = () => {
-  const renderItem: ListRenderItem<any> | null | undefined = () => {
+  const { data, loading } = useFriendSuggestion();
+
+  const renderItem: ListRenderItem<User> | null | undefined = ({ item }) => {
     return (
       <View
         style={{
@@ -20,11 +24,25 @@ const List: React.FC = () => {
           justifyContent: 'space-between',
         }}
       >
-        <CommonAvatar size="medium" />
+        <CommonAvatar
+          size="medium"
+          img={item.currentPhoto ? { uri: item.currentPhoto.url } : undefined}
+        />
         <View>
-          <Text style={{ marginBottom: globalStyles.space }}>nom prenom</Text>
+          <Text style={{ marginBottom: globalStyles.space }}>
+            {item.username}
+          </Text>
           <View style={{ flexDirection: 'row' }}>
-            <View style={{ marginRight: globalStyles.space }}>
+            {item.requested ? (
+              <SubmitBtn
+                title="Annuler"
+                onClick={(): void => {
+                  //
+                }}
+                loading={false}
+                btnColor="blabla"
+              />
+            ) : (
               <SubmitBtn
                 title="Envoyer"
                 onClick={(): void => {
@@ -33,24 +51,18 @@ const List: React.FC = () => {
                 loading={false}
                 btnColor={globalStyles.colors.secondary}
               />
-            </View>
-            {/* <SubmitBtn
-              title="Annuler"
-              onClick={(): void => {
-                //
-              }}
-              loading={false}
-              btnColor="blabla"
-            /> */}
+            )}
           </View>
         </View>
       </View>
     );
   };
 
+  const suggestions = data && !loading ? data.friendSuggestion : [];
+
   return (
     <FlatList
-      data={[1, 2]}
+      data={suggestions}
       renderItem={renderItem}
       contentContainerStyle={listStyle.contentContainerStyle}
     />

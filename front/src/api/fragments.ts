@@ -13,6 +13,7 @@ export const USER_FRAG = gql`
     id
     username
     statusConnected
+    requested
   }
 `;
 

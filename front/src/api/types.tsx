@@ -12,18 +12,23 @@ export type Scalars = {
   Upload: any;
 };
 
-export type FriendHistory = {
-  __typename?: 'FriendHistory';
-  friend: User;
-  status: FriendHistoryStatus;
-  user: User;
+export type AffectUsersToDiscussionInput = {
+  discussionId: Scalars['Float'];
+  usersId: Array<Scalars['Float']>;
 };
 
-export enum FriendHistoryStatus {
-  Accepted = 'Accepted',
-  Declined = 'Declined',
-  Pending = 'Pending'
-}
+export type Discussion = {
+  __typename?: 'Discussion';
+  id: Scalars['Float'];
+  name?: Maybe<Scalars['String']>;
+};
+
+export type FriendHistory = {
+  __typename?: 'FriendHistory';
+  accepted: Scalars['Boolean'];
+  friend: User;
+  user: User;
+};
 
 export type LoginError = {
   __typename?: 'LoginError';
@@ -44,13 +49,41 @@ export type LoginToken = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  acceptFriendRequest: FriendHistory;
+  affectUsersToDiscussion: Scalars['Boolean'];
+  cancelRequest: Scalars['Boolean'];
+  connect: User;
+  declineFriendRequest: Scalars['Boolean'];
+  disconnect: User;
   login: LoginResult;
   register: RegisterResult;
+  removeDiscussion: Discussion;
   removeProfileImage: RemoveProfileImageResult;
+  saveDiscussion: Discussion;
   sendFriendRequest: FriendHistory;
   setCurrentPhoto: Scalars['Boolean'];
   updateAccount: UpdateAccountResult;
   uploadProfileImage?: Maybe<PhotoProfile>;
+};
+
+
+export type MutationAcceptFriendRequestArgs = {
+  userId: Scalars['Float'];
+};
+
+
+export type MutationAffectUsersToDiscussionArgs = {
+  affectData: AffectUsersToDiscussionInput;
+};
+
+
+export type MutationCancelRequestArgs = {
+  friendId: Scalars['Float'];
+};
+
+
+export type MutationDeclineFriendRequestArgs = {
+  userId: Scalars['Float'];
 };
 
 
@@ -64,13 +97,23 @@ export type MutationRegisterArgs = {
 };
 
 
+export type MutationRemoveDiscussionArgs = {
+  id: Scalars['Float'];
+};
+
+
 export type MutationRemoveProfileImageArgs = {
   photoProfilePublicId: Scalars['String'];
 };
 
 
+export type MutationSaveDiscussionArgs = {
+  discussionData: SaveDiscussionInput;
+};
+
+
 export type MutationSendFriendRequestArgs = {
-  idFriend: Scalars['Float'];
+  friendId: Scalars['Float'];
 };
 
 
@@ -98,6 +141,9 @@ export type PhotoProfile = {
 
 export type Query = {
   __typename?: 'Query';
+  friendRequests: Array<User>;
+  friends: Array<User>;
+  friendSuggestion: Array<User>;
   hello: Scalars['String'];
   me: User;
 };
@@ -127,6 +173,19 @@ export type RemoveProfileImageOk = {
 
 export type RemoveProfileImageResult = RemoveProfileImageError | RemoveProfileImageOk;
 
+export type SaveDiscussionInput = {
+  id?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  acceptFriendRequestEvent: FriendHistory;
+  connectEvent: User;
+  disconnectEvent: User;
+  sendFriendRequestEvent: FriendHistory;
+};
+
 export type UpdateAccountError = {
   __typename?: 'UpdateAccountError';
   cannotUpdateTheSameInfo?: Maybe<Scalars['String']>;
@@ -147,6 +206,7 @@ export type User = {
   currentPhoto?: Maybe<PhotoProfile>;
   id: Scalars['Float'];
   photos: Array<PhotoProfile>;
+  requested: Scalars['Boolean'];
   statusConnected: Scalars['Boolean'];
   username: Scalars['String'];
 };
