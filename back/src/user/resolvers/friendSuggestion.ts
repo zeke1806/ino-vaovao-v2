@@ -25,11 +25,23 @@ export class FriendSuggestionResolver {
     const friendsWhoSentMeARequestIdQB = this.friendHistoryService.createUsersWhoSentMeARequestIdQB(
       authPayload.payload.id,
     );
-
-    return this.userService.friendSuggestion(
+    const suggestions = await this.userService.friendSuggestion(
       authPayload.payload.id,
       friendsIdQB,
       friendsWhoSentMeARequestIdQB,
     );
+
+    const usersISentARequestId = (
+      await this.friendHistoryService
+        .createUsersISentARequestIdQB(authPayload.payload.id)
+        .getRawMany<{ friend: number }>()
+    ).map(fh => fh.friend);
+
+    return suggestions.map(sugg => {
+      if (usersISentARequestId.includes(sugg.id)) {
+        sugg.requested = true;
+      }
+      return sugg;
+    });
   }
 }

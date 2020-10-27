@@ -40,4 +40,14 @@ export class FriendHistoryService {
       .where(`friendh.friend = ${userId}`)
       .andWhere(`friendh.accepted = ${false}`);
   }
+
+  createUsersISentARequestIdQB(
+    userId: number,
+  ): SelectQueryBuilder<FriendHistory> {
+    return this.friendRepository
+      .createQueryBuilder('friendh')
+      .select('friendh.friend')
+      .where(`friendh.user = ${userId}`)
+      .andWhere(`friendh.accepted = ${false}`);
+  }
 }

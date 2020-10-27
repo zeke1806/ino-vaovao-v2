@@ -119,6 +119,7 @@ type User {
   currentPhoto: PhotoProfile
   id: Float!
   photos: [PhotoProfile!]!
+  requested: Boolean!
   statusConnected: Boolean!
   username: String!
 }

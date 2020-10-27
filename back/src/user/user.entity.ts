@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
+
 import { PhotoProfile } from '../photo-profile/photo-profile.entity';
 
 @ObjectType()
@@ -25,4 +26,7 @@ export class User {
 
   @Field(() => [PhotoProfile])
   photos: PhotoProfile[];
+
+  @Field(() => Boolean, { defaultValue: false })
+  requested: boolean;
 }
