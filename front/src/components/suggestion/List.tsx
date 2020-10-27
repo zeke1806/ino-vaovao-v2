@@ -6,6 +6,7 @@ import { Text, View } from 'native-base';
 import CommonAvatar from '../public/CommonAvatar';
 import { FlatList } from 'react-native-gesture-handler';
 import { ListRenderItem } from 'react-native';
+import SendRequestBtn from './SendRequestBtn';
 import SubmitBtn from '../public/SubmitBtn';
 import { User } from '../../api/types';
 import { globalStyles } from '../../styles/global';
@@ -43,14 +44,7 @@ const List: React.FC = () => {
                 btnColor="blabla"
               />
             ) : (
-              <SubmitBtn
-                title="Envoyer"
-                onClick={(): void => {
-                  //
-                }}
-                loading={false}
-                btnColor={globalStyles.colors.secondary}
-              />
+              <SendRequestBtn friendId={item.id} />
             )}
           </View>
         </View>
@@ -65,6 +59,7 @@ const List: React.FC = () => {
       data={suggestions}
       renderItem={renderItem}
       contentContainerStyle={listStyle.contentContainerStyle}
+      keyExtractor={(item): string => String(item.id)}
     />
   );
 };
