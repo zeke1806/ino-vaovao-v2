@@ -1,3 +1,4 @@
+import { FRIEND_HISTORY_FRAG } from '../../fragments';
 import { FriendHistory } from '../../types';
 import { gql } from '@apollo/client';
 
@@ -8,13 +9,8 @@ export interface SendFriendRequestData {
 export const SEND_FRIEND_REQUEST = gql`
   mutation SendFriendRequest($friendId: Float!) {
     sendFriendRequest(friendId: $friendId) {
-      user {
-        id
-      }
-      friend {
-        id
-      }
-      accepted
+      ...FriendHistoryFrag
     }
   }
+  ${FRIEND_HISTORY_FRAG}
 `;

@@ -27,11 +27,19 @@ export const REGISTER_ERROR_FRAG = gql`
 export const FRIEND_HISTORY_FRAG = gql`
   fragment FriendHistoryFrag on FriendHistory {
     user {
-      id
+      ...UserFrag
+      currentPhoto {
+        ...PhotoProfileFrag
+      }
     }
     friend {
-      id
+      ...UserFrag
+      currentPhoto {
+        ...PhotoProfileFrag
+      }
     }
     accepted
   }
+  ${USER_FRAG}
+  ${PHOTO_PROFILE_FRAG}
 `;

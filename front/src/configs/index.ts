@@ -4,7 +4,9 @@ export const TOKEN = 'TOKEN';
 export const DISCOVERY_CAT_SELECTED = 'DISCOVERY_CAT_SELECTED';
 export const MIN_LIST_ITEM = 25;
 
-export const HTTP_LINK = 'http://192.168.0.102:4000/graphql';
+const ADDR = '192.168.0.102:4000/graphql';
+export const HTTP_LINK = `http://${ADDR}`;
+export const WS_LINK = `ws://${ADDR}`;
 
 const EDAMAM_APP_ID = '8a1f0339';
 const EDAMAM_APP_KEY = 'ca79e1ec692659d6989dba256d458f64';
