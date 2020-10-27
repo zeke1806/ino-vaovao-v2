@@ -8,7 +8,6 @@ import CommonAvatar from '../public/CommonAvatar';
 import DeclineBtn from './DeclineBtn';
 import { FlatList } from 'react-native-gesture-handler';
 import { ListRenderItem } from 'react-native';
-import SubmitBtn from '../public/SubmitBtn';
 import { User } from '../../api/types';
 import { globalStyles } from '../../styles/global';
 import { useFriendRequests } from '../../api/user/friend-request/service';
@@ -52,6 +51,7 @@ const List: React.FC = () => {
       data={requests}
       renderItem={renderItem}
       contentContainerStyle={listStyle.contentContainerStyle}
+      keyExtractor={(item): string => String(item.id)}
     />
   );
 };
