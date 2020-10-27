@@ -3,6 +3,7 @@ import * as listStyle from '../contact-navigator/listStyle';
 
 import { Text, View } from 'native-base';
 
+import CancelRequestBtn from './CancelRequestBtn';
 import CommonAvatar from '../public/CommonAvatar';
 import { FlatList } from 'react-native-gesture-handler';
 import { ListRenderItem } from 'react-native';
@@ -35,14 +36,7 @@ const List: React.FC = () => {
           </Text>
           <View style={{ flexDirection: 'row' }}>
             {item.requested ? (
-              <SubmitBtn
-                title="Annuler"
-                onClick={(): void => {
-                  //
-                }}
-                loading={false}
-                btnColor="blabla"
-              />
+              <CancelRequestBtn friendId={item.id} />
             ) : (
               <SendRequestBtn friendId={item.id} />
             )}

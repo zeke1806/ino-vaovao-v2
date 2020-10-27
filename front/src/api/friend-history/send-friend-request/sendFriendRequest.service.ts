@@ -2,7 +2,7 @@ import { ApolloClient, useApolloClient, useMutation } from '@apollo/client';
 import {
   FRIEND_SUGGESTION,
   FriendSuggestionData,
-} from '../friend-suggestion/friendSuggestion.gql';
+} from '../../user/friend-suggestion/friendSuggestion.gql';
 import { FriendHistory, MutationSendFriendRequestArgs } from '../../types';
 import {
   SEND_FRIEND_REQUEST,

@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import SubmitBtn from '../public/SubmitBtn';
 import { globalStyles } from '../../styles/global';
-import { useSendFriendRequest } from '../../api/user/send-friend-request/sendFriendRequest.service';
+import { useSendFriendRequest } from '../../api/friend-history/send-friend-request/sendFriendRequest.service';
 
 interface Prop {
   friendId: number;
