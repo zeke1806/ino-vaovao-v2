@@ -1,10 +1,11 @@
-import { RegisterResolver } from './register';
-import { UpdateAccountResolver } from './updateAccount';
-import { MeResolver } from './me';
 import { ConnectResolver } from './connect';
 import { DisconnectResolver } from './disconnect';
-import { FriendSuggestionResolver } from './friendSuggestion';
 import { FriendRequestsResolver } from './friendRequests';
+import { FriendSuggestionResolver } from './friendSuggestion';
+import { FriendsResolver } from './friends';
+import { MeResolver } from './me';
+import { RegisterResolver } from './register';
+import { UpdateAccountResolver } from './updateAccount';
 
 export const UserResolvers = [
   RegisterResolver,
@@ -14,4 +15,5 @@ export const UserResolvers = [
   DisconnectResolver,
   FriendSuggestionResolver,
   FriendRequestsResolver,
+  FriendsResolver,
 ];
