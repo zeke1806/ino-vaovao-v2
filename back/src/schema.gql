@@ -36,6 +36,7 @@ type LoginToken {
 type Mutation {
   acceptFriendRequest(userId: Float!): FriendHistory!
   affectUsersToDiscussion(affectData: AffectUsersToDiscussionInput!): Boolean!
+  cancelRequest(friendId: Float!): Boolean!
   connect: User!
   declineFriendRequest(userId: Float!): Boolean!
   disconnect: User!
