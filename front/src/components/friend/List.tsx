@@ -6,10 +6,14 @@ import { ListRenderItem, View } from 'react-native';
 import CommonAvatar from '../public/CommonAvatar';
 import { FlatList } from 'react-native-gesture-handler';
 import { Text } from 'native-base';
+import { User } from '../../api/types';
 import { globalStyles } from '../../styles/global';
+import { useFriends } from '../../api/user/friends/service';
 
 const List: React.FC = () => {
-  const renderItem: ListRenderItem<any> | null | undefined = () => {
+  const { data, loading } = useFriends();
+
+  const renderItem: ListRenderItem<User> | null | undefined = ({ item }) => {
     return (
       <View
         style={{
@@ -19,17 +23,23 @@ const List: React.FC = () => {
           justifyContent: 'space-between',
         }}
       >
-        <CommonAvatar size="medium" />
-        <Text>ngia beuh</Text>
+        <CommonAvatar
+          size="medium"
+          img={item.currentPhoto ? { uri: item.currentPhoto.url } : undefined}
+        />
+        <Text>{item.username}</Text>
       </View>
     );
   };
 
+  const friends = data ? data.friends : [];
+
   return (
     <FlatList
-      data={[0, 1]}
+      data={friends}
       renderItem={renderItem}
       contentContainerStyle={flatListStyle.contentContainerStyle}
+      keyExtractor={(item): string => String(item.id)}
     />
   );
 };
