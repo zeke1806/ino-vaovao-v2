@@ -4,7 +4,6 @@ import AuthenticationNavigator from './AuthenticationNavigator';
 import MainNavigator from './MainNavigator';
 import PresentationNavigator from './PresentationNavigator';
 import { createStackNavigator } from '@react-navigation/stack';
-import { useGlobalSubscription } from '../api/globalSubscription';
 import { useSessionState } from '../providers/session/session.consumer';
 
 type RootNavigatorParamList = {
@@ -16,7 +15,6 @@ type RootNavigatorParamList = {
 const Stack = createStackNavigator<RootNavigatorParamList>();
 
 function RootNavigator(): React.ReactElement {
-  useGlobalSubscription();
   const sessionState = useSessionState();
 
   return (
