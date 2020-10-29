@@ -1,16 +1,12 @@
 import * as React from 'react';
 import * as listStyle from '../contact-navigator/listStyle';
 
-import { Text, View } from 'native-base';
 import { filterUtil, useFilterUser } from '../../providers/filterUser';
 
-import CancelRequestBtn from './CancelRequestBtn';
-import CommonAvatar from '../public/CommonAvatar';
 import { FlatList } from 'react-native-gesture-handler';
+import ListItem from './ListItem';
 import { ListRenderItem } from 'react-native';
-import SendRequestBtn from './SendRequestBtn';
 import { User } from '../../api/types';
-import { globalStyles } from '../../styles/global';
 import { useFriendSuggestion } from '../../api/user/friend-suggestion/friendSuggestion.service';
 
 const List: React.FC = () => {
@@ -27,35 +23,12 @@ const List: React.FC = () => {
     subscribeToDeclineFriendRequest();
   }, []);
 
-  const renderItem: ListRenderItem<User> | null | undefined = ({ item }) => {
-    return (
-      <View
-        style={{
-          marginTop: globalStyles.space,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <CommonAvatar
-          size="medium"
-          img={item.currentPhoto ? { uri: item.currentPhoto.url } : undefined}
-        />
-        <View>
-          <Text style={{ marginBottom: globalStyles.space }}>
-            {item.username}
-          </Text>
-          <View style={{ flexDirection: 'row' }}>
-            {item.requested ? (
-              <CancelRequestBtn friendId={item.id} />
-            ) : (
-              <SendRequestBtn friendId={item.id} />
-            )}
-          </View>
-        </View>
-      </View>
-    );
-  };
+  const renderItem: ListRenderItem<User> | null | undefined = React.useCallback(
+    ({ item }) => {
+      return <ListItem item={item} />;
+    },
+    [],
+  );
 
   const suggestions =
     data && !loading
