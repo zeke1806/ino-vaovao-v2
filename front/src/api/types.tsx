@@ -182,6 +182,7 @@ export type Subscription = {
   __typename?: 'Subscription';
   acceptFriendRequestEvent: FriendHistory;
   connectEvent: User;
+  declineFriendRequestEvent: FriendHistory;
   disconnectEvent: User;
   sendFriendRequestEvent: FriendHistory;
 };

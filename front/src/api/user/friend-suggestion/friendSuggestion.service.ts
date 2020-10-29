@@ -1,6 +1,10 @@
 import * as React from 'react';
 
 import {
+  DECLINE_FRIEND_REQUEST_EVENT,
+  DeclineFriendRequestEventData,
+} from '../../friend-history/decline-friend-request/event.gql';
+import {
   FRIEND_SUGGESTION,
   FriendSuggestionData,
 } from './friendSuggestion.gql';
@@ -17,11 +21,11 @@ interface Return {
   loading: boolean;
   data: FriendSuggestionData | undefined;
   subscribeToSendFriendRequest: () => void;
+  subscribeToDeclineFriendRequest: () => void;
 }
 
 export const useFriendSuggestion = (): Return => {
   const apollo = useApolloClient();
-  const meData = apollo.cache.readQuery<MeData>({ query: ME });
 
   const { loading, data, subscribeToMore } = useQuery<FriendSuggestionData>(
     FRIEND_SUGGESTION,
@@ -31,6 +35,8 @@ export const useFriendSuggestion = (): Return => {
     subscribeToMore<SendFriendRequestEventData>({
       document: SEND_FRIEND_REQUEST_EVENT,
       updateQuery: (prev, { subscriptionData }) => {
+        const meData = apollo.cache.readQuery<MeData>({ query: ME });
+
         if (
           !subscriptionData.data ||
           !meData ||
@@ -53,9 +59,38 @@ export const useFriendSuggestion = (): Return => {
     });
   };
 
+  const subscribeToDeclineFriendRequest = (): void => {
+    subscribeToMore<DeclineFriendRequestEventData>({
+      document: DECLINE_FRIEND_REQUEST_EVENT,
+      updateQuery(prev, { subscriptionData }) {
+        const meData = apollo.cache.readQuery<MeData>({ query: ME });
+
+        if (
+          !subscriptionData ||
+          !meData ||
+          meData.me.id !==
+            subscriptionData.data.declineFriendRequestEvent.user.id
+        ) {
+          return prev;
+        }
+        return produce(prev, (draft) => {
+          draft.friendSuggestion.forEach((sugg) => {
+            if (
+              sugg.id ===
+              subscriptionData.data.declineFriendRequestEvent.friend.id
+            ) {
+              sugg.requested = false;
+            }
+          });
+        });
+      },
+    });
+  };
+
   return {
     loading,
     data,
     subscribeToSendFriendRequest,
+    subscribeToDeclineFriendRequest,
   };
 };

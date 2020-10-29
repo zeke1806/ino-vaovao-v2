@@ -14,11 +14,17 @@ import { globalStyles } from '../../styles/global';
 import { useFriendSuggestion } from '../../api/user/friend-suggestion/friendSuggestion.service';
 
 const List: React.FC = () => {
-  const { data, loading, subscribeToSendFriendRequest } = useFriendSuggestion();
+  const {
+    data,
+    loading,
+    subscribeToSendFriendRequest,
+    subscribeToDeclineFriendRequest,
+  } = useFriendSuggestion();
   const { search } = useFilterUser();
 
   React.useEffect(() => {
     subscribeToSendFriendRequest();
+    subscribeToDeclineFriendRequest();
   }, []);
 
   const renderItem: ListRenderItem<User> | null | undefined = ({ item }) => {
