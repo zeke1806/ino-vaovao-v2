@@ -8,13 +8,13 @@ const MeAvatar: React.FC = () => {
   const navigation = useNavigation();
   const { meData } = useMe();
 
-  const img = (function f(): { uri: string } | undefined {
+  const img = function f(): { uri: string } | undefined {
     if (!meData) return undefined;
     if (!meData.me.currentPhoto) return undefined;
     return {
       uri: meData.me.currentPhoto.url,
     };
-  })();
+  };
 
   const connected = !meData ? false : meData.me.statusConnected;
 
@@ -25,7 +25,7 @@ const MeAvatar: React.FC = () => {
       onPress={(): void => {
         navigation.navigate('ProfileNavigator');
       }}
-      img={img}
+      img={img()}
     />
   );
 };
