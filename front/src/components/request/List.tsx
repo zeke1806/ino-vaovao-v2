@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as listStyle from '../contact-navigator/listStyle';
 
 import { Text, View } from 'native-base';
+import { filterUtil, useFilterUser } from '../../providers/filterUser';
 
 import AcceptBtn from './AcceptBtn';
 import CommonAvatar from '../public/CommonAvatar';
@@ -14,6 +15,7 @@ import { useFriendRequests } from '../../api/user/friend-request/service';
 
 const List: React.FC = () => {
   const { data, loading, subscribreToSendFriendRequest } = useFriendRequests();
+  const { search } = useFilterUser();
 
   React.useEffect(() => {
     subscribreToSendFriendRequest();
@@ -48,7 +50,7 @@ const List: React.FC = () => {
     );
   };
 
-  const requests = data ? data.friendRequests : [];
+  const requests = data ? filterUtil(data.friendRequests, search.request) : [];
 
   return (
     <FlatList
