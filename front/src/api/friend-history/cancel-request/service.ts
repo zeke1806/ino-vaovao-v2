@@ -1,4 +1,4 @@
-import { ApolloClient, useApolloClient, useMutation } from '@apollo/client';
+import { ApolloCache, useMutation } from '@apollo/client';
 import { CANCEL_REQUEST, CancelRequestData } from './gql';
 import {
   FRIEND_SUGGESTION,
@@ -9,14 +9,14 @@ import { MutationCancelRequestArgs } from '../../types';
 import produce from 'immer';
 
 function updateFriendSuggestion(
-  apollo: ApolloClient<Record<string, any>>,
+  cache: ApolloCache<CancelRequestData>,
   friendId: number,
 ): void {
-  const prev = apollo.cache.readQuery<FriendSuggestionData>({
+  const prev = cache.readQuery<FriendSuggestionData>({
     query: FRIEND_SUGGESTION,
   });
   if (prev) {
-    apollo.cache.writeQuery<FriendSuggestionData>({
+    cache.writeQuery<FriendSuggestionData>({
       query: FRIEND_SUGGESTION,
       data: produce(prev, (draft) => {
         draft.friendSuggestion.forEach((sugg) => {
@@ -37,14 +37,13 @@ interface Return {
 export const useCancelRequest = (
   variables: MutationCancelRequestArgs,
 ): Return => {
-  const apollo = useApolloClient() as ApolloClient<Record<string, any>>;
   const [cancel, { loading }] = useMutation<
     CancelRequestData,
     MutationCancelRequestArgs
   >(CANCEL_REQUEST, {
-    onCompleted({ cancelRequest }) {
-      if (cancelRequest) {
-        updateFriendSuggestion(apollo, variables.friendId);
+    update(cache, { data }) {
+      if (data && data.cancelRequest) {
+        updateFriendSuggestion(cache, variables.friendId);
       }
     },
   });
