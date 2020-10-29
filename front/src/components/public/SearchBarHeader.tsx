@@ -1,5 +1,7 @@
 import * as React from 'react';
+
 import CommonAvatar from './CommonAvatar';
+import MeAvatar from './MeAvatar';
 import SearchBar from './SearchBar';
 import { View } from 'native-base';
 import { useNavigation } from '@react-navigation/core';
@@ -12,13 +14,7 @@ const SearchBarHeader: React.FC<SearchBarHeaderProps> = ({ right: Right }) => {
   const navigation = useNavigation();
   return (
     <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-      <CommonAvatar
-        size="medium"
-        connected
-        onPress={(): void => {
-          navigation.navigate('ProfileNavigator');
-        }}
-      />
+      <MeAvatar />
       <View style={{ flex: 1, marginHorizontal: 5 }}>
         <SearchBar />
       </View>
