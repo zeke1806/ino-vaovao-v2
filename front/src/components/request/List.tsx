@@ -13,7 +13,11 @@ import { globalStyles } from '../../styles/global';
 import { useFriendRequests } from '../../api/user/friend-request/service';
 
 const List: React.FC = () => {
-  const { data, loading } = useFriendRequests();
+  const { data, loading, subscribreToSendFriendRequest } = useFriendRequests();
+
+  React.useEffect(() => {
+    subscribreToSendFriendRequest();
+  }, []);
 
   const renderItem: ListRenderItem<User> | null | undefined = ({ item }) => {
     return (

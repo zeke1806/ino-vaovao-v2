@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import { FRIEND_REQUESTS, FriendRequestsData } from './gql';
 import { ME, MeData } from '../me/me.gql';
 import {
@@ -13,6 +11,7 @@ import produce from 'immer';
 interface Return {
   data: FriendRequestsData | undefined;
   loading: boolean;
+  subscribreToSendFriendRequest: () => void;
 }
 
 export const useFriendRequests = (): Return => {
@@ -23,7 +22,7 @@ export const useFriendRequests = (): Return => {
     FRIEND_REQUESTS,
   );
 
-  React.useEffect(() => {
+  const subscribreToSendFriendRequest = (): void => {
     subscribeToMore<SendFriendRequestEventData>({
       document: SEND_FRIEND_REQUEST_EVENT,
       updateQuery: (prev, { subscriptionData }) => {
@@ -43,10 +42,11 @@ export const useFriendRequests = (): Return => {
         });
       },
     });
-  }, []);
+  };
 
   return {
     data,
     loading,
+    subscribreToSendFriendRequest,
   };
 };
