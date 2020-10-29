@@ -5,6 +5,7 @@ import { User } from '../api/types';
 type State = {
   suggestion: string;
   request: string;
+  friend: string;
 };
 type Keys = keyof State;
 type SetSearch = (value: string, key: Keys) => void;
@@ -19,6 +20,7 @@ export const FilterUserProvider: React.FC = ({ children }) => {
   const [state, setState] = React.useState<State>({
     suggestion: '',
     request: '',
+    friend: '',
   });
 
   const value: Shape = {

@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as flatListStyle from '../contact-navigator/listStyle';
 
 import { ListRenderItem, View } from 'react-native';
+import { filterUtil, useFilterUser } from '../../providers/filterUser';
 
 import CommonAvatar from '../public/CommonAvatar';
 import { FlatList } from 'react-native-gesture-handler';
@@ -12,6 +13,7 @@ import { useFriends } from '../../api/user/friends/service';
 
 const List: React.FC = () => {
   const { data, loading } = useFriends();
+  const { search } = useFilterUser();
 
   const renderItem: ListRenderItem<User> | null | undefined = ({ item }) => {
     return (
@@ -32,7 +34,7 @@ const List: React.FC = () => {
     );
   };
 
-  const friends = data ? data.friends : [];
+  const friends = data ? filterUtil(data.friends, search.friend) : [];
 
   return (
     <FlatList
