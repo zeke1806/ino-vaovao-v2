@@ -16,6 +16,7 @@ import produce from 'immer';
 interface Return {
   loading: boolean;
   data: FriendSuggestionData | undefined;
+  subscribeToSendFriendRequest: () => void;
 }
 
 export const useFriendSuggestion = (): Return => {
@@ -26,7 +27,7 @@ export const useFriendSuggestion = (): Return => {
     FRIEND_SUGGESTION,
   );
 
-  React.useEffect(() => {
+  const subscribeToSendFriendRequest = (): void => {
     subscribeToMore<SendFriendRequestEventData>({
       document: SEND_FRIEND_REQUEST_EVENT,
       updateQuery: (prev, { subscriptionData }) => {
@@ -50,10 +51,11 @@ export const useFriendSuggestion = (): Return => {
         });
       },
     });
-  }, []);
+  };
 
   return {
     loading,
     data,
+    subscribeToSendFriendRequest,
   };
 };

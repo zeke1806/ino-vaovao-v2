@@ -8,13 +8,16 @@ import CommonAvatar from '../public/CommonAvatar';
 import { FlatList } from 'react-native-gesture-handler';
 import { ListRenderItem } from 'react-native';
 import SendRequestBtn from './SendRequestBtn';
-import SubmitBtn from '../public/SubmitBtn';
 import { User } from '../../api/types';
 import { globalStyles } from '../../styles/global';
 import { useFriendSuggestion } from '../../api/user/friend-suggestion/friendSuggestion.service';
 
 const List: React.FC = () => {
-  const { data, loading } = useFriendSuggestion();
+  const { data, loading, subscribeToSendFriendRequest } = useFriendSuggestion();
+
+  React.useEffect(() => {
+    subscribeToSendFriendRequest();
+  }, []);
 
   const renderItem: ListRenderItem<User> | null | undefined = ({ item }) => {
     return (

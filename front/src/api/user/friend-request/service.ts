@@ -16,13 +16,13 @@ interface Return {
 
 export const useFriendRequests = (): Return => {
   const apollo = useApolloClient();
-  const meData = apollo.cache.readQuery<MeData>({ query: ME });
 
   const { data, loading, subscribeToMore } = useQuery<FriendRequestsData>(
     FRIEND_REQUESTS,
   );
 
   const subscribreToSendFriendRequest = (): void => {
+    const meData = apollo.cache.readQuery<MeData>({ query: ME });
     subscribeToMore<SendFriendRequestEventData>({
       document: SEND_FRIEND_REQUEST_EVENT,
       updateQuery: (prev, { subscriptionData }) => {
