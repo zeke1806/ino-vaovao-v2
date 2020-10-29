@@ -1,22 +1,23 @@
 import { ACCEPT_FRIEND_REQUEST, AcceptFriendRequestData } from './gql';
-import { ApolloClient, useApolloClient, useMutation } from '@apollo/client';
+import { ApolloCache, useMutation } from '@apollo/client';
+import { FRIENDS, FriendsData } from '../../user/friends/gql';
 import {
   FRIEND_REQUESTS,
   FriendRequestsData,
 } from '../../user/friend-request/gql';
+import { MutationAcceptFriendRequestArgs, User } from '../../types';
 
-import { MutationAcceptFriendRequestArgs } from '../../types';
 import produce from 'immer';
 
 function updateFriendRequests(
-  apollo: ApolloClient<Record<string, any>>,
+  cache: ApolloCache<AcceptFriendRequestData>,
   userId,
 ): void {
-  const prev = apollo.readQuery<FriendRequestsData>({
+  const prev = cache.readQuery<FriendRequestsData>({
     query: FRIEND_REQUESTS,
   });
   if (prev) {
-    apollo.writeQuery<FriendRequestsData>({
+    cache.writeQuery<FriendRequestsData>({
       query: FRIEND_REQUESTS,
       data: produce(prev, (draft) => {
         draft.friendRequests.splice(
@@ -28,6 +29,21 @@ function updateFriendRequests(
   }
 }
 
+function udpateFriends(
+  cache: ApolloCache<AcceptFriendRequestData>,
+  newFriend: User,
+): void {
+  const prev =
+    cache.readQuery<FriendsData>({ query: FRIENDS }) ||
+    ({ friends: [] } as FriendsData);
+  cache.writeQuery<FriendsData>({
+    query: FRIENDS,
+    data: produce(prev, (draft) => {
+      draft.friends.unshift(newFriend);
+    }),
+  });
+}
+
 interface Return {
   submit: () => void;
   loading: boolean;
@@ -36,14 +52,16 @@ interface Return {
 export const useAcceptFriendRequest = (
   variables: MutationAcceptFriendRequestArgs,
 ): Return => {
-  const apollo = useApolloClient() as ApolloClient<Record<string, any>>;
   const [accept, { loading }] = useMutation<
     AcceptFriendRequestData,
     MutationAcceptFriendRequestArgs
   >(ACCEPT_FRIEND_REQUEST, {
-    onCompleted({ acceptFriendRequest }) {
-      const senderId = acceptFriendRequest.user;
-      updateFriendRequests(apollo, senderId);
+    update(cache, { data }) {
+      if (data) {
+        const senderId = data.acceptFriendRequest.user.id;
+        updateFriendRequests(cache, senderId);
+        udpateFriends(cache, data.acceptFriendRequest.user);
+      }
     },
   });
 
