@@ -45,5 +45,10 @@ const authLink = setContext(async (_, { headers }) => {
 
 export const client = new ApolloClient({
   link: ApolloLink.from([authLink, splitLink, notifierLink]),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({}),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: 'cache-and-network',
+    },
+  },
 });
