@@ -96,6 +96,7 @@ input SaveDiscussionInput {
 type Subscription {
   acceptFriendRequestEvent: FriendHistory!
   connectEvent: User!
+  declineFriendRequestEvent: FriendHistory!
   disconnectEvent: User!
   sendFriendRequestEvent: FriendHistory!
 }

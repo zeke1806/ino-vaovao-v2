@@ -1,15 +1,20 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Resolver, Subscription } from '@nestjs/graphql';
 import { CurrentUser, GqlAuthGuard } from '../../auth/auth.guards';
 import { AuthPayload } from '../../auth/auth.model';
 import { UserService } from '../../user/user.service';
+import { PubSubService } from '../../utils/pubSub.service';
+import { FriendHistory } from '../friend-history.entity';
 import { FriendHistoryService } from '../friend-history.service';
+
+const EVENT = 'declineFriendRequestEvent';
 
 @Resolver()
 export class DeclineFriendRequestResolver {
   constructor(
     private userService: UserService,
     private friendHistoryService: FriendHistoryService,
+    private pubSubService: PubSubService,
   ) {}
 
   @Mutation(() => Boolean)
@@ -31,6 +36,22 @@ export class DeclineFriendRequestResolver {
       friendRequest,
     );
 
+    this.pubSubService.pubSub.publish(EVENT, {
+      user: {
+        id: removedFriendRequest.userId,
+      },
+      friend: {
+        id: removedFriendRequest.friendId,
+      },
+    } as FriendHistory);
+
     return removedFriendRequest && true;
+  }
+
+  @Subscription(() => FriendHistory, {
+    resolve: (pub: FriendHistory) => pub,
+  })
+  declineFriendRequestEvent(): AsyncIterator<unknown, any, undefined> {
+    return this.pubSubService.pubSub.asyncIterator(EVENT);
   }
 }
