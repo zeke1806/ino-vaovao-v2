@@ -42,6 +42,11 @@ type Message {
   sender: User!
 }
 
+type MessagesResult {
+  data: [Message!]!
+  paginationMeta: PaginationMeta!
+}
+
 type Mutation {
   acceptFriendRequest(userId: Float!): FriendHistory!
   cancelRequest(friendId: Float!): Boolean!
@@ -58,6 +63,19 @@ type Mutation {
   uploadProfileImage(file: Upload!): PhotoProfile
 }
 
+input PaginationInput {
+  limit: Float = 10
+  page: Float = 1
+}
+
+type PaginationMeta {
+  currentPage: Float!
+  itemCount: Float!
+  itemsPerPage: Float!
+  totalItems: Float!
+  totalPages: Float!
+}
+
 type PhotoProfile {
   current: Boolean!
   id: Float!
@@ -71,6 +89,7 @@ type Query {
   friendSuggestion: [User!]!
   hello: String!
   me: User!
+  messages(discussionId: Float!, paginationInput: PaginationInput!): MessagesResult!
   userDiscussions: [Discussion!]!
 }
 
