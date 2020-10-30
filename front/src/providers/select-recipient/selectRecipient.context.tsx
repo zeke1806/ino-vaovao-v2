@@ -1,5 +1,8 @@
 import * as React from 'react';
+
 import produce, { Draft } from 'immer';
+
+import { User } from '../../api/types';
 
 // State
 
@@ -8,16 +11,22 @@ export interface State {
 }
 
 const initialState: State = {
-  selectedRecipient: [1, 2],
+  selectedRecipient: [],
 };
 
 // Action
 
 interface SelectAction {
   type: 'SELECT';
+  id: number;
 }
 
-type Actions = SelectAction;
+interface UnselectAction {
+  type: 'UNSELECT';
+  id: number;
+}
+
+type Actions = SelectAction | UnselectAction;
 export type Dispatch = (action: Actions) => void;
 
 // Reducer
@@ -25,6 +34,14 @@ export type Dispatch = (action: Actions) => void;
 const reducer = produce((draft: Draft<State>, action: Actions) => {
   switch (action.type) {
     case 'SELECT':
+      draft.selectedRecipient.push(action.id);
+      break;
+
+    case 'UNSELECT':
+      draft.selectedRecipient.splice(
+        draft.selectedRecipient.indexOf(action.id),
+        1,
+      );
       break;
   }
 });

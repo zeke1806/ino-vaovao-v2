@@ -6,6 +6,7 @@ type State = {
   suggestion: string;
   request: string;
   friend: string;
+  selectRecipient: string;
 };
 type Keys = keyof State;
 type SetSearch = (value: string, key: Keys) => void;
@@ -21,6 +22,7 @@ export const FilterUserProvider: React.FC = ({ children }) => {
     suggestion: '',
     request: '',
     friend: '',
+    selectRecipient: '',
   });
 
   const value: Shape = {

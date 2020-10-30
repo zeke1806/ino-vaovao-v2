@@ -1,10 +1,30 @@
 import * as React from 'react';
+
 import { Radio, Text, View } from 'native-base';
+import {
+  useSelectRecipientDispatch,
+  useSelectRecipientState,
+} from '../../../providers/select-recipient/selectRecipient.consumer';
+
 import CommonAvatar from '../../public/CommonAvatar';
+import { User } from '../../../api/types';
 import { globalStyles } from '../../../styles/global';
 
-const Item: React.FC = () => {
+interface Prop {
+  user: User;
+}
+
+const Item: React.FC<Prop> = ({ user }) => {
+  const dispatch = useSelectRecipientDispatch();
+  const { selectedRecipient } = useSelectRecipientState();
+
+  const select = (id: number): void => {
+    dispatch({ type: 'SELECT', id });
+  };
+
+  const selected = selectedRecipient.includes(user.id);
   const space = globalStyles.space;
+
   return (
     <View
       style={{
@@ -21,10 +41,18 @@ const Item: React.FC = () => {
           alignItems: 'center',
         }}
       >
-        <CommonAvatar size="medium" />
-        <Text>ngia</Text>
+        <CommonAvatar
+          size="medium"
+          img={user.currentPhoto ? { uri: user.currentPhoto.url } : undefined}
+        />
+        <Text>{user.username}</Text>
       </View>
-      <Radio selected={true} selectedColor={globalStyles.colors.secondary} />
+
+      <Radio
+        selected={selected}
+        selectedColor={globalStyles.colors.secondary}
+        onPress={(): void => select(user.id)}
+      />
     </View>
   );
 };
