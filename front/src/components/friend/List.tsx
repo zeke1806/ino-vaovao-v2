@@ -12,8 +12,12 @@ import { globalStyles } from '../../styles/global';
 import { useFriends } from '../../api/user/friends/service';
 
 const List: React.FC = () => {
-  const { data, loading } = useFriends();
+  const { data, loading, subscribeToAcceptFriendRequest } = useFriends();
   const { search } = useFilterUser();
+
+  React.useEffect(() => {
+    subscribeToAcceptFriendRequest();
+  }, []);
 
   const renderItem: ListRenderItem<User> | null | undefined = ({ item }) => {
     return (
