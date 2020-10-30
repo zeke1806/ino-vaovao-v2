@@ -1,10 +1,11 @@
+import { Module, forwardRef } from '@nestjs/common';
+
 import { DiscussionModule } from '../discussion/discussion.module';
 import { DiscussionUserModule } from '../discussion-user/discussion-user.module';
 import { Message } from './message.entity';
 import { MessageResolverField } from './resolver-field/message';
 import { MessageResolvers } from './resolvers';
 import { MessageService } from './message.service';
-import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '../user/user.module';
 
@@ -12,9 +13,10 @@ import { UserModule } from '../user/user.module';
   imports: [
     TypeOrmModule.forFeature([Message]),
     UserModule,
-    DiscussionModule,
+    forwardRef(() => DiscussionModule),
     DiscussionUserModule,
   ],
   providers: [MessageService, ...MessageResolvers, MessageResolverField],
+  exports: [MessageService],
 })
 export class MessageModule {}

@@ -1,1 +1,3 @@
-export const DiscussionResolvers = [];
+import { UserDiscussionsResolver } from './userDiscussions';
+
+export const DiscussionResolvers = [UserDiscussionsResolver];

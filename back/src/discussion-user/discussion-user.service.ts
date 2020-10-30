@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { User } from '../user/user.entity';
 
 import { DiscussionUser } from './discussion-user.entity';
 
@@ -13,5 +14,13 @@ export class DiscussionUserService {
 
   saveDiscussionUser(discussionUser: DiscussionUser): Promise<DiscussionUser> {
     return this.discussionUserRepository.save(discussionUser);
+  }
+
+  getUserDiscussions(user: User): Promise<DiscussionUser[]> {
+    return this.discussionUserRepository.find({
+      where: {
+        user,
+      },
+    });
   }
 }
