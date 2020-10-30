@@ -15,12 +15,14 @@ const List: React.FC = () => {
     loading,
     subscribeToSendFriendRequest,
     subscribeToDeclineFriendRequest,
+    subscribeToAccepteFriendRequest,
   } = useFriendSuggestion();
   const { search } = useFilterUser();
 
   React.useEffect(() => {
     subscribeToSendFriendRequest();
     subscribeToDeclineFriendRequest();
+    subscribeToAccepteFriendRequest();
   }, []);
 
   const renderItem: ListRenderItem<User> | null | undefined = React.useCallback(

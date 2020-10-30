@@ -1,5 +1,7 @@
-import * as React from 'react';
-
+import {
+  ACCEPT_FRIEND_REQUEST_EVENT,
+  AcceptFriendRequestEventData,
+} from '../../friend-history/accept-friend-request/event.gql';
 import {
   DECLINE_FRIEND_REQUEST_EVENT,
   DeclineFriendRequestEventData,
@@ -22,6 +24,7 @@ interface Return {
   data: FriendSuggestionData | undefined;
   subscribeToSendFriendRequest: () => void;
   subscribeToDeclineFriendRequest: () => void;
+  subscribeToAccepteFriendRequest: () => void;
 }
 
 export const useFriendSuggestion = (): Return => {
@@ -87,10 +90,40 @@ export const useFriendSuggestion = (): Return => {
     });
   };
 
+  const subscribeToAccepteFriendRequest = (): void => {
+    subscribeToMore<AcceptFriendRequestEventData>({
+      document: ACCEPT_FRIEND_REQUEST_EVENT,
+      updateQuery: (prev, { subscriptionData }) => {
+        const meData = apollo.cache.readQuery<MeData>({ query: ME });
+
+        if (
+          !subscriptionData ||
+          !meData ||
+          meData.me.id !==
+            subscriptionData.data.acceptFriendRequestEvent.user.id
+        ) {
+          return prev;
+        }
+
+        return produce(prev, (draft) => {
+          draft.friendSuggestion.splice(
+            draft.friendSuggestion
+              .map((sugg) => sugg.id)
+              .indexOf(
+                subscriptionData.data.acceptFriendRequestEvent.friend.id,
+              ),
+            1,
+          );
+        });
+      },
+    });
+  };
+
   return {
     loading,
     data,
     subscribeToSendFriendRequest,
     subscribeToDeclineFriendRequest,
+    subscribeToAccepteFriendRequest,
   };
 };
