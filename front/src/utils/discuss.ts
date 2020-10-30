@@ -10,9 +10,13 @@ export const useDiscuss = (recipient: number[]): Return => {
 
   const discuss = (): void => {
     if (recipient.length > 1) {
-      navigate('NameGroup');
+      navigate('NameGroup', {
+        recipient,
+      });
     } else if (recipient.length === 1) {
-      navigate('Message');
+      navigate('Message', {
+        recipient,
+      });
     } else {
       console.log('Veuillez selecteionner un destinataire');
     }

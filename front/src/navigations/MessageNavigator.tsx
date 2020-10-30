@@ -7,12 +7,18 @@ import {
 
 import MessageScreen from '../screens/MessageScreen';
 import NameGroupScreen from '../screens/NameGroupScreen';
+import { RouteProp } from '@react-navigation/core';
 import SelectRecipientScreen from '../screens/SelectRecipientScreen';
 
 type MessageNavigatorParamList = {
   SelectRecipient: undefined;
-  NameGroup: undefined;
-  Message: undefined;
+  NameGroup: {
+    recipient: number[];
+  };
+  Message: {
+    discussionId?: number;
+    recipient: number[];
+  };
 };
 
 const Stack = createStackNavigator<MessageNavigatorParamList>();
@@ -20,6 +26,16 @@ const Stack = createStackNavigator<MessageNavigatorParamList>();
 export type SelectRecipientScreenProps = StackNavigationProp<
   MessageNavigatorParamList,
   'SelectRecipient'
+>;
+
+export type NameGroupScreenRouteProp = RouteProp<
+  MessageNavigatorParamList,
+  'NameGroup'
+>;
+
+export type MessageScreenRouteProp = RouteProp<
+  MessageNavigatorParamList,
+  'Message'
 >;
 
 const MessageNavigator: React.FC = () => {

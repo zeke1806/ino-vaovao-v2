@@ -1,16 +1,22 @@
 import * as React from 'react';
 
 import { Button, Text } from 'native-base';
+import {
+  NameGroupScreenRouteProp,
+  SelectRecipientScreenProps,
+} from '../../navigations/MessageNavigator';
+import { useNavigation, useRoute } from '@react-navigation/core';
 
-import { SelectRecipientScreenProps } from '../../navigations/MessageNavigator';
 import { globalStyles } from '../../styles/global';
-import { useNavigation } from '@react-navigation/core';
 
 const NextBtn: React.FC = () => {
   const { navigate } = useNavigation<SelectRecipientScreenProps>();
+  const { params } = useRoute<NameGroupScreenRouteProp>();
 
   const handleNavigate = (): void => {
-    navigate('Message');
+    navigate('Message', {
+      recipient: params.recipient,
+    });
   };
 
   return (
