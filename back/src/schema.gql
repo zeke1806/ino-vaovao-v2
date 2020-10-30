@@ -2,15 +2,10 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input AffectUsersToDiscussionInput {
-  discussionId: Float!
-  usersId: [Float!]!
-}
-
-type Discussion {
-  id: Float!
-  name: String
-}
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type FriendHistory {
   accepted: Boolean!
@@ -33,19 +28,25 @@ type LoginToken {
   token: String!
 }
 
+type Message {
+  content: String!
+  createdAt: DateTime!
+  discussionId: Float!
+  id: Float!
+  sender: User!
+}
+
 type Mutation {
   acceptFriendRequest(userId: Float!): FriendHistory!
-  affectUsersToDiscussion(affectData: AffectUsersToDiscussionInput!): Boolean!
   cancelRequest(friendId: Float!): Boolean!
   connect: User!
   declineFriendRequest(userId: Float!): Boolean!
   disconnect: User!
   login(loginInput: LoginInput!): LoginResult!
   register(registerInput: RegisterInput!): RegisterResult!
-  removeDiscussion(id: Float!): Discussion!
   removeProfileImage(photoProfilePublicId: String!): RemoveProfileImageResult!
-  saveDiscussion(discussionData: SaveDiscussionInput!): Discussion!
   sendFriendRequest(friendId: Float!): FriendHistory!
+  sendMessage(data: SendMessageInput!): Message!
   setCurrentPhoto(publicId: String!): Boolean!
   updateAccount(updateAccountInput: UpdateAccountInput!): UpdateAccountResult!
   uploadProfileImage(file: Upload!): PhotoProfile
@@ -88,9 +89,11 @@ type RemoveProfileImageOk {
 
 union RemoveProfileImageResult = RemoveProfileImageError | RemoveProfileImageOk
 
-input SaveDiscussionInput {
-  id: Float
-  name: String
+input SendMessageInput {
+  content: String!
+  discussionId: Float
+  discussionName: String!
+  members: [Float!]!
 }
 
 type Subscription {

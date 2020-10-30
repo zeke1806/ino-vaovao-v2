@@ -1,11 +1,11 @@
-import { forwardRef, Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { DiscussionUserModule } from '../discussion-user/discussion-user.module';
-import { UserModule } from '../user/user.module';
+import { Module, forwardRef } from '@nestjs/common';
 
 import { Discussion } from './discussion.entity';
-import { DiscussionService } from './discussion.service';
 import { DiscussionResolvers } from './resolvers';
+import { DiscussionService } from './discussion.service';
+import { DiscussionUserModule } from '../discussion-user/discussion-user.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [

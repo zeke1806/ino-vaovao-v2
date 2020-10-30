@@ -1,3 +1,1 @@
-import { AffectUsersToDiscussionResolver } from './affectUsersToDiscussion';
-
-export const DiscussionUserResolvers = [AffectUsersToDiscussionResolver];
+export const DiscussionUserResolvers = [];

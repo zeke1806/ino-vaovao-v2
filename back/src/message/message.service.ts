@@ -10,4 +10,8 @@ export class MessageService {
     @InjectRepository(Message)
     private messageRepository: Repository<Message>,
   ) {}
+
+  saveMessage(message: Message): Promise<Message> {
+    return this.messageRepository.save(message);
+  }
 }
