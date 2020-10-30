@@ -1,23 +1,23 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ConnectionOptions } from 'typeorm';
-import { GraphQLModule, GqlModuleOptions } from '@nestjs/graphql';
-import { join } from 'path';
+import { GqlModuleOptions, GraphQLModule } from '@nestjs/graphql';
 
-import configs from './configs';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AppResolver } from './app.resolver';
-
-import { UserModule } from './user/user.module';
-import { UtilsModule } from './utils/utils.module';
+import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
-import { PhotoProfileModule } from './photo-profile/photo-profile.module';
-import { FriendHistoryModule } from './friend-history/friend-history.module';
-import { MessageModule } from './message/message.module';
+import { ConnectionOptions } from 'typeorm';
 import { DiscussionModule } from './discussion/discussion.module';
 import { DiscussionUserModule } from './discussion-user/discussion-user.module';
+import { FriendHistoryModule } from './friend-history/friend-history.module';
+import { MessageModule } from './message/message.module';
+import { Module } from '@nestjs/common';
+import { PhotoProfileModule } from './photo-profile/photo-profile.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
+import { UtilsModule } from './utils/utils.module';
+import configs from './configs';
+import { join } from 'path';
+import { ViewMessageModule } from './view-message/view-message.module';
 
 @Module({
   imports: [
@@ -55,6 +55,7 @@ import { DiscussionUserModule } from './discussion-user/discussion-user.module';
     MessageModule,
     DiscussionModule,
     DiscussionUserModule,
+    ViewMessageModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],

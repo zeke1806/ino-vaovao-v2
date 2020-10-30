@@ -5,6 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { Discussion } from '../discussion/discussion.entity';
 import { User } from '../user/user.entity';
 
@@ -18,9 +19,6 @@ export class Message {
 
   @Column({ name: 'created_at', type: 'time with time zone' })
   createdAt: Date;
-
-  @Column()
-  view: boolean;
 
   @ManyToOne(() => User)
   @JoinColumn()
