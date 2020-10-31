@@ -20,4 +20,8 @@ export class ViewMessageService {
       },
     });
   }
+
+  saveViewMessage(viewMessage: ViewMessage): Promise<ViewMessage> {
+    return this.viewMessageRepository.save(viewMessage);
+  }
 }
