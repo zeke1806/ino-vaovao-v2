@@ -1,5 +1,5 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Resolver, Subscription } from '@nestjs/graphql';
 import { CurrentUser, GqlAuthGuard } from '../../auth/auth.guards';
 import { AuthPayload } from '../../auth/auth.model';
 import { DiscussionUser } from '../../discussion-user/discussion-user.entity';
@@ -7,9 +7,12 @@ import { DiscussionUserService } from '../../discussion-user/discussion-user.ser
 import { Discussion } from '../../discussion/discussion.entity';
 import { DiscussionService } from '../../discussion/discussion.service';
 import { UserService } from '../../user/user.service';
+import { PubSubService } from '../../utils/pubSub.service';
 import { Message } from '../message.entity';
 import { MessageService } from '../message.service';
 import { SendMessageInput } from '../message.type';
+
+const EVENT = 'sendMessageEvent';
 
 @Resolver()
 export class SendMessageResolver {
@@ -18,6 +21,7 @@ export class SendMessageResolver {
     private discussionService: DiscussionService,
     private discussionUserService: DiscussionUserService,
     private userService: UserService,
+    private pubSubService: PubSubService,
   ) {}
 
   @Mutation(() => Message)
@@ -57,6 +61,15 @@ export class SendMessageResolver {
     newMessage.createdAt = new Date();
     const savedMessage = await this.messageService.saveMessage(newMessage);
 
+    this.pubSubService.pubSub.publish(EVENT, savedMessage);
+
     return savedMessage;
+  }
+
+  @Subscription(() => Message, {
+    resolve: pub => pub,
+  })
+  async sendMessageEvent(): Promise<AsyncIterator<unknown, any, undefined>> {
+    return this.pubSubService.pubSub.asyncIterator(EVENT);
   }
 }
