@@ -51,9 +51,11 @@ export class UserDiscussionsResolver {
           view: viewMessage ? true : false,
         };
 
-        discussion.participant = (
-          await this.discussionUserService.getDiscussionParticipants(id)
-        ).map(du => du.user);
+        discussion.participant = await Promise.all(
+          (
+            await this.discussionUserService.getDiscussionParticipants(id)
+          ).map(async du => this.userService.getUserById(du.userId)),
+        );
 
         return discussion;
       }),

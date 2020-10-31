@@ -11,7 +11,7 @@ type Discussion {
   id: Float!
   lastMessage: LastMessage!
   name: String
-  participant: [Float!]!
+  participant: [User!]!
 }
 
 type FriendHistory {
