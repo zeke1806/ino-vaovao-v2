@@ -20,7 +20,7 @@ export type Discussion = {
   id: Scalars['Float'];
   lastMessage: LastMessage;
   name?: Maybe<Scalars['String']>;
-  participant: Array<Scalars['Float']>;
+  participant: Array<User>;
 };
 
 export type FriendHistory = {

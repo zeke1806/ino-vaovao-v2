@@ -4,6 +4,7 @@ import { Text, View } from 'native-base';
 
 import CommonAvatar from '../../public/CommonAvatar';
 import { Discussion } from '../../../api/types';
+import GroupAvatar from '../../public/GroupAvatar';
 import IndicatorBadge from '../../public/IndicatorBadge';
 import { globalStyles } from '../../../styles/global';
 
@@ -12,13 +13,18 @@ interface ItemProps {
 }
 
 const Item: React.FC<ItemProps> = ({ discussion }) => {
-  console.log(discussion);
-  const { lastMessage } = discussion;
+  const { lastMessage, participant } = discussion;
   const { message, view } = lastMessage;
   const { sender } = message;
   const { currentPhoto } = sender;
 
   const img = currentPhoto ? { uri: currentPhoto.url } : undefined;
+  const groupImg1 = participant[0].currentPhoto
+    ? participant[0].currentPhoto.url
+    : undefined;
+  const groupImg2 = participant[1].currentPhoto
+    ? participant[1].currentPhoto.url
+    : undefined;
 
   const space = globalStyles.space;
 
@@ -36,7 +42,12 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
         globalStyles.elevation,
       ]}
     >
-      <CommonAvatar size="medium" img={img} />
+      {participant.length === 1 ? (
+        <CommonAvatar size="medium" img={img} />
+      ) : (
+        <GroupAvatar img1Url={groupImg1} img2Url={groupImg2} />
+      )}
+
       <View
         style={{
           flex: 1,

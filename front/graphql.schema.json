@@ -83,8 +83,8 @@
                   "kind": "NON_NULL",
                   "name": null,
                   "ofType": {
-                    "kind": "SCALAR",
-                    "name": "Float",
+                    "kind": "OBJECT",
+                    "name": "User",
                     "ofType": null
                   }
                 }

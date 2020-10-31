@@ -28,6 +28,12 @@ export const USER_DISCUSSIONS = gql`
         }
         view
       }
+      participant {
+        ...UserFrag
+        currentPhoto {
+          ...PhotoProfileFrag
+        }
+      }
     }
   }
   ${DISCUSSION_FRAG}
