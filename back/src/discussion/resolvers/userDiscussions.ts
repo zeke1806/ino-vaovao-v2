@@ -53,7 +53,7 @@ export class UserDiscussionsResolver {
 
         discussion.participant = (
           await this.discussionUserService.getDiscussionParticipants(id)
-        ).map(du => du.userId);
+        ).map(du => du.user);
 
         return discussion;
       }),

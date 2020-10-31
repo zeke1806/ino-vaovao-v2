@@ -2,6 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Field, ObjectType } from '@nestjs/graphql';
 
 import { LastMessage } from './discussion.types';
+import { User } from '../user/user.entity';
 
 @Entity()
 @ObjectType()
@@ -17,6 +18,6 @@ export class Discussion {
   @Field(() => LastMessage)
   lastMessage: LastMessage;
 
-  @Field(() => [Number])
-  participant: number[];
+  @Field(() => [User])
+  participant: User[];
 }
