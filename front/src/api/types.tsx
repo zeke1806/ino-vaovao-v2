@@ -8,18 +8,17 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: any;
   /** The `Upload` scalar type represents a file upload. */
   Upload: any;
 };
 
-export type AffectUsersToDiscussionInput = {
-  discussionId: Scalars['Float'];
-  usersId: Array<Scalars['Float']>;
-};
 
 export type Discussion = {
   __typename?: 'Discussion';
   id: Scalars['Float'];
+  lastMessage: LastMessage;
   name?: Maybe<Scalars['String']>;
 };
 
@@ -28,6 +27,12 @@ export type FriendHistory = {
   accepted: Scalars['Boolean'];
   friend: User;
   user: User;
+};
+
+export type LastMessage = {
+  __typename?: 'LastMessage';
+  message: Message;
+  view: Scalars['Boolean'];
 };
 
 export type LoginError = {
@@ -47,33 +52,42 @@ export type LoginToken = {
   token: Scalars['String'];
 };
 
+export type Message = {
+  __typename?: 'Message';
+  content: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  discussionId: Scalars['Float'];
+  id: Scalars['Float'];
+  sender: User;
+};
+
+export type MessagesResult = {
+  __typename?: 'MessagesResult';
+  data: Array<Message>;
+  paginationMeta: PaginationMeta;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   acceptFriendRequest: FriendHistory;
-  affectUsersToDiscussion: Scalars['Boolean'];
   cancelRequest: Scalars['Boolean'];
   connect: User;
   declineFriendRequest: Scalars['Boolean'];
   disconnect: User;
   login: LoginResult;
   register: RegisterResult;
-  removeDiscussion: Discussion;
   removeProfileImage: RemoveProfileImageResult;
-  saveDiscussion: Discussion;
   sendFriendRequest: FriendHistory;
+  sendMessage: Message;
   setCurrentPhoto: Scalars['Boolean'];
   updateAccount: UpdateAccountResult;
   uploadProfileImage?: Maybe<PhotoProfile>;
+  viewMessage: Message;
 };
 
 
 export type MutationAcceptFriendRequestArgs = {
   userId: Scalars['Float'];
-};
-
-
-export type MutationAffectUsersToDiscussionArgs = {
-  affectData: AffectUsersToDiscussionInput;
 };
 
 
@@ -97,23 +111,18 @@ export type MutationRegisterArgs = {
 };
 
 
-export type MutationRemoveDiscussionArgs = {
-  id: Scalars['Float'];
-};
-
-
 export type MutationRemoveProfileImageArgs = {
   photoProfilePublicId: Scalars['String'];
 };
 
 
-export type MutationSaveDiscussionArgs = {
-  discussionData: SaveDiscussionInput;
+export type MutationSendFriendRequestArgs = {
+  friendId: Scalars['Float'];
 };
 
 
-export type MutationSendFriendRequestArgs = {
-  friendId: Scalars['Float'];
+export type MutationSendMessageArgs = {
+  data: SendMessageInput;
 };
 
 
@@ -131,6 +140,25 @@ export type MutationUploadProfileImageArgs = {
   file: Scalars['Upload'];
 };
 
+
+export type MutationViewMessageArgs = {
+  messageId: Scalars['Float'];
+};
+
+export type PaginationInput = {
+  limit?: Maybe<Scalars['Float']>;
+  page?: Maybe<Scalars['Float']>;
+};
+
+export type PaginationMeta = {
+  __typename?: 'PaginationMeta';
+  currentPage: Scalars['Float'];
+  itemCount: Scalars['Float'];
+  itemsPerPage: Scalars['Float'];
+  totalItems: Scalars['Float'];
+  totalPages: Scalars['Float'];
+};
+
 export type PhotoProfile = {
   __typename?: 'PhotoProfile';
   current: Scalars['Boolean'];
@@ -146,6 +174,14 @@ export type Query = {
   friendSuggestion: Array<User>;
   hello: Scalars['String'];
   me: User;
+  messages: MessagesResult;
+  userDiscussions: Array<Discussion>;
+};
+
+
+export type QueryMessagesArgs = {
+  discussionId: Scalars['Float'];
+  paginationInput: PaginationInput;
 };
 
 export type RegisterError = {
@@ -173,9 +209,11 @@ export type RemoveProfileImageOk = {
 
 export type RemoveProfileImageResult = RemoveProfileImageError | RemoveProfileImageOk;
 
-export type SaveDiscussionInput = {
-  id?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
+export type SendMessageInput = {
+  content: Scalars['String'];
+  discussionId?: Maybe<Scalars['Float']>;
+  discussionName: Scalars['String'];
+  members: Array<Scalars['Float']>;
 };
 
 export type Subscription = {
@@ -185,6 +223,12 @@ export type Subscription = {
   declineFriendRequestEvent: FriendHistory;
   disconnectEvent: User;
   sendFriendRequestEvent: FriendHistory;
+  sendMessageEvent: Message;
+};
+
+
+export type SubscriptionSendMessageEventArgs = {
+  discussionId: Scalars['Float'];
 };
 
 export type UpdateAccountError = {

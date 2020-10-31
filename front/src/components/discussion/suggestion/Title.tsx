@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { Image } from 'react-native';
 import { SUGGESTION_FRIEND } from '../../../utils/Icons';
 import Titles from '../../public/Titles';
@@ -20,7 +21,7 @@ const Title: React.FC = () => (
         marginRight: globalStyles.space,
       }}
     />
-    <Titles text="Suggestion d'amis" type="h2" />
+    <Titles text="Amis" type="h2" />
   </View>
 );
 
