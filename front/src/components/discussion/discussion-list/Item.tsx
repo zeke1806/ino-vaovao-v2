@@ -12,6 +12,7 @@ interface ItemProps {
 }
 
 const Item: React.FC<ItemProps> = ({ discussion }) => {
+  console.log(discussion);
   const { lastMessage } = discussion;
   const { message, view } = lastMessage;
   const { sender } = message;

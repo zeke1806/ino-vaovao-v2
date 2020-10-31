@@ -57,5 +57,6 @@ export const DISCUSSION_FRAG = gql`
   fragment DiscussionFrag on Discussion {
     id
     name
+    participant
   }
 `;
