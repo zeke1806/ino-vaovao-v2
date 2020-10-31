@@ -16,4 +16,7 @@ export class Discussion {
 
   @Field(() => LastMessage)
   lastMessage: LastMessage;
+
+  @Field(() => [Number])
+  participant: number[];
 }

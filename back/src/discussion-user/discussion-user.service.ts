@@ -23,4 +23,11 @@ export class DiscussionUserService {
       },
     });
   }
+
+  getDiscussionParticipants(discussionId: number): Promise<DiscussionUser[]> {
+    return this.discussionUserRepository
+      .createQueryBuilder('discussionUser')
+      .where(`discussionUser.discussion = ${discussionId}`)
+      .getMany();
+  }
 }

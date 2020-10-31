@@ -51,6 +51,10 @@ export class UserDiscussionsResolver {
           view: viewMessage ? true : false,
         };
 
+        discussion.participant = (
+          await this.discussionUserService.getDiscussionParticipants(id)
+        ).map(du => du.userId);
+
         return discussion;
       }),
     );
