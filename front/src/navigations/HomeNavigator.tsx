@@ -1,14 +1,18 @@
 import * as React from 'react';
+
 import {
   BottomTabNavigationProp,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import { Image, ImageSourcePropType } from 'react-native';
 import { TAB_BAR_DISCOVERY, TAB_BAR_DISCUSSION } from '../utils/Icons';
+
 import DiscoveryScreen from '../screens/DiscoveryScreen';
 import DiscussionScreen from '../screens/DiscussionScreen';
+import IconWithBadge from '../components/public/IconWithBadge';
 import { RouteProp } from '@react-navigation/core';
 import { globalStyles } from '../styles/global';
+import { useUserDiscussions } from '../api/discussion/user-discussions/service';
 
 type TabParamList = {
   Discussion: undefined;
@@ -37,17 +41,18 @@ export type DiscoveryScreenNavigationProps = {
   route: DiscoveryScreenRoute;
 };
 
-const Icon: React.FC<{ img: unknown }> = ({ img }) => (
-  <Image
-    source={img as ImageSourcePropType}
-    style={{
-      width: globalStyles.iconSize * 2,
-      height: globalStyles.iconSize * 2,
-    }}
-  />
-);
-
 const HomeNavigator: React.FC = () => {
+  const { data } = useUserDiscussions();
+
+  const unread = (): string => {
+    if (!data) return '0';
+    return String(
+      data.userDiscussions.filter((ud) => !ud.lastMessage.view).length,
+    );
+  };
+
+  const iconSize = globalStyles.iconSize * 2;
+
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -72,7 +77,17 @@ const HomeNavigator: React.FC = () => {
       <Tab.Screen
         options={{
           tabBarIcon(): React.ReactNode {
-            return <Icon img={TAB_BAR_DISCUSSION} />;
+            return (
+              <IconWithBadge
+                img={TAB_BAR_DISCUSSION}
+                size={iconSize}
+                badge={unread()}
+                badgePosition={{
+                  top: -5,
+                  right: 0,
+                }}
+              />
+            );
           },
         }}
         name="Discussion"
@@ -81,7 +96,7 @@ const HomeNavigator: React.FC = () => {
       <Tab.Screen
         options={{
           tabBarIcon(): React.ReactNode {
-            return <Icon img={TAB_BAR_DISCOVERY} />;
+            return <IconWithBadge img={TAB_BAR_DISCOVERY} size={iconSize} />;
           },
         }}
         name="Decouverte"
