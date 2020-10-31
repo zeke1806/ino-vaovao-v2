@@ -1,15 +1,26 @@
 import * as React from 'react';
+
 import { Text, View } from 'native-base';
+
 import CommonAvatar from '../../public/CommonAvatar';
+import { Discussion } from '../../../api/types';
 import IndicatorBadge from '../../public/IndicatorBadge';
 import { globalStyles } from '../../../styles/global';
 
 interface ItemProps {
-  view: boolean;
+  discussion: Discussion;
 }
 
-const Item: React.FC<ItemProps> = ({ view }) => {
+const Item: React.FC<ItemProps> = ({ discussion }) => {
+  const { lastMessage } = discussion;
+  const { message, view } = lastMessage;
+  const { sender } = message;
+  const { currentPhoto } = sender;
+
+  const img = currentPhoto ? { uri: currentPhoto.url } : undefined;
+
   const space = globalStyles.space;
+
   return (
     <View
       style={[
@@ -24,7 +35,7 @@ const Item: React.FC<ItemProps> = ({ view }) => {
         globalStyles.elevation,
       ]}
     >
-      <CommonAvatar size="medium" />
+      <CommonAvatar size="medium" img={img} />
       <View
         style={{
           flex: 1,
@@ -32,11 +43,11 @@ const Item: React.FC<ItemProps> = ({ view }) => {
           paddingLeft: globalStyles.space,
         }}
       >
-        <Text style={{ color: '#3F3F3F' }}>Name</Text>
+        <Text style={{ color: '#3F3F3F' }}>{sender.username}</Text>
         {view ? (
-          <Text>Message</Text>
+          <Text>{message.content}</Text>
         ) : (
-          <Text style={{ fontWeight: 'bold' }}>Message</Text>
+          <Text style={{ fontWeight: 'bold' }}>{message.content}</Text>
         )}
       </View>
 

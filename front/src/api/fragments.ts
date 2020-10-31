@@ -43,3 +43,19 @@ export const FRIEND_HISTORY_FRAG = gql`
   ${USER_FRAG}
   ${PHOTO_PROFILE_FRAG}
 `;
+
+export const MESSAGE_FRAG = gql`
+  fragment MessageFrag on Message {
+    id
+    content
+    createdAt
+    discussionId
+  }
+`;
+
+export const DISCUSSION_FRAG = gql`
+  fragment DiscussionFrag on Discussion {
+    id
+    name
+  }
+`;

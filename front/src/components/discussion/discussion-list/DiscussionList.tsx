@@ -1,27 +1,31 @@
 import * as React from 'react';
+
+import { Discussion } from '../../../api/types';
 import { FlatList } from 'react-native-gesture-handler';
 import Item from './Item';
 import { ListRenderItem } from 'react-native';
-import { globalStyles } from '../../../styles/global';
+import { useUserDiscussions } from '../../../api/discussion/user-discussions/service';
 
 interface DiscussionList {
   before?: React.FC<unknown>;
 }
 
 const DiscussionList: React.FC<DiscussionList> = ({ before: Before }) => {
-  const renderItem: ListRenderItem<never> | null | undefined = () => (
-    <Item view={false} />
-  );
+  const { data, loading } = useUserDiscussions();
+
+  const renderItem: ListRenderItem<Discussion> | null | undefined = ({
+    item,
+  }) => <Item discussion={item} />;
+
+  const discussions = data ? data.userDiscussions : [];
 
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      data={[...Array(10)].map((_, i) => i)}
+      data={discussions}
       renderItem={renderItem}
-      // keyExtractor={}
       ListHeaderComponent={Before || null}
+      keyExtractor={(item): string => String(item.id)}
     />
   );
 };
