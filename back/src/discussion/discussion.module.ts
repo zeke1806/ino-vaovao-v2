@@ -7,6 +7,7 @@ import { DiscussionUserModule } from '../discussion-user/discussion-user.module'
 import { MessageModule } from '../message/message.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '../user/user.module';
+import { ViewMessageModule } from '../view-message/view-message.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { UserModule } from '../user/user.module';
     forwardRef(() => UserModule),
     forwardRef(() => DiscussionUserModule),
     forwardRef(() => MessageModule),
+    ViewMessageModule,
   ],
   providers: [DiscussionService, ...DiscussionResolvers],
   exports: [DiscussionService],

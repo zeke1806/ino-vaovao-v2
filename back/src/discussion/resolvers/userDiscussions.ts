@@ -5,6 +5,7 @@ import { AuthPayload } from '../../auth/auth.model';
 import { DiscussionUserService } from '../../discussion-user/discussion-user.service';
 import { MessageService } from '../../message/message.service';
 import { UserService } from '../../user/user.service';
+import { ViewMessageService } from '../../view-message/view-message.service';
 
 import { Discussion } from '../discussion.entity';
 import { DiscussionService } from '../discussion.service';
@@ -16,6 +17,7 @@ export class UserDiscussionsResolver {
     private discussionUserService: DiscussionUserService,
     private userService: UserService,
     private messageService: MessageService,
+    private viewMessageService: ViewMessageService,
   ) {}
 
   @Query(() => [Discussion])
@@ -35,13 +37,20 @@ export class UserDiscussionsResolver {
     return Promise.all(
       userDiscussions.map(async id => {
         const discussion = await this.discussionService.getDiscussionById(id);
-        const {
-          lastMessageId,
-        } = await this.messageService.getLastDiscussionMessage(id);
-        console.log(lastMessageId);
-        discussion.lastMessage = await this.messageService.getMessageById(
-          lastMessageId,
+        const lastMessageId = (
+          await this.messageService.getLastDiscussionMessage(id)
+        ).lastMessageId;
+        const message = await this.messageService.getMessageById(lastMessageId);
+        const viewMessage = await this.viewMessageService.getViewMessage(
+          user,
+          message,
         );
+
+        discussion.lastMessage = {
+          message,
+          view: viewMessage ? true : false,
+        };
+
         return discussion;
       }),
     );

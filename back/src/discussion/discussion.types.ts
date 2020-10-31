@@ -1,4 +1,15 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { Field, InputType, ObjectType } from '@nestjs/graphql';
+
+import { Message } from '../message/message.entity';
+
+@ObjectType()
+export class LastMessage {
+  @Field(() => Message)
+  message: Message;
+
+  @Field()
+  view: boolean;
+}
 
 @InputType()
 export class SaveDiscussionInput {

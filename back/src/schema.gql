@@ -9,7 +9,7 @@ scalar DateTime
 
 type Discussion {
   id: Float!
-  lastMessage: Message!
+  lastMessage: LastMessage!
   name: String
 }
 
@@ -17,6 +17,11 @@ type FriendHistory {
   accepted: Boolean!
   friend: User!
   user: User!
+}
+
+type LastMessage {
+  message: Message!
+  view: Boolean!
 }
 
 type LoginError {
