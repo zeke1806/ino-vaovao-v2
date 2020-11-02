@@ -1,3 +1,4 @@
+import { Discussion } from '../api/types';
 import { SelectRecipientScreenProps } from '../navigations/MessageNavigator';
 import { useNavigation } from '@react-navigation/core';
 
@@ -15,7 +16,11 @@ export const useDiscuss = (recipient: number[]): Return => {
       });
     } else if (recipient.length === 1) {
       navigate('Message', {
-        recipient,
+        discussion: {
+          participant: recipient.map((id) => ({
+            id,
+          })),
+        } as Discussion,
       });
     } else {
       console.log('Veuillez selecteionner un destinataire');

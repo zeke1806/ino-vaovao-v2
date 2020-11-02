@@ -11,10 +11,12 @@ import { useRoute } from '@react-navigation/core';
 const MessageScreen: React.FC = () => {
   const { params } = useRoute<MessageScreenRouteProp>();
 
+  const discussion = params.discussion;
+
   return (
     <ScreenContainer>
-      <Header left={<BackBtn />} title="Nouveau message" />
-      <DiscussionType />
+      <Header left={<BackBtn />} title={discussion.name || 'Message'} />
+      <DiscussionType discussion={discussion} />
       <Gifted />
     </ScreenContainer>
   );

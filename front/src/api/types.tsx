@@ -17,6 +17,7 @@ export type Scalars = {
 
 export type Discussion = {
   __typename?: 'Discussion';
+  creator: User;
   id: Scalars['Float'];
   lastMessage: LastMessage;
   name?: Maybe<Scalars['String']>;

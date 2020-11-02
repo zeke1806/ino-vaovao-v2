@@ -27,7 +27,7 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
     navigate('MessageNavigator', {
       screen: 'Message',
       params: {
-        discussionId: discussion.id,
+        discussion: discussion,
         recipient: discussion.participant.map((p) => p.id),
       } as MessageScreenParams,
     });

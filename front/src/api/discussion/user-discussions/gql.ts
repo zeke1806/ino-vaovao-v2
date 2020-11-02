@@ -34,6 +34,9 @@ export const USER_DISCUSSIONS = gql`
           ...PhotoProfileFrag
         }
       }
+      creator {
+        ...UserFrag
+      }
     }
   }
   ${DISCUSSION_FRAG}

@@ -7,6 +7,7 @@ import {
 } from '../../navigations/MessageNavigator';
 import { useNavigation, useRoute } from '@react-navigation/core';
 
+import { Discussion } from '../../api/types';
 import { globalStyles } from '../../styles/global';
 
 const NextBtn: React.FC = () => {
@@ -15,7 +16,11 @@ const NextBtn: React.FC = () => {
 
   const handleNavigate = (): void => {
     navigate('Message', {
-      recipient: params.recipient,
+      discussion: {
+        participant: params.recipient.map((id) => ({
+          id,
+        })),
+      } as Discussion,
     });
   };
 

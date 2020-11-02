@@ -1,18 +1,35 @@
 import * as React from 'react';
+
 import { Button, Text, View } from 'native-base';
+
 import GroupAvatar from '../../public/GroupAvatar';
 import Titles from '../../public/Titles';
+import { User } from '../../../api/types';
 import { globalStyles } from '../../../styles/global';
 
-const GroupRecipient: React.FC = () => {
+interface GroupRecipientProp {
+  name: string;
+  creator: string;
+  members: User[];
+  img1?: string;
+  img2?: string;
+}
+
+const GroupRecipient: React.FC<GroupRecipientProp> = ({
+  name,
+  creator,
+  members,
+  img1,
+  img2,
+}) => {
   return (
     <View style={{ alignItems: 'center' }}>
       <View>
-        <GroupAvatar />
+        <GroupAvatar img1Url={img1} img2Url={img2} />
       </View>
-      <Titles type="h2" text="Les anges 12" />
-      <Titles type="h3" text="Sarah Millord a creers ce groupe" />
-      <Titles type="h3" text="Vous avez 2 membres dans ce groupe" />
+      <Titles type="h2" text={name} />
+      <Titles type="h3" text={`${creator} a creer ce groupe`} />
+      <Titles type="h3" text={`Ce groupe compte ${members.length} membre(s)`} />
       <View>
         <Button transparent>
           <Text

@@ -5,14 +5,14 @@ import {
   createStackNavigator,
 } from '@react-navigation/stack';
 
+import { Discussion } from '../api/types';
 import MessageScreen from '../screens/MessageScreen';
 import NameGroupScreen from '../screens/NameGroupScreen';
 import { RouteProp } from '@react-navigation/core';
 import SelectRecipientScreen from '../screens/SelectRecipientScreen';
 
 export type MessageScreenParams = {
-  discussionId?: number;
-  recipient: number[];
+  discussion: Discussion;
 };
 export type MessageNavigatorParamList = {
   SelectRecipient: undefined;
