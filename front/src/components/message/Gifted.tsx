@@ -1,36 +1,45 @@
+import {
+  Discussion,
+  Message,
+  Message as MyMessage,
+  User,
+} from '../../api/types';
 import React, { useCallback, useEffect, useState } from 'react';
+
 import { GiftedChat } from 'react-native-gifted-chat';
+import { Text } from 'react-native-svg';
+import { useMe } from '../../api/user/me/me.service';
+import { useMessages } from '../../api/message/messages/service';
 
-const Gifted: React.FC = () => {
-  const [messages, setMessages] = useState<Array<any>>([]);
+interface GiftedProp {
+  messages: Message[];
+}
 
-  useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: 'Hello developer',
-        createdAt: new Date(),
-        user: {
-          _id: 2,
-          name: 'React Native',
-          avatar: 'https://placeimg.com/140/140/any',
-        },
-      },
-    ]);
-  }, []);
+const Gifted: React.FC<GiftedProp> = ({ messages }) => {
+  const { meData } = useMe();
 
-  const onSend = useCallback((messages = []) => {
-    setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, messages),
-    );
-  }, []);
+  const me = meData!.me;
+  const formatMessages = messages.map((m) => ({
+    _id: m.id,
+    text: m.content,
+    createdAt: new Date(m.createdAt),
+    user: {
+      _id: m.sender.id,
+      name: m.sender.username,
+      avatar: m.sender.currentPhoto ? m.sender.currentPhoto.url : undefined,
+    },
+  }));
 
   return (
     <GiftedChat
-      messages={messages}
-      onSend={(messages): void => onSend(messages)}
+      messages={formatMessages}
+      onSend={(messages): void => {
+        //
+      }}
       user={{
-        _id: 1,
+        _id: me.id,
+        name: me.username,
+        avatar: me.currentPhoto ? me.currentPhoto.url : undefined,
       }}
     />
   );

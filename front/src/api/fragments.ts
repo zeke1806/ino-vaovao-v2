@@ -1,5 +1,15 @@
 import { gql } from '@apollo/client';
 
+export const PAGINATION_META_FRAG = gql`
+  fragment PaginationMetaFrag on PaginationMeta {
+    currentPage
+    itemCount
+    itemsPerPage
+    totalItems
+    totalPages
+  }
+`;
+
 export const PHOTO_PROFILE_FRAG = gql`
   fragment PhotoProfileFrag on PhotoProfile {
     id
