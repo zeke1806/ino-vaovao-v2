@@ -10,7 +10,7 @@ import NameGroupScreen from '../screens/NameGroupScreen';
 import { RouteProp } from '@react-navigation/core';
 import SelectRecipientScreen from '../screens/SelectRecipientScreen';
 
-type MessageNavigatorParamList = {
+export type MessageNavigatorParamList = {
   SelectRecipient: undefined;
   NameGroup: {
     recipient: number[];

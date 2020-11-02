@@ -4,19 +4,32 @@ import { Text, View } from 'native-base';
 
 import CommonAvatar from '../../public/CommonAvatar';
 import { Discussion } from '../../../api/types';
+import { DiscussionScreenNavigation } from '../../../navigations/HomeNavigator';
 import GroupAvatar from '../../public/GroupAvatar';
 import IndicatorBadge from '../../public/IndicatorBadge';
+import { TouchableOpacity } from 'react-native';
 import { globalStyles } from '../../../styles/global';
+import { useNavigation } from '@react-navigation/core';
 
 interface ItemProps {
   discussion: Discussion;
 }
 
 const Item: React.FC<ItemProps> = ({ discussion }) => {
+  const { navigate } = useNavigation();
   const { lastMessage, participant } = discussion;
   const { message, view } = lastMessage;
   const { sender } = message;
   const { currentPhoto } = sender;
+
+  const handleClick = (): void =>
+    navigate('MessageNavigator', {
+      screen: 'Message',
+      params: {
+        discussionId: discussion.id,
+        recipient: discussion.participant.map((p) => p.id),
+      },
+    });
 
   const img = currentPhoto ? { uri: currentPhoto.url } : undefined;
   const groupImg1 = participant[0].currentPhoto
@@ -29,7 +42,8 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
   const space = globalStyles.space;
 
   return (
-    <View
+    <TouchableOpacity
+      onPress={handleClick}
       style={[
         {
           flexDirection: 'row',
@@ -70,7 +84,7 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
       >
         {!view && <IndicatorBadge color="grey" />}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

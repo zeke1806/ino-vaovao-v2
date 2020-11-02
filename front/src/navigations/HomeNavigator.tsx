@@ -4,13 +4,15 @@ import {
   BottomTabNavigationProp,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import { Image, ImageSourcePropType } from 'react-native';
 import { TAB_BAR_DISCOVERY, TAB_BAR_DISCUSSION } from '../utils/Icons';
 
+import { CompositeNavigationProp } from '@react-navigation/native';
 import DiscoveryScreen from '../screens/DiscoveryScreen';
 import DiscussionScreen from '../screens/DiscussionScreen';
 import IconWithBadge from '../components/public/IconWithBadge';
+import { MessageNavigatorParamList } from './MessageNavigator';
 import { RouteProp } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { globalStyles } from '../styles/global';
 import { useUserDiscussions } from '../api/discussion/user-discussions/service';
 
@@ -25,6 +27,7 @@ export type DiscussionScreenNavigation = BottomTabNavigationProp<
   TabParamList,
   'Discussion'
 >;
+
 export type DiscussionScreenRoute = RouteProp<TabParamList, 'Discussion'>;
 export type DiscussionScreenNavigationProps = {
   navigation: DiscussionScreenNavigation;
