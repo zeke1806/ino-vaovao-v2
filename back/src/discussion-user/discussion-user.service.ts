@@ -24,6 +24,14 @@ export class DiscussionUserService {
     });
   }
 
+  getDiscussionCreator(discussionId: number): Promise<DiscussionUser> {
+    return this.discussionUserRepository
+      .createQueryBuilder('du')
+      .where(`du.discussion = ${discussionId}`)
+      .andWhere(`du.creator = ${true}`)
+      .getOne();
+  }
+
   getDiscussionParticipants(discussionId: number): Promise<DiscussionUser[]> {
     return this.discussionUserRepository
       .createQueryBuilder('discussionUser')

@@ -20,4 +20,7 @@ export class Discussion {
 
   @Field(() => [User])
   participant: User[];
+
+  @Field(() => User)
+  creator: User;
 }

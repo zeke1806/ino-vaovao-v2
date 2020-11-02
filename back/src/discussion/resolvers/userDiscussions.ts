@@ -57,6 +57,11 @@ export class UserDiscussionsResolver {
           ).map(async du => this.userService.getUserById(du.userId)),
         );
 
+        discussion.creator = await this.userService.getUserById(
+          (await this.discussionUserService.getDiscussionCreator(discussion.id))
+            .userId,
+        );
+
         return discussion;
       }),
     );
