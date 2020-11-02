@@ -7,6 +7,7 @@ import { Discussion } from '../../../api/types';
 import { DiscussionScreenNavigation } from '../../../navigations/HomeNavigator';
 import GroupAvatar from '../../public/GroupAvatar';
 import IndicatorBadge from '../../public/IndicatorBadge';
+import { MessageScreenParams } from '../../../navigations/MessageNavigator';
 import { TouchableOpacity } from 'react-native';
 import { globalStyles } from '../../../styles/global';
 import { useNavigation } from '@react-navigation/core';
@@ -28,7 +29,7 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
       params: {
         discussionId: discussion.id,
         recipient: discussion.participant.map((p) => p.id),
-      },
+      } as MessageScreenParams,
     });
 
   const img = currentPhoto ? { uri: currentPhoto.url } : undefined;
