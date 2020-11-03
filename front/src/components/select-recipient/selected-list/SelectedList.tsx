@@ -16,9 +16,12 @@ const SelectedList: React.FC = () => {
     return <Item user={item} />;
   };
 
-  const seleted = data
-    ? data.friends.filter((u) => selectedRecipient.includes(u.id))
-    : [];
+  const seleted = (): User[] => {
+    if (!data) return [];
+    return data.friends.filter((u) =>
+      selectedRecipient.map((sr) => sr.id).includes(u.id),
+    );
+  };
 
   return (
     <View>
@@ -27,7 +30,7 @@ const SelectedList: React.FC = () => {
         contentContainerStyle={{
           marginTop: globalStyles.space,
         }}
-        data={seleted}
+        data={seleted()}
         renderItem={renderItem}
         keyExtractor={(item): string => String(item.id)}
       />

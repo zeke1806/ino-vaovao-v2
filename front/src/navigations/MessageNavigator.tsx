@@ -1,11 +1,11 @@
 import * as React from 'react';
 
+import { Discussion, User } from '../api/types';
 import {
   StackNavigationProp,
   createStackNavigator,
 } from '@react-navigation/stack';
 
-import { Discussion } from '../api/types';
 import MessageScreen from '../screens/MessageScreen';
 import NameGroupScreen from '../screens/NameGroupScreen';
 import { RouteProp } from '@react-navigation/core';
@@ -14,11 +14,12 @@ import SelectRecipientScreen from '../screens/SelectRecipientScreen';
 export type MessageScreenParams = {
   discussion: Discussion;
 };
+export type NameGroupParams = {
+  members: User[];
+};
 export type MessageNavigatorParamList = {
   SelectRecipient: undefined;
-  NameGroup: {
-    recipient: number[];
-  };
+  NameGroup: NameGroupParams;
   Message: MessageScreenParams;
 };
 

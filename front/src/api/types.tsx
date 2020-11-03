@@ -15,7 +15,6 @@ export type Scalars = {
 };
 
 export type CreateDiscussionInput = {
-  id: Scalars['Float'];
   members: Array<Scalars['Float']>;
   name: Scalars['String'];
 };

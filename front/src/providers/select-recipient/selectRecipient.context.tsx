@@ -7,7 +7,7 @@ import { User } from '../../api/types';
 // State
 
 export interface State {
-  selectedRecipient: Array<number>;
+  selectedRecipient: User[];
 }
 
 const initialState: State = {
@@ -18,12 +18,12 @@ const initialState: State = {
 
 interface SelectAction {
   type: 'SELECT';
-  id: number;
+  user: User;
 }
 
 interface UnselectAction {
   type: 'UNSELECT';
-  id: number;
+  user: User;
 }
 
 type Actions = SelectAction | UnselectAction;
@@ -34,12 +34,12 @@ export type Dispatch = (action: Actions) => void;
 const reducer = produce((draft: Draft<State>, action: Actions) => {
   switch (action.type) {
     case 'SELECT':
-      draft.selectedRecipient.push(action.id);
+      draft.selectedRecipient.push(action.user);
       break;
 
     case 'UNSELECT':
       draft.selectedRecipient.splice(
-        draft.selectedRecipient.indexOf(action.id),
+        draft.selectedRecipient.map((u) => u.id).indexOf(action.user.id),
         1,
       );
       break;

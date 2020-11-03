@@ -17,7 +17,7 @@ const Unselect: React.FC<Prop> = ({ user }) => {
   const dispatch = useSelectRecipientDispatch();
 
   const unselect = (): void => {
-    dispatch({ type: 'UNSELECT', id: user.id });
+    dispatch({ type: 'UNSELECT', user });
   };
 
   const space = globalStyles.space / 5;

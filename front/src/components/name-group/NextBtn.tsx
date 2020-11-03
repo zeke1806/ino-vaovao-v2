@@ -14,18 +14,8 @@ const NextBtn: React.FC = () => {
   const { navigate } = useNavigation<SelectRecipientScreenProps>();
   const { params } = useRoute<NameGroupScreenRouteProp>();
 
-  const handleNavigate = (): void => {
-    navigate('Message', {
-      discussion: {
-        participant: params.recipient.map((id) => ({
-          id,
-        })),
-      } as Discussion,
-    });
-  };
-
   return (
-    <Button transparent onPress={handleNavigate}>
+    <Button transparent>
       <Text style={{ color: globalStyles.colors.tertiary }}>Suivant</Text>
     </Button>
   );

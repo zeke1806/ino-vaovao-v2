@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import BackBtn from '../components/public/BackBtn';
+import BackBtn from '../components/message/BackBtn';
 import DiscussionType from '../components/message/discussion-type/DiscussionType';
 import Gifted from '../components/message/Gifted';
 import Header from '../components/public/header/Header';
@@ -28,7 +28,7 @@ const MessageScreen: React.FC = () => {
   return (
     <ScreenContainer>
       <Header
-        left={<BackBtn />}
+        left={<BackBtn messages={messages} />}
         title={discussion.name || 'Message'}
         right={
           messages.length ? (

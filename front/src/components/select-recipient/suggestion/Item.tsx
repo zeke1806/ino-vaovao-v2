@@ -18,11 +18,11 @@ const Item: React.FC<Prop> = ({ user }) => {
   const dispatch = useSelectRecipientDispatch();
   const { selectedRecipient } = useSelectRecipientState();
 
-  const select = (id: number): void => {
-    dispatch({ type: 'SELECT', id });
+  const select = (user: User): void => {
+    dispatch({ type: 'SELECT', user });
   };
 
-  const selected = selectedRecipient.includes(user.id);
+  const selected = selectedRecipient.includes(user);
   const space = globalStyles.space;
 
   return (
@@ -51,7 +51,7 @@ const Item: React.FC<Prop> = ({ user }) => {
       <Radio
         selected={selected}
         selectedColor={globalStyles.colors.secondary}
-        onPress={(): void => select(user.id)}
+        onPress={(): void => select(user)}
       />
     </View>
   );

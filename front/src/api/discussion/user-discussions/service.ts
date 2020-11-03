@@ -8,7 +8,9 @@ interface Return {
 }
 
 export const useUserDiscussions = (): Return => {
-  const { data, loading } = useQuery<UserDiscussionsData>(USER_DISCUSSIONS);
+  const { data, loading } = useQuery<UserDiscussionsData>(USER_DISCUSSIONS, {
+    fetchPolicy: 'cache-and-network',
+  });
   return {
     data,
     loading,
