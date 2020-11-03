@@ -33,7 +33,7 @@ export class Message {
   @RelationId((message: Message) => message.sender)
   senderId: number;
 
-  @ManyToOne(() => Discussion)
+  @ManyToOne(() => Discussion, { onDelete: 'CASCADE', nullable: false })
   @JoinColumn()
   discussion: Discussion;
   @Field()

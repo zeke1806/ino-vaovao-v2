@@ -2,12 +2,12 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver, Subscription } from '@nestjs/graphql';
 import { CurrentUser, GqlAuthGuard } from '../../auth/auth.guards';
 import { AuthPayload } from '../../auth/auth.model';
-import { DiscussionUser } from '../../discussion-user/discussion-user.entity';
-import { DiscussionUserService } from '../../discussion-user/discussion-user.service';
 import { Discussion } from '../../discussion/discussion.entity';
 import { DiscussionService } from '../../discussion/discussion.service';
 import { UserService } from '../../user/user.service';
 import { PubSubService } from '../../utils/pubSub.service';
+import { ViewMessage } from '../../view-message/view-message.entity';
+import { ViewMessageService } from '../../view-message/view-message.service';
 import { Message } from '../message.entity';
 import { MessageService } from '../message.service';
 import { SendMessageInput } from '../message.type';
@@ -19,57 +19,45 @@ export class SendMessageResolver {
   constructor(
     private messageService: MessageService,
     private discussionService: DiscussionService,
-    private discussionUserService: DiscussionUserService,
     private userService: UserService,
     private pubSubService: PubSubService,
+    private viewMessageService: ViewMessageService,
   ) {}
 
-  @Mutation(() => Message)
+  @Mutation(() => Discussion)
   @UseGuards(GqlAuthGuard)
   async sendMessage(
     @CurrentUser() { payload }: AuthPayload,
     @Args('data') data: SendMessageInput,
-  ): Promise<Message> {
-    const { members, discussionId, discussionName, content } = data;
-    let discussion: Discussion;
-
-    if (discussionId) {
-      discussion = await this.discussionService.getDiscussionById(discussionId);
-    } else {
-      // first message
-      discussion = new Discussion();
-      discussion.name = discussionName;
-      discussion = await this.discussionService.saveDiscussion(discussion);
-
-      await Promise.all(
-        members.map(async id => {
-          const discussionUser = new DiscussionUser();
-          discussionUser.discussion = discussion;
-          discussionUser.user = await this.userService.getUserById(id);
-          if (payload.id === id) discussionUser.creator = true;
-          return await this.discussionUserService.saveDiscussionUser(
-            discussionUser,
-          );
-        }),
-      );
-    }
+  ): Promise<Discussion> {
+    const sender = await this.userService.getUserById(payload.id);
+    const { discussionId, content } = data;
+    const discussion = await this.discussionService.getDiscussionById(
+      discussionId,
+    );
 
     const newMessage = new Message();
-    newMessage.sender = await this.userService.getUserById(payload.id);
     newMessage.discussion = discussion;
+    newMessage.sender = sender;
     newMessage.content = content;
     newMessage.createdAt = new Date();
     const savedMessage = await this.messageService.saveMessage(newMessage);
 
-    this.pubSubService.pubSub.publish(EVENT, savedMessage);
+    const viewMessage = new ViewMessage();
+    viewMessage.user = sender;
+    viewMessage.message = savedMessage;
+    viewMessage.view = true;
+    await this.viewMessageService.saveViewMessage(viewMessage);
 
-    return savedMessage;
+    this.pubSubService.pubSub.publish(EVENT, discussion);
+
+    return discussion;
   }
 
-  @Subscription(() => Message, {
+  @Subscription(() => Discussion, {
     resolve: pub => pub,
-    filter: (payload: Message, variables: { discussionId: number }) =>
-      payload.discussionId === variables.discussionId,
+    filter: (payload: Discussion, variables: { discussionId: number }) =>
+      payload.id === variables.discussionId,
   })
   async sendMessageEvent(
     @Args('discussionId') discussionId: number,

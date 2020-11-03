@@ -5,7 +5,7 @@ import { User } from '../user/user.entity';
 
 @Entity()
 export class ViewMessage {
-  @ManyToOne(() => Message, { primary: true })
+  @ManyToOne(() => Message, { primary: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'message' })
   message: Message;
   @RelationId((viewMessage: ViewMessage) => viewMessage.message)

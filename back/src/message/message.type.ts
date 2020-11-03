@@ -5,14 +5,8 @@ import { PaginationMeta } from '../utils/paginationUtils';
 
 @InputType()
 export class SendMessageInput {
-  @Field({ nullable: true })
-  discussionId?: number;
-
-  @Field(() => [Number])
-  members: number[];
-
   @Field()
-  discussionName: string;
+  discussionId: number;
 
   @Field()
   content: string;

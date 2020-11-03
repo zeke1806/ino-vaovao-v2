@@ -1,6 +1,7 @@
 import { Module, forwardRef } from '@nestjs/common';
 
 import { Discussion } from './discussion.entity';
+import { DiscussionResolverField } from './resolver-field/discussion';
 import { DiscussionResolvers } from './resolvers';
 import { DiscussionService } from './discussion.service';
 import { DiscussionUserModule } from '../discussion-user/discussion-user.module';
@@ -17,7 +18,11 @@ import { ViewMessageModule } from '../view-message/view-message.module';
     forwardRef(() => MessageModule),
     ViewMessageModule,
   ],
-  providers: [DiscussionService, ...DiscussionResolvers],
+  providers: [
+    DiscussionService,
+    ...DiscussionResolvers,
+    DiscussionResolverField,
+  ],
   exports: [DiscussionService],
 })
 export class DiscussionModule {}

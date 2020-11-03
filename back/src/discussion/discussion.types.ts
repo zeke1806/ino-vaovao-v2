@@ -12,10 +12,13 @@ export class LastMessage {
 }
 
 @InputType()
-export class SaveDiscussionInput {
-  @Field({ nullable: true })
+export class CreateDiscussionInput {
+  @Field()
   id: number;
 
-  @Field({ nullable: true })
+  @Field()
   name: string;
+
+  @Field(() => [Number])
+  members: number[];
 }

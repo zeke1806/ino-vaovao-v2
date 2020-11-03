@@ -2,6 +2,12 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateDiscussionInput {
+  id: Float!
+  members: [Float!]!
+  name: String!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -10,9 +16,9 @@ scalar DateTime
 type Discussion {
   creator: User!
   id: Float!
-  lastMessage: LastMessage!
-  name: String
-  participant: [User!]!
+  lastMessage: LastMessage
+  members: [User!]!
+  name: String!
 }
 
 type FriendHistory {
@@ -58,13 +64,15 @@ type Mutation {
   acceptFriendRequest(userId: Float!): FriendHistory!
   cancelRequest(friendId: Float!): Boolean!
   connect: User!
+  createDiscussion(data: CreateDiscussionInput!): Discussion!
   declineFriendRequest(userId: Float!): Boolean!
   disconnect: User!
   login(loginInput: LoginInput!): LoginResult!
   register(registerInput: RegisterInput!): RegisterResult!
+  removeDiscussion(discussionId: Float!): Discussion!
   removeProfileImage(photoProfilePublicId: String!): RemoveProfileImageResult!
   sendFriendRequest(friendId: Float!): FriendHistory!
-  sendMessage(data: SendMessageInput!): Message!
+  sendMessage(data: SendMessageInput!): Discussion!
   setCurrentPhoto(publicId: String!): Boolean!
   updateAccount(updateAccountInput: UpdateAccountInput!): UpdateAccountResult!
   uploadProfileImage(file: Upload!): PhotoProfile
@@ -125,9 +133,7 @@ union RemoveProfileImageResult = RemoveProfileImageError | RemoveProfileImageOk
 
 input SendMessageInput {
   content: String!
-  discussionId: Float
-  discussionName: String!
-  members: [Float!]!
+  discussionId: Float!
 }
 
 type Subscription {
@@ -136,7 +142,7 @@ type Subscription {
   declineFriendRequestEvent: FriendHistory!
   disconnectEvent: User!
   sendFriendRequestEvent: FriendHistory!
-  sendMessageEvent(discussionId: Float!): Message!
+  sendMessageEvent(discussionId: Float!): Discussion!
 }
 
 type UpdateAccountError {

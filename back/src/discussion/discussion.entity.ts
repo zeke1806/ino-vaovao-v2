@@ -11,15 +11,15 @@ export class Discussion {
   @Field()
   id: number;
 
-  @Column({ nullable: true })
-  @Field({ nullable: true })
+  @Column()
+  @Field()
   name: string;
 
-  @Field(() => LastMessage)
-  lastMessage: LastMessage;
+  @Field(() => LastMessage, { nullable: true })
+  lastMessage?: LastMessage;
 
   @Field(() => [User])
-  participant: User[];
+  members: User[];
 
   @Field(() => User)
   creator: User;

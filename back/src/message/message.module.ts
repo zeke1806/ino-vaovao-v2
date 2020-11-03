@@ -8,6 +8,7 @@ import { MessageResolvers } from './resolvers';
 import { MessageService } from './message.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '../user/user.module';
+import { ViewMessageModule } from '../view-message/view-message.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { UserModule } from '../user/user.module';
     UserModule,
     forwardRef(() => DiscussionModule),
     DiscussionUserModule,
+    forwardRef(() => ViewMessageModule),
   ],
   providers: [MessageService, ...MessageResolvers, MessageResolverField],
   exports: [MessageService],
