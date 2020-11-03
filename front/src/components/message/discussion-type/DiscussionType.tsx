@@ -10,21 +10,21 @@ interface DiscussionTypeProp {
 }
 
 const DiscussionType: React.FC<DiscussionTypeProp> = ({ discussion }) => {
-  const img1 = discussion.participant[0].currentPhoto
-    ? discussion.participant[0].currentPhoto.url
+  const img1 = discussion.members[0].currentPhoto
+    ? discussion.members[0].currentPhoto.url
     : undefined;
-  const img2 = discussion.participant[1].currentPhoto
-    ? discussion.participant[1].currentPhoto.url
+  const img2 = discussion.members[1].currentPhoto
+    ? discussion.members[1].currentPhoto.url
     : undefined;
 
   return (
     <View>
-      {discussion.participant.length === 2 ? (
+      {discussion.members.length === 2 ? (
         <SingleRecipient />
       ) : (
         <GroupRecipient
           name={discussion.name || 'Message Groupe'}
-          members={discussion.participant}
+          members={discussion.members}
           creator={discussion.creator.username}
           img1={img1}
           img2={img2}

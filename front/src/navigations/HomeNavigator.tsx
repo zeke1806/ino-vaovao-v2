@@ -6,13 +6,10 @@ import {
 } from '@react-navigation/bottom-tabs';
 import { TAB_BAR_DISCOVERY, TAB_BAR_DISCUSSION } from '../utils/Icons';
 
-import { CompositeNavigationProp } from '@react-navigation/native';
 import DiscoveryScreen from '../screens/DiscoveryScreen';
 import DiscussionScreen from '../screens/DiscussionScreen';
 import IconWithBadge from '../components/public/IconWithBadge';
-import { MessageNavigatorParamList } from './MessageNavigator';
 import { RouteProp } from '@react-navigation/core';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { globalStyles } from '../styles/global';
 import { useUserDiscussions } from '../api/discussion/user-discussions/service';
 
@@ -50,7 +47,9 @@ const HomeNavigator: React.FC = () => {
   const unread = (): string => {
     if (!data) return '0';
     return String(
-      data.userDiscussions.filter((ud) => !ud.lastMessage.view).length,
+      data.userDiscussions.filter(
+        (ud) => ud.lastMessage && !ud.lastMessage.view,
+      ).length,
     );
   };
 

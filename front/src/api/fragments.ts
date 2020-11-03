@@ -69,3 +69,37 @@ export const DISCUSSION_FRAG = gql`
     name
   }
 `;
+
+export const FULL_DISCUSSION_FRAG = gql`
+  fragment FullDiscussionFrag on Discussion {
+    ...DiscussionFrag
+    lastMessage {
+      message {
+        ...MessageFrag
+        sender {
+          ...UserFrag
+          currentPhoto {
+            ...PhotoProfileFrag
+          }
+        }
+      }
+      view
+    }
+    members {
+      ...UserFrag
+      currentPhoto {
+        ...PhotoProfileFrag
+      }
+    }
+    creator {
+      ...UserFrag
+      currentPhoto {
+        ...PhotoProfileFrag
+      }
+    }
+  }
+  ${DISCUSSION_FRAG}
+  ${PHOTO_PROFILE_FRAG}
+  ${MESSAGE_FRAG}
+  ${USER_FRAG}
+`;

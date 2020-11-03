@@ -14,14 +14,20 @@ export type Scalars = {
   Upload: any;
 };
 
+export type CreateDiscussionInput = {
+  id: Scalars['Float'];
+  members: Array<Scalars['Float']>;
+  name: Scalars['String'];
+};
+
 
 export type Discussion = {
   __typename?: 'Discussion';
   creator: User;
   id: Scalars['Float'];
-  lastMessage: LastMessage;
-  name?: Maybe<Scalars['String']>;
-  participant: Array<User>;
+  lastMessage?: Maybe<LastMessage>;
+  members: Array<User>;
+  name: Scalars['String'];
 };
 
 export type FriendHistory = {
@@ -74,13 +80,15 @@ export type Mutation = {
   acceptFriendRequest: FriendHistory;
   cancelRequest: Scalars['Boolean'];
   connect: User;
+  createDiscussion: Discussion;
   declineFriendRequest: Scalars['Boolean'];
   disconnect: User;
   login: LoginResult;
   register: RegisterResult;
+  removeDiscussion: Scalars['Boolean'];
   removeProfileImage: RemoveProfileImageResult;
   sendFriendRequest: FriendHistory;
-  sendMessage: Message;
+  sendMessage: Discussion;
   setCurrentPhoto: Scalars['Boolean'];
   updateAccount: UpdateAccountResult;
   uploadProfileImage?: Maybe<PhotoProfile>;
@@ -98,6 +106,11 @@ export type MutationCancelRequestArgs = {
 };
 
 
+export type MutationCreateDiscussionArgs = {
+  data: CreateDiscussionInput;
+};
+
+
 export type MutationDeclineFriendRequestArgs = {
   userId: Scalars['Float'];
 };
@@ -110,6 +123,11 @@ export type MutationLoginArgs = {
 
 export type MutationRegisterArgs = {
   registerInput: RegisterInput;
+};
+
+
+export type MutationRemoveDiscussionArgs = {
+  discussionId: Scalars['Float'];
 };
 
 
@@ -213,9 +231,7 @@ export type RemoveProfileImageResult = RemoveProfileImageError | RemoveProfileIm
 
 export type SendMessageInput = {
   content: Scalars['String'];
-  discussionId?: Maybe<Scalars['Float']>;
-  discussionName: Scalars['String'];
-  members: Array<Scalars['Float']>;
+  discussionId: Scalars['Float'];
 };
 
 export type Subscription = {
@@ -225,7 +241,7 @@ export type Subscription = {
   declineFriendRequestEvent: FriendHistory;
   disconnectEvent: User;
   sendFriendRequestEvent: FriendHistory;
-  sendMessageEvent: Message;
+  sendMessageEvent: Discussion;
 };
 
 

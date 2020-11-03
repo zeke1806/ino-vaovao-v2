@@ -1,11 +1,5 @@
-import {
-  DISCUSSION_FRAG,
-  MESSAGE_FRAG,
-  PHOTO_PROFILE_FRAG,
-  USER_FRAG,
-} from '../../fragments';
-
 import { Discussion } from '../../types';
+import { FULL_DISCUSSION_FRAG } from '../../fragments';
 import { gql } from '@apollo/client';
 
 export interface UserDiscussionsData {
@@ -13,34 +7,10 @@ export interface UserDiscussionsData {
 }
 
 export const USER_DISCUSSIONS = gql`
-  {
+  query {
     userDiscussions {
-      ...DiscussionFrag
-      lastMessage {
-        message {
-          ...MessageFrag
-          sender {
-            ...UserFrag
-            currentPhoto {
-              ...PhotoProfileFrag
-            }
-          }
-        }
-        view
-      }
-      participant {
-        ...UserFrag
-        currentPhoto {
-          ...PhotoProfileFrag
-        }
-      }
-      creator {
-        ...UserFrag
-      }
+      ...FullDiscussionFrag
     }
   }
-  ${DISCUSSION_FRAG}
-  ${MESSAGE_FRAG}
-  ${USER_FRAG}
-  ${PHOTO_PROFILE_FRAG}
+  ${FULL_DISCUSSION_FRAG}
 `;

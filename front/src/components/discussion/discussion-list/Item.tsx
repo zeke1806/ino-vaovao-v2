@@ -1,10 +1,9 @@
 import * as React from 'react';
 
+import { Discussion, LastMessage } from '../../../api/types';
 import { Text, View } from 'native-base';
 
 import CommonAvatar from '../../public/CommonAvatar';
-import { Discussion } from '../../../api/types';
-import { DiscussionScreenNavigation } from '../../../navigations/HomeNavigator';
 import GroupAvatar from '../../public/GroupAvatar';
 import IndicatorBadge from '../../public/IndicatorBadge';
 import { MessageScreenParams } from '../../../navigations/MessageNavigator';
@@ -18,8 +17,20 @@ interface ItemProps {
 
 const Item: React.FC<ItemProps> = ({ discussion }) => {
   const { navigate } = useNavigation();
-  const { lastMessage, participant } = discussion;
-  const { message, view } = lastMessage;
+  const { lastMessage, members, name } = discussion;
+  const { message, view } =
+    lastMessage ||
+    ({
+      message: {
+        id: 0,
+        content: '',
+        sender: {
+          id: 0,
+          username: '',
+        },
+      },
+      view: false,
+    } as LastMessage);
   const { sender } = message;
   const { currentPhoto } = sender;
 
@@ -28,16 +39,16 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
       screen: 'Message',
       params: {
         discussion: discussion,
-        recipient: discussion.participant.map((p) => p.id),
+        recipient: discussion.members.map((p) => p.id),
       } as MessageScreenParams,
     });
 
   const img = currentPhoto ? { uri: currentPhoto.url } : undefined;
-  const groupImg1 = participant[0].currentPhoto
-    ? participant[0].currentPhoto.url
+  const groupImg1 = members[0].currentPhoto
+    ? members[0].currentPhoto.url
     : undefined;
-  const groupImg2 = participant[1].currentPhoto
-    ? participant[1].currentPhoto.url
+  const groupImg2 = members[1].currentPhoto
+    ? members[1].currentPhoto.url
     : undefined;
 
   const space = globalStyles.space;
@@ -57,7 +68,7 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
         globalStyles.elevation,
       ]}
     >
-      {participant.length === 1 ? (
+      {members.length === 1 ? (
         <CommonAvatar size="medium" img={img} />
       ) : (
         <GroupAvatar img1Url={groupImg1} img2Url={groupImg2} />
@@ -70,7 +81,7 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
           paddingLeft: globalStyles.space,
         }}
       >
-        <Text style={{ color: '#3F3F3F' }}>{sender.username}</Text>
+        <Text style={{ color: '#3F3F3F' }}>{name}</Text>
         {view ? (
           <Text>{message.content}</Text>
         ) : (
