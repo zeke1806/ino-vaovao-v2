@@ -69,7 +69,7 @@ type Mutation {
   disconnect: User!
   login(loginInput: LoginInput!): LoginResult!
   register(registerInput: RegisterInput!): RegisterResult!
-  removeDiscussion(discussionId: Float!): Discussion!
+  removeDiscussion(discussionId: Float!): Boolean!
   removeProfileImage(photoProfilePublicId: String!): RemoveProfileImageResult!
   sendFriendRequest(friendId: Float!): FriendHistory!
   sendMessage(data: SendMessageInput!): Discussion!
