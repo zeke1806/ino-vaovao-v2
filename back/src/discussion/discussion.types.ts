@@ -14,9 +14,6 @@ export class LastMessage {
 @InputType()
 export class CreateDiscussionInput {
   @Field()
-  id: number;
-
-  @Field()
   name: string;
 
   @Field(() => [Number])

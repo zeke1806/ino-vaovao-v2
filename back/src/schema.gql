@@ -3,7 +3,6 @@
 # ------------------------------------------------------
 
 input CreateDiscussionInput {
-  id: Float!
   members: [Float!]!
   name: String!
 }

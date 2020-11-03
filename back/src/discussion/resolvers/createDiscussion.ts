@@ -20,16 +20,16 @@ export class CreateDiscussionResolver {
   @Mutation(() => Discussion)
   @UseGuards(GqlAuthGuard)
   async createDiscussion(
-    @Args('data') data: CreateDiscussionInput,
+    @Args('data') { name, members }: CreateDiscussionInput,
     @CurrentUser() { payload }: AuthPayload,
   ): Promise<Discussion> {
     let discussion = new Discussion();
-    discussion.name = data.name;
+    discussion.name = name;
     discussion.creator = await this.userService.getUserById(payload.id);
     discussion = await this.discussionService.saveDiscussion(discussion);
 
     discussion.members = await Promise.all(
-      data.members.map(async id => {
+      members.map(async id => {
         const user = await this.userService.getUserById(id);
         const discussionUser = new DiscussionUser();
         discussionUser.discussion = discussion;
