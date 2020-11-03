@@ -48,6 +48,7 @@ export class MessageService {
   ): SelectQueryBuilder<Message> {
     return this.messageRepository
       .createQueryBuilder('message')
-      .where(`message.discussion = ${discussionId}`);
+      .where(`message.discussion = ${discussionId}`)
+      .orderBy('message.id', 'DESC');
   }
 }
