@@ -31,6 +31,8 @@ export class DiscussionResolverField {
     } = await this.messageService.getLastDiscussionMessage(discussion.id);
     const message = await this.messageService.getMessageById(lastMessageId);
 
+    if (!lastMessageId) return null;
+
     const user = await this.userService.getUserById(payload.id);
     const viewMessage = await this.viewMessageService.getViewMessage(
       user,
