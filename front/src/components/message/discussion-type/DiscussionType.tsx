@@ -20,7 +20,7 @@ const DiscussionType: React.FC<DiscussionTypeProp> = ({ discussion }) => {
   return (
     <View>
       {discussion.members.length === 2 ? (
-        <SingleRecipient />
+        <SingleRecipient name={discussion.name} />
       ) : (
         <GroupRecipient
           name={discussion.name || 'Message Groupe'}

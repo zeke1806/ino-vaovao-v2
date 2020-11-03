@@ -41,7 +41,7 @@ const MessageScreen: React.FC = () => {
         }
       />
       {!messages.length && <DiscussionType discussion={discussion} />}
-      <Gifted messages={messages} />
+      <Gifted messages={messages} discussion={discussion} />
     </ScreenContainer>
   );
 };

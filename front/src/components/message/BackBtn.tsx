@@ -6,6 +6,7 @@ import { useNavigation, useRoute } from '@react-navigation/core';
 import { BACK_ARROW } from '../../utils/Icons';
 import { Message } from '../../api/types';
 import { MessageScreenRouteProp } from '../../navigations/MessageNavigator';
+import { Spinner } from '../public/SubmitBtn';
 import { useRemoveDiscussion } from '../../api/discussion/remove-discussion/service';
 
 interface BackBtnProp {
@@ -26,7 +27,9 @@ const BackBtn: React.FC<BackBtnProp> = ({ messages }) => {
     else submit();
   };
 
-  return (
+  return loading ? (
+    <Spinner />
+  ) : (
     <Button transparent onPress={handleGoBack}>
       <Thumbnail
         source={BACK_ARROW}

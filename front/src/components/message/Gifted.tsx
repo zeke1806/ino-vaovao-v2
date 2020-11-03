@@ -1,22 +1,18 @@
-import {
-  Discussion,
-  Message,
-  Message as MyMessage,
-  User,
-} from '../../api/types';
-import React, { useCallback, useEffect, useState } from 'react';
+import { Discussion, Message } from '../../api/types';
 
 import { GiftedChat } from 'react-native-gifted-chat';
-import { Text } from 'react-native-svg';
+import React from 'react';
 import { useMe } from '../../api/user/me/me.service';
-import { useMessages } from '../../api/message/messages/service';
+import { useSendMessage } from '../../api/message/send-message/service';
 
 interface GiftedProp {
   messages: Message[];
+  discussion: Discussion;
 }
 
-const Gifted: React.FC<GiftedProp> = ({ messages }) => {
+const Gifted: React.FC<GiftedProp> = ({ messages, discussion }) => {
   const { meData } = useMe();
+  const { submit } = useSendMessage();
 
   const me = meData!.me;
   const formatMessages = messages.map((m) => ({
@@ -30,12 +26,33 @@ const Gifted: React.FC<GiftedProp> = ({ messages }) => {
     },
   }));
 
+  const onSend = React.useCallback(
+    (
+      messages: {
+        _id: number;
+        text: string;
+        createdAt: Date;
+        user: {
+          _id: number;
+          name: string;
+          avatar: string | undefined;
+        };
+      }[],
+    ): void => {
+      submit({
+        data: {
+          content: messages[0].text,
+          discussionId: discussion.id,
+        },
+      });
+    },
+    [],
+  );
+
   return (
     <GiftedChat
       messages={formatMessages}
-      onSend={(messages): void => {
-        //
-      }}
+      onSend={onSend}
       user={{
         _id: me.id,
         name: me.username,

@@ -14,7 +14,8 @@ export interface MessagesData {
 
 export const MESSAGES = gql`
   query Messages($discussionId: Float!, $paginationInput: PaginationInput!) {
-    messages(discussionId: $discussionId, paginationInput: $paginationInput) {
+    messages(discussionId: $discussionId, paginationInput: $paginationInput)
+      @connection(key: "messages", filter: ["discussionId"]) {
       data {
         ...MessageFrag
         sender {
