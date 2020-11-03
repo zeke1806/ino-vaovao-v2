@@ -15,7 +15,7 @@ scalar DateTime
 type Discussion {
   creator: User!
   id: Float!
-  lastMessage: LastMessage
+  lastMessage(clientId: Float!): LastMessage
   members: [User!]!
   name: String!
 }

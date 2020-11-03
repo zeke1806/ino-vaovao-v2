@@ -1,4 +1,4 @@
-import { ResolveField, Resolver, Root } from '@nestjs/graphql';
+import { Args, ResolveField, Resolver, Root } from '@nestjs/graphql';
 
 import { Discussion } from '../discussion.entity';
 import { LastMessage } from '../discussion.types';
@@ -21,10 +21,9 @@ export class DiscussionResolverField {
   ) {}
 
   @ResolveField(() => LastMessage)
-  @UseGuards(GqlAuthGuard)
   async lastMessage(
     @Root() discussion: Discussion,
-    @CurrentUser() { payload }: AuthPayload,
+    @Args('clientId') clientId: number,
   ): Promise<LastMessage> {
     const {
       lastMessageId,
@@ -33,9 +32,9 @@ export class DiscussionResolverField {
 
     if (!lastMessageId) return null;
 
-    const user = await this.userService.getUserById(payload.id);
+    const client = await this.userService.getUserById(clientId);
     const viewMessage = await this.viewMessageService.getViewMessage(
-      user,
+      client,
       message,
     );
     const view = viewMessage ? true : false;
