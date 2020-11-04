@@ -1,29 +1,21 @@
-import {
-  DiscussionLastMessageArgs,
-  QueryMessagesArgs,
-  SubscriptionSendMessageEventArgs,
-} from '../../types';
 import { MESSAGES, MessagesData } from './gql';
 import {
   SEND_MESSAGE_EVENT,
   SendMessageEventData,
+  SendMessageEventVariables,
 } from '../send-message/event.gql';
 
+import { QueryMessagesArgs } from '../../types';
 import produce from 'immer';
-import { useMe } from '../../user/me/me.service';
 import { useQuery } from '@apollo/client';
 
 interface Return {
   data: MessagesData | undefined;
   loading: boolean;
-  subscribeToSendMessageEvent: (
-    variables: SubscriptionSendMessageEventArgs & DiscussionLastMessageArgs,
-  ) => void;
+  subscribeToSendMessageEvent: (variables: SendMessageEventVariables) => void;
 }
 
 export const useMessages = (variables: QueryMessagesArgs): Return => {
-  const { meData } = useMe();
-
   const { data, loading, subscribeToMore } = useQuery<
     MessagesData,
     QueryMessagesArgs
@@ -33,12 +25,9 @@ export const useMessages = (variables: QueryMessagesArgs): Return => {
   });
 
   const subscribeToSendMessageEvent = (
-    variables: SubscriptionSendMessageEventArgs & DiscussionLastMessageArgs,
+    variables: SendMessageEventVariables,
   ): void => {
-    subscribeToMore<
-      SendMessageEventData,
-      SubscriptionSendMessageEventArgs & DiscussionLastMessageArgs
-    >({
+    subscribeToMore<SendMessageEventData, SendMessageEventVariables>({
       document: SEND_MESSAGE_EVENT,
       variables,
       updateQuery(prev, { subscriptionData }) {

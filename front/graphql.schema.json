@@ -1718,7 +1718,7 @@
             "description": null,
             "args": [
               {
-                "name": "discussionId",
+                "name": "userId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",

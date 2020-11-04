@@ -28,7 +28,7 @@ const MessageScreen: React.FC = () => {
 
   React.useEffect(() => {
     subscribeToSendMessageEvent({
-      discussionId: discussion.id,
+      userId: me.id,
       clientId: me.id,
     });
   }, [me.id, discussion.id]);

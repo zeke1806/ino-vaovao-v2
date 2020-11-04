@@ -250,7 +250,7 @@ export type Subscription = {
 
 
 export type SubscriptionSendMessageEventArgs = {
-  discussionId: Scalars['Float'];
+  userId: Scalars['Float'];
 };
 
 export type UpdateAccountError = {

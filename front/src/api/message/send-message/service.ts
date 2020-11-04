@@ -5,13 +5,8 @@ import {
   MutationSendMessageArgs,
   QueryMessagesArgs,
 } from '../../types';
-import { ME, MeData } from '../../user/me/me.gql';
 import { MESSAGES, MessagesData } from '../messages/gql';
 import { SEND_MESSAGE, SendMessageData } from './gql';
-import {
-  USER_DISCUSSIONS,
-  UserDiscussionsData,
-} from '../../discussion/user-discussions/gql';
 
 import produce from 'immer';
 
@@ -38,31 +33,6 @@ function updateMessages(
   }
 }
 
-function updateUserDiscussions(
-  cache: ApolloCache<SendMessageData>,
-  discussion: Discussion,
-): void {
-  const { me } = cache.readQuery<MeData>({ query: ME })!;
-  const prev = cache.readQuery<UserDiscussionsData, DiscussionLastMessageArgs>({
-    query: USER_DISCUSSIONS,
-    variables: {
-      clientId: me.id,
-    },
-  });
-  if (prev) {
-    cache.writeQuery<UserDiscussionsData>({
-      query: USER_DISCUSSIONS,
-      data: produce(prev, (draft) => {
-        draft.userDiscussions.splice(
-          draft.userDiscussions.map((d) => d.id).indexOf(discussion.id),
-          1,
-          discussion,
-        );
-      }),
-    });
-  }
-}
-
 interface Return {
   submit: (
     variables: MutationSendMessageArgs & DiscussionLastMessageArgs,
@@ -79,7 +49,6 @@ export const useSendMessage = (): Return => {
       if (data) {
         const { sendMessage } = data;
         updateMessages(cache, sendMessage);
-        updateUserDiscussions(cache, sendMessage);
       }
     },
   });
