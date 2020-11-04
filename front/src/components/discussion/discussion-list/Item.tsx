@@ -9,6 +9,7 @@ import IndicatorBadge from '../../public/IndicatorBadge';
 import { MessageScreenParams } from '../../../navigations/MessageNavigator';
 import { TouchableOpacity } from 'react-native';
 import { globalStyles } from '../../../styles/global';
+import { useGetRecipientName } from '../../../utils/getRecipientName';
 import { useNavigation } from '@react-navigation/core';
 
 interface ItemProps {
@@ -50,6 +51,7 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
   const groupImg2 = members[1].currentPhoto
     ? members[1].currentPhoto.url
     : undefined;
+  const discussionName = members.length > 2 ? name : useGetRecipientName(name);
 
   const space = globalStyles.space;
 
@@ -68,7 +70,7 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
         globalStyles.elevation,
       ]}
     >
-      {members.length === 1 ? (
+      {members.length === 2 ? (
         <CommonAvatar size="medium" img={img} />
       ) : (
         <GroupAvatar img1Url={groupImg1} img2Url={groupImg2} />
@@ -81,7 +83,7 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
           paddingLeft: globalStyles.space,
         }}
       >
-        <Text style={{ color: '#3F3F3F' }}>{name}</Text>
+        <Text style={{ color: '#3F3F3F' }}>{discussionName}</Text>
         {view ? (
           <Text>{message.content}</Text>
         ) : (

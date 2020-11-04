@@ -1,15 +1,20 @@
 import * as React from 'react';
+
 import { Text, View } from 'native-base';
+
 import CommonAvatar from '../public/CommonAvatar';
 import { globalStyles } from '../../styles/global';
+import { useSelectRecipientState } from '../../providers/select-recipient/selectRecipient.consumer';
 
 const Member: React.FC = () => {
+  const { selectedRecipient } = useSelectRecipientState();
   const { space } = globalStyles;
+
   return (
     <View style={{ alignItems: 'center' }}>
-      {[1, 2].map((_, i) => (
+      {selectedRecipient.map((rec) => (
         <View
-          key={i}
+          key={rec.id}
           style={{
             width: '80%',
             flexDirection: 'row',
@@ -17,8 +22,11 @@ const Member: React.FC = () => {
             alignItems: 'center',
           }}
         >
-          <CommonAvatar size="medium" />
-          <Text style={{ marginLeft: space }}>agnaragna</Text>
+          <CommonAvatar
+            size="medium"
+            img={rec.currentPhoto ? { uri: rec.currentPhoto.url } : undefined}
+          />
+          <Text style={{ marginLeft: space }}>{rec.username}</Text>
         </View>
       ))}
     </View>
