@@ -8,20 +8,30 @@ import { Ionicons } from '@expo/vector-icons';
 import { MessageScreenRouteProp } from '../navigations/MessageNavigator';
 import ScreenContainer from '../components/public/ScreenContainer';
 import { globalStyles } from '../styles/global';
+import { useMe } from '../api/user/me/me.service';
 import { useMessages } from '../api/message/messages/service';
 import { useRoute } from '@react-navigation/core';
 
 const MessageScreen: React.FC = () => {
+  const { meData } = useMe();
+  const me = meData!.me;
   const {
     params: { discussion },
   } = useRoute<MessageScreenRouteProp>();
-  const { data, loading } = useMessages({
+  const { data, loading, subscribeToSendMessageEvent } = useMessages({
     discussionId: discussion.id,
     paginationInput: {
       limit: 10,
       page: 1,
     },
   });
+
+  React.useEffect(() => {
+    subscribeToSendMessageEvent({
+      discussionId: discussion.id,
+      clientId: me.id,
+    });
+  }, [me.id, discussion.id]);
 
   const messages = data ? data.messages.data : [];
 
@@ -41,7 +51,7 @@ const MessageScreen: React.FC = () => {
         }
       />
       {!messages.length && <DiscussionType discussion={discussion} />}
-      <Gifted messages={messages} discussion={discussion} />
+      <Gifted messages={messages} discussion={discussion} me={me} />
     </ScreenContainer>
   );
 };

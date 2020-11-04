@@ -1,20 +1,17 @@
-import { Discussion, Message } from '../../api/types';
+import { Discussion, Message, User } from '../../api/types';
 import { GiftedChat, IMessage } from 'react-native-gifted-chat';
 
 import React from 'react';
-import { useMe } from '../../api/user/me/me.service';
 import { useSendMessage } from '../../api/message/send-message/service';
 
 interface GiftedProp {
   messages: Message[];
   discussion: Discussion;
+  me: User;
 }
 
-const Gifted: React.FC<GiftedProp> = ({ messages, discussion }) => {
+const Gifted: React.FC<GiftedProp> = ({ messages, discussion, me }) => {
   const { submit } = useSendMessage();
-
-  const { meData } = useMe();
-  const me = meData!.me;
 
   const formatedMessages = messages.map((m) => ({
     _id: m.id,
