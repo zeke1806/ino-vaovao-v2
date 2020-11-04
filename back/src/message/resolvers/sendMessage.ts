@@ -2,9 +2,11 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver, Subscription } from '@nestjs/graphql';
 import { CurrentUser, GqlAuthGuard } from '../../auth/auth.guards';
 import { AuthPayload } from '../../auth/auth.model';
+import { DiscussionUserService } from '../../discussion-user/discussion-user.service';
 import { Discussion } from '../../discussion/discussion.entity';
 import { DiscussionService } from '../../discussion/discussion.service';
 import { UserService } from '../../user/user.service';
+import { generateDiscussionMembers } from '../../utils/generateDiscussionMembers';
 import { PubSubService } from '../../utils/pubSub.service';
 import { ViewMessage } from '../../view-message/view-message.entity';
 import { ViewMessageService } from '../../view-message/view-message.service';
@@ -22,6 +24,7 @@ export class SendMessageResolver {
     private userService: UserService,
     private pubSubService: PubSubService,
     private viewMessageService: ViewMessageService,
+    private discussionUserService: DiscussionUserService,
   ) {}
 
   @Mutation(() => Discussion)
@@ -34,6 +37,11 @@ export class SendMessageResolver {
     const { discussionId, content } = data;
     const discussion = await this.discussionService.getDiscussionById(
       discussionId,
+    );
+    discussion.members = await generateDiscussionMembers(
+      discussion.id,
+      this.discussionUserService,
+      this.userService,
     );
 
     const newMessage = new Message();

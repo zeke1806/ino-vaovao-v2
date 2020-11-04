@@ -4,12 +4,10 @@ import { Discussion } from '../discussion.entity';
 import { LastMessage } from '../discussion.types';
 import { MessageService } from '../../message/message.service';
 import { UserService } from '../../user/user.service';
-import { UseGuards } from '@nestjs/common';
-import { CurrentUser, GqlAuthGuard } from '../../auth/auth.guards';
-import { AuthPayload } from '../../auth/auth.model';
 import { ViewMessageService } from '../../view-message/view-message.service';
 import { User } from '../../user/user.entity';
 import { DiscussionUserService } from '../../discussion-user/discussion-user.service';
+import { generateDiscussionMembers } from '../../utils/generateDiscussionMembers';
 
 @Resolver(() => Discussion)
 export class DiscussionResolverField {
@@ -47,10 +45,10 @@ export class DiscussionResolverField {
 
   @ResolveField(() => [User])
   async members(@Root() { id }: Discussion): Promise<User[]> {
-    return Promise.all(
-      (
-        await this.discussionUserService.getDiscussionParticipants(id)
-      ).map(async du => this.userService.getUserById(du.userId)),
+    return generateDiscussionMembers(
+      id,
+      this.discussionUserService,
+      this.userService,
     );
   }
 
