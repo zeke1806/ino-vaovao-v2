@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/indent */
 import * as React from 'react';
 
 import {
@@ -5,16 +6,34 @@ import {
   SendMessageEventData,
   SendMessageEventVariables,
 } from '../../message/send-message/event.gql';
+import { SubscribeToMoreOptions, useLazyQuery } from '@apollo/client';
 import { USER_DISCUSSIONS, UserDiscussionsData } from './gql';
 
 import { DiscussionLastMessageArgs } from '../../types';
-import { useLazyQuery } from '@apollo/client';
+import produce from 'immer';
 import { useMe } from '../../user/me/me.service';
+
+type SubscribeToMore =
+  | (<
+      TSubscriptionData = UserDiscussionsData,
+      TSubscriptionVariables = DiscussionLastMessageArgs
+    >(
+      options: SubscribeToMoreOptions<
+        UserDiscussionsData,
+        TSubscriptionVariables,
+        TSubscriptionData
+      >,
+    ) => () => void)
+  | undefined;
 
 interface Return {
   data: UserDiscussionsData | undefined;
   loading: boolean;
-  subscribeToSendMessageEvent: (variables: SendMessageEventVariables) => void;
+  subscribeToMore: SubscribeToMore;
+  subscribeToSendMessageEvent: (
+    variables: SendMessageEventVariables,
+    subscribeToMore: SubscribeToMore,
+  ) => void;
 }
 
 export const useUserDiscussions = (): Return => {
@@ -38,11 +57,28 @@ export const useUserDiscussions = (): Return => {
 
   const subscribeToSendMessageEvent = (
     variables: SendMessageEventVariables,
+    subscribeToMore: SubscribeToMore,
   ): void => {
-    if (subscribeToMore) {
+    if (subscribeToMore && meData) {
       subscribeToMore<SendMessageEventData, SendMessageEventVariables>({
         document: SEND_MESSAGE_EVENT,
         variables,
+        updateQuery(prev, { subscriptionData }) {
+          if (!subscriptionData) return prev;
+          const {
+            data: { sendMessageEvent },
+          } = subscriptionData;
+          return produce(prev, (draft) => {
+            const index = draft.userDiscussions.findIndex(
+              (d) => d.id === sendMessageEvent.id,
+            );
+            if (index === -1) {
+              draft.userDiscussions.push(sendMessageEvent);
+            } else {
+              draft.userDiscussions[index] = sendMessageEvent;
+            }
+          });
+        },
       });
     }
   };
@@ -50,6 +86,7 @@ export const useUserDiscussions = (): Return => {
   return {
     data,
     loading,
+    subscribeToMore,
     subscribeToSendMessageEvent,
   };
 };
