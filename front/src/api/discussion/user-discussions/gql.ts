@@ -7,7 +7,7 @@ export interface UserDiscussionsData {
 }
 
 export const USER_DISCUSSIONS = gql`
-  query {
+  query UserDiscussions($clientId: Float!) {
     userDiscussions {
       ...FullDiscussionFrag
     }

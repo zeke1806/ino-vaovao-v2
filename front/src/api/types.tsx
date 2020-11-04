@@ -29,6 +29,11 @@ export type Discussion = {
   name: Scalars['String'];
 };
 
+
+export type DiscussionLastMessageArgs = {
+  clientId: Scalars['Float'];
+};
+
 export type FriendHistory = {
   __typename?: 'FriendHistory';
   accepted: Scalars['Boolean'];

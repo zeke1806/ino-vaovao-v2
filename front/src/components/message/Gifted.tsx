@@ -1,6 +1,6 @@
 import { Discussion, Message } from '../../api/types';
+import { GiftedChat, IMessage } from 'react-native-gifted-chat';
 
-import { GiftedChat } from 'react-native-gifted-chat';
 import React from 'react';
 import { useMe } from '../../api/user/me/me.service';
 import { useSendMessage } from '../../api/message/send-message/service';
@@ -11,11 +11,12 @@ interface GiftedProp {
 }
 
 const Gifted: React.FC<GiftedProp> = ({ messages, discussion }) => {
-  const { meData } = useMe();
   const { submit } = useSendMessage();
 
+  const { meData } = useMe();
   const me = meData!.me;
-  const formatMessages = messages.map((m) => ({
+
+  const formatedMessages = messages.map((m) => ({
     _id: m.id,
     text: m.content,
     createdAt: new Date(m.createdAt),
@@ -26,32 +27,19 @@ const Gifted: React.FC<GiftedProp> = ({ messages, discussion }) => {
     },
   }));
 
-  const onSend = React.useCallback(
-    (
-      messages: {
-        _id: number;
-        text: string;
-        createdAt: Date;
-        user: {
-          _id: number;
-          name: string;
-          avatar: string | undefined;
-        };
-      }[],
-    ): void => {
-      submit({
-        data: {
-          content: messages[0].text,
-          discussionId: discussion.id,
-        },
-      });
-    },
-    [],
-  );
+  const onSend = React.useCallback((messages: IMessage[]): void => {
+    submit({
+      clientId: me.id,
+      data: {
+        content: messages[0].text,
+        discussionId: discussion.id,
+      },
+    });
+  }, []);
 
   return (
     <GiftedChat
-      messages={formatMessages}
+      messages={formatedMessages}
       onSend={onSend}
       user={{
         _id: me.id,

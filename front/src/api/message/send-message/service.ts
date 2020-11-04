@@ -1,9 +1,11 @@
 import { ApolloCache, useMutation } from '@apollo/client';
 import {
   Discussion,
+  DiscussionLastMessageArgs,
   MutationSendMessageArgs,
   QueryMessagesArgs,
 } from '../../types';
+import { ME, MeData } from '../../user/me/me.gql';
 import { MESSAGES, MessagesData } from '../messages/gql';
 import { SEND_MESSAGE, SendMessageData } from './gql';
 import {
@@ -40,8 +42,12 @@ function updateUserDiscussions(
   cache: ApolloCache<SendMessageData>,
   discussion: Discussion,
 ): void {
-  const prev = cache.readQuery<UserDiscussionsData>({
+  const { me } = cache.readQuery<MeData>({ query: ME })!;
+  const prev = cache.readQuery<UserDiscussionsData, DiscussionLastMessageArgs>({
     query: USER_DISCUSSIONS,
+    variables: {
+      clientId: me.id,
+    },
   });
   if (prev) {
     cache.writeQuery<UserDiscussionsData>({
@@ -58,14 +64,16 @@ function updateUserDiscussions(
 }
 
 interface Return {
-  submit: (variables: MutationSendMessageArgs) => void;
+  submit: (
+    variables: MutationSendMessageArgs & DiscussionLastMessageArgs,
+  ) => void;
   loading: boolean;
 }
 
 export const useSendMessage = (): Return => {
   const [send, { loading }] = useMutation<
     SendMessageData,
-    MutationSendMessageArgs
+    MutationSendMessageArgs & DiscussionLastMessageArgs
   >(SEND_MESSAGE, {
     update(cache, { data }) {
       if (data) {
@@ -76,7 +84,9 @@ export const useSendMessage = (): Return => {
     },
   });
 
-  const submit = (variables: MutationSendMessageArgs): void => {
+  const submit = (
+    variables: MutationSendMessageArgs & DiscussionLastMessageArgs,
+  ): void => {
     send({
       variables,
     });

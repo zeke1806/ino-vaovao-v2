@@ -73,7 +73,7 @@ export const DISCUSSION_FRAG = gql`
 export const FULL_DISCUSSION_FRAG = gql`
   fragment FullDiscussionFrag on Discussion {
     ...DiscussionFrag
-    lastMessage {
+    lastMessage(clientId: $clientId) {
       message {
         ...MessageFrag
         sender {

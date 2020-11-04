@@ -7,7 +7,7 @@ export interface SendMessageData {
 }
 
 export const SEND_MESSAGE = gql`
-  mutation SendMessage($data: SendMessageInput!) {
+  mutation SendMessage($data: SendMessageInput!, $clientId: Float!) {
     sendMessage(data: $data) {
       ...FullDiscussionFrag
     }

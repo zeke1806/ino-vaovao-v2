@@ -127,7 +127,22 @@
           {
             "name": "lastMessage",
             "description": null,
-            "args": [],
+            "args": [
+              {
+                "name": "clientId",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "Float",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
             "type": {
               "kind": "OBJECT",
               "name": "LastMessage",
