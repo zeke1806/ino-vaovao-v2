@@ -1,21 +1,27 @@
-import { CREATE_DISCUSSION, CreateDiscussionData } from './gql';
+import {
+  CREATE_DISCUSSION,
+  CreateDiscussionData,
+  CreateDiscussionVars,
+} from './gql';
 
 import { MessageScreenParams } from '../../../navigations/MessageNavigator';
-import { MutationCreateDiscussionArgs } from '../../types';
 import { USER_DISCUSSIONS } from '../user-discussions/gql';
+import { useMe } from '../../user/me/me.service';
 import { useMutation } from '@apollo/client';
 import { useNavigation } from '@react-navigation/core';
 
 interface Return {
-  submit: (variables: MutationCreateDiscussionArgs) => void;
+  submit: (variables: CreateDiscussionVars) => void;
   loading: boolean;
 }
 
 export const useCreateDiscussion = (): Return => {
+  const { meData } = useMe();
+  const me = meData!.me;
   const { navigate } = useNavigation();
   const [create, { loading }] = useMutation<
     CreateDiscussionData,
-    MutationCreateDiscussionArgs
+    CreateDiscussionVars
   >(CREATE_DISCUSSION, {
     onCompleted({ createDiscussion }) {
       navigate('Message', {
@@ -25,11 +31,14 @@ export const useCreateDiscussion = (): Return => {
     refetchQueries: () => [
       {
         query: USER_DISCUSSIONS,
+        variables: {
+          clientId: me.id,
+        },
       },
     ],
   });
 
-  const submit = (variables: MutationCreateDiscussionArgs): void => {
+  const submit = (variables: CreateDiscussionVars): void => {
     create({ variables });
   };
 

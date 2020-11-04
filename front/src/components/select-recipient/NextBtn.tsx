@@ -52,6 +52,7 @@ const NextBtn: React.FC = () => {
         } as NameGroupParams);
       } else if (members.length === 2) {
         submit({
+          clientId: me.id,
           data: {
             members: members.map((m) => m.id),
             name: `${members[0].username}-${members[1].username}`,

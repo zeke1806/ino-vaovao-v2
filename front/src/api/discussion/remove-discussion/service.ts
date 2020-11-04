@@ -2,6 +2,7 @@ import { REMOVE_DISCUSSION, RemoveDiscussionData } from './gql';
 
 import { MutationRemoveDiscussionArgs } from '../../types';
 import { USER_DISCUSSIONS } from '../user-discussions/gql';
+import { useMe } from '../../user/me/me.service';
 import { useMutation } from '@apollo/client';
 import { useNavigation } from '@react-navigation/core';
 
@@ -13,6 +14,8 @@ interface Return {
 export const useRemoveDiscussion = (
   variables: MutationRemoveDiscussionArgs,
 ): Return => {
+  const { meData } = useMe();
+  const me = meData!.me;
   const navigation = useNavigation();
   const [remove, { loading }] = useMutation<
     RemoveDiscussionData,
@@ -24,6 +27,9 @@ export const useRemoveDiscussion = (
     refetchQueries: [
       {
         query: USER_DISCUSSIONS,
+        variables: {
+          clientId: me.id,
+        },
       },
     ],
   });
