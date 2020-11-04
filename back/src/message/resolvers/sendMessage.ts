@@ -55,12 +55,12 @@ export class SendMessageResolver {
   }
 
   @Subscription(() => Discussion, {
-    resolve: pub => pub,
-    filter: (payload: Discussion, variables: { discussionId: number }) =>
-      payload.id === variables.discussionId,
+    resolve: (pub: Discussion) => pub,
+    filter: (payload: Discussion, variables: { userId: number }) =>
+      payload.members.map(m => m.id).includes(variables.userId),
   })
   async sendMessageEvent(
-    @Args('discussionId') discussionId: number,
+    @Args('userId') userId: number,
   ): Promise<AsyncIterator<unknown, any, undefined>> {
     return this.pubSubService.pubSub.asyncIterator(EVENT);
   }

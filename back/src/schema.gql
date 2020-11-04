@@ -141,7 +141,7 @@ type Subscription {
   declineFriendRequestEvent: FriendHistory!
   disconnectEvent: User!
   sendFriendRequestEvent: FriendHistory!
-  sendMessageEvent(discussionId: Float!): Discussion!
+  sendMessageEvent(userId: Float!): Discussion!
 }
 
 type UpdateAccountError {
