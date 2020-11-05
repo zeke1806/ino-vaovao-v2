@@ -11,8 +11,10 @@ import { globalStyles } from '../styles/global';
 import { useMe } from '../api/user/me/me.service';
 import { useMessages } from '../api/message/messages/service';
 import { useRoute } from '@react-navigation/core';
+import { useViewMessage } from '../api/view-message/view-message/service';
 
 const MessageScreen: React.FC = () => {
+  const { submit } = useViewMessage();
   const { meData } = useMe();
   const me = meData!.me;
   const {
@@ -34,6 +36,17 @@ const MessageScreen: React.FC = () => {
   }, [me.id, discussion.id]);
 
   const messages = data ? data.messages.data : [];
+
+  React.useEffect(() => {
+    if (messages.length) {
+      const lastMessage = messages[0];
+      if (lastMessage.sender.id !== me.id) {
+        submit({
+          messageId: lastMessage.id,
+        });
+      }
+    }
+  }, [messages]);
 
   return (
     <ScreenContainer>
