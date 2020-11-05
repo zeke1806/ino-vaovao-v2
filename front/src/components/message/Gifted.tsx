@@ -1,16 +1,25 @@
-import { Discussion, Message, User } from '../../api/types';
+import { Discussion, Message, PaginationMeta, User } from '../../api/types';
 import { GiftedChat, IMessage } from 'react-native-gifted-chat';
 
 import React from 'react';
+import { Spinner } from 'native-base';
 import { useSendMessage } from '../../api/message/send-message/service';
 
 interface GiftedProp {
   messages: Message[];
   discussion: Discussion;
   me: User;
+  pagination: PaginationMeta;
+  fetchMore: () => void;
 }
 
-const Gifted: React.FC<GiftedProp> = ({ messages, discussion, me }) => {
+const Gifted: React.FC<GiftedProp> = ({
+  messages,
+  discussion,
+  me,
+  fetchMore,
+  pagination,
+}) => {
   const { submit } = useSendMessage();
 
   const formatedMessages = messages.map((m) => ({
@@ -34,6 +43,8 @@ const Gifted: React.FC<GiftedProp> = ({ messages, discussion, me }) => {
     });
   }, []);
 
+  const isFetchableMore = pagination.currentPage !== pagination.totalPages;
+
   return (
     <GiftedChat
       messages={formatedMessages}
@@ -43,8 +54,11 @@ const Gifted: React.FC<GiftedProp> = ({ messages, discussion, me }) => {
         name: me.username,
         avatar: me.currentPhoto ? me.currentPhoto.url : undefined,
       }}
+      loadEarlier={isFetchableMore}
+      infiniteScroll={isFetchableMore}
+      onLoadEarlier={fetchMore}
     />
   );
 };
 
-export default Gifted;
+export default React.memo(Gifted);

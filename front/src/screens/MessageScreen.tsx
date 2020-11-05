@@ -20,7 +20,12 @@ const MessageScreen: React.FC = () => {
   const {
     params: { discussion },
   } = useRoute<MessageScreenRouteProp>();
-  const { data, loading, subscribeToSendMessageEvent } = useMessages({
+  const {
+    data,
+    loading,
+    subscribeToSendMessageEvent,
+    fetchMoreMessages,
+  } = useMessages({
     discussionId: discussion.id,
     paginationInput: {
       limit: 10,
@@ -36,6 +41,7 @@ const MessageScreen: React.FC = () => {
   }, [me.id, discussion.id]);
 
   const messages = data ? data.messages.data : [];
+  const pagination = data && data.messages.paginationMeta;
 
   React.useEffect(() => {
     if (messages.length) {
@@ -64,7 +70,15 @@ const MessageScreen: React.FC = () => {
         }
       />
       {!messages.length && <DiscussionType discussion={discussion} />}
-      <Gifted messages={messages} discussion={discussion} me={me} />
+      {pagination && (
+        <Gifted
+          messages={messages}
+          discussion={discussion}
+          me={me}
+          fetchMore={fetchMoreMessages}
+          pagination={pagination}
+        />
+      )}
     </ScreenContainer>
   );
 };

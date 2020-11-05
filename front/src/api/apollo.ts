@@ -3,6 +3,7 @@ import { HTTP_LINK, TOKEN, WS_LINK } from '../configs';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import { WebSocketLink } from '@apollo/client/link/ws';
+import { cache } from './cache';
 import { createUploadLink } from 'apollo-upload-client';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { notifierLink } from './notifier';
@@ -45,7 +46,7 @@ const authLink = setContext(async (_, { headers }) => {
 
 export const client = new ApolloClient({
   link: ApolloLink.from([authLink, notifierLink, splitLink]),
-  cache: new InMemoryCache({}),
+  cache,
   defaultOptions: {
     watchQuery: {
       fetchPolicy: 'cache-and-network',

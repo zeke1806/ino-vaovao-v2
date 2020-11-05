@@ -34,7 +34,7 @@ const DiscussionList: React.FC<DiscussionList> = ({ before: Before }) => {
         subscribeToMore,
       );
     }
-    return (): void => console.log('unmount');
+    return (): void => console.log('unmount discussion list');
   }, [meData?.me.id, subscribeToMore]);
 
   const discussions = data ? data.userDiscussions : [];
