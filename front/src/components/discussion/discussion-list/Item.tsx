@@ -32,8 +32,6 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
       },
       view: false,
     } as LastMessage);
-  const { sender } = message;
-  const { currentPhoto } = sender;
 
   const handleClick = (): void =>
     navigate('MessageNavigator', {
@@ -44,14 +42,20 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
       } as MessageScreenParams,
     });
 
-  const img = currentPhoto ? { uri: currentPhoto.url } : undefined;
+  const discussionName = members.length > 2 ? name : useGetRecipientName(name);
+  const recipient = discussion.members.find(
+    (m) => m.username === discussionName,
+  )!;
+  const img =
+    recipient && recipient.currentPhoto
+      ? { uri: recipient.currentPhoto.url }
+      : undefined;
   const groupImg1 = members[0].currentPhoto
     ? members[0].currentPhoto.url
     : undefined;
   const groupImg2 = members[1].currentPhoto
     ? members[1].currentPhoto.url
     : undefined;
-  const discussionName = members.length > 2 ? name : useGetRecipientName(name);
 
   const space = globalStyles.space;
 

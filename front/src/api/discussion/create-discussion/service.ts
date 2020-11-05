@@ -4,6 +4,7 @@ import {
   CreateDiscussionVars,
 } from './gql';
 
+import { Discussion } from '../../types';
 import { MessageScreenParams } from '../../../navigations/MessageNavigator';
 import { USER_DISCUSSIONS } from '../user-discussions/gql';
 import { useMe } from '../../user/me/me.service';
@@ -15,7 +16,9 @@ interface Return {
   loading: boolean;
 }
 
-export const useCreateDiscussion = (): Return => {
+export const useCreateDiscussion = (
+  cb?: (discussion: Discussion) => void,
+): Return => {
   const { meData } = useMe();
   const me = meData!.me;
   const { navigate } = useNavigation();
@@ -24,9 +27,13 @@ export const useCreateDiscussion = (): Return => {
     CreateDiscussionVars
   >(CREATE_DISCUSSION, {
     onCompleted({ createDiscussion }) {
-      navigate('Message', {
-        discussion: createDiscussion,
-      } as MessageScreenParams);
+      if (cb) {
+        cb(createDiscussion);
+      } else {
+        navigate('Message', {
+          discussion: createDiscussion,
+        } as MessageScreenParams);
+      }
     },
     refetchQueries: () => [
       {
