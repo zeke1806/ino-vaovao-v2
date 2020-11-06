@@ -12,6 +12,7 @@ import HomeNavigator from './HomeNavigator';
 import MessageNavigator from './MessageNavigator';
 import ProfileNavigator from './ProfileNavigator';
 import { RouteProp } from '@react-navigation/core';
+import { useNotificationSound } from '../api/message/send-message/event.service';
 
 type MainNavigatorParamList = {
   HomeNavigator: undefined;
@@ -36,6 +37,7 @@ export type DiscoveryNavigatorRouteProp = RouteProp<
 >;
 
 const MainNavigator: React.FC = () => {
+  useNotificationSound();
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="HomeNavigator" component={HomeNavigator} />
