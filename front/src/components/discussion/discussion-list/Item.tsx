@@ -42,6 +42,10 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
       } as MessageScreenParams,
     });
 
+  const discussionContent =
+    message.content.length > 25
+      ? message.content.split('').splice(0, 25).join('') + '...'
+      : message.content;
   const discussionName = members.length > 2 ? name : useGetRecipientName(name);
   const recipient = discussion.members.find(
     (m) => m.username === discussionName,
@@ -89,9 +93,9 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
       >
         <Text style={{ color: '#3F3F3F' }}>{discussionName}</Text>
         {view ? (
-          <Text>{message.content}</Text>
+          <Text>{discussionContent}</Text>
         ) : (
-          <Text style={{ fontWeight: 'bold' }}>{message.content}</Text>
+          <Text style={{ fontWeight: 'bold' }}>{discussionContent}</Text>
         )}
       </View>
 
