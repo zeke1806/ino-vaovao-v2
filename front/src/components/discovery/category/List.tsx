@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { DISCOVERY_CATEGORIES } from '../../../configs';
 import { FlatList } from 'react-native-gesture-handler';
 import Item from './Item';
@@ -26,6 +27,7 @@ const List: React.FC = () => {
       showsHorizontalScrollIndicator={false}
       renderItem={renderItem}
       data={categories}
+      keyExtractor={(item): string => item}
     />
   );
 };
