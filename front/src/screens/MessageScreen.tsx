@@ -13,6 +13,7 @@ import { QueryMessagesArgs } from '../api/types';
 import ScreenContainer from '../components/public/ScreenContainer';
 import { globalStyles } from '../styles/global';
 import { useApolloClient } from '@apollo/client';
+import { useGetRecipientName } from '../utils/getRecipientName';
 import { useMe } from '../api/user/me/me.service';
 import { useMessages } from '../api/message/messages/service';
 import { useRemoveDiscussion } from '../api/discussion/remove-discussion/service';
@@ -40,6 +41,10 @@ const MessageScreen: React.FC = () => {
 
   const messages = data ? data.messages.data : [];
   const pagination = data && data.messages.paginationMeta;
+  const discussionName =
+    discussion.members.length > 2
+      ? discussion.name
+      : useGetRecipientName(discussion.name);
 
   React.useEffect(() => {
     const unsubscribe = navigation.addListener('blur', () => {
@@ -76,7 +81,7 @@ const MessageScreen: React.FC = () => {
     <ScreenContainer>
       <Header
         left={<BackBtn />}
-        title={discussion.name || 'Message'}
+        title={discussionName || 'Message'}
         right={
           messages.length ? (
             <Ionicons
