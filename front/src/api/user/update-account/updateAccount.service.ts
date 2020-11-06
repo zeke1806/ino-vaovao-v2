@@ -1,4 +1,5 @@
 import { UPDATE_ACCOUNT, UpdateAccountData } from './updateAccount.gql';
+
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { MutationUpdateAccountArgs } from '../../types';
@@ -108,7 +109,7 @@ export const useUpdateAccount = (
         updateAccountInput: {
           username: name,
           password: password,
-          statusConnected: statusConnected,
+          statusConnected: false,
         },
       };
       updateAccount({ variables });

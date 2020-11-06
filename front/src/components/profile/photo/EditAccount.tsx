@@ -1,5 +1,7 @@
 import * as React from 'react';
+
 import { Button, CheckBox, Text } from 'native-base';
+
 import { MaterialIcons } from '@expo/vector-icons';
 import NameInput from '../../login/NameInput';
 import PasswordInput from '../../login/PasswordInput';
@@ -53,13 +55,13 @@ const EditAccount: React.FC = () => {
 
         <VerticalFormSpace />
 
-        <StyledModalCheckbox
+        {/* <StyledModalCheckbox
           title="Status connecter"
           value={state.statusConnected}
           onChange={(): void => {
             handleChange('statusConnected', !state.statusConnected);
           }}
-        />
+        /> */}
 
         <VerticalFormSpace />
         <VerticalFormSpace />

@@ -21,7 +21,7 @@ const MeAvatar: React.FC = () => {
   return (
     <CommonAvatar
       size="medium"
-      connected={connected}
+      connected={false}
       onPress={(): void => {
         navigation.navigate('ProfileNavigator');
       }}
