@@ -1,31 +1,36 @@
 import * as React from 'react';
 
+import { MESSAGES, MessagesData } from '../api/message/messages/gql';
+import { useNavigation, useRoute } from '@react-navigation/core';
+
 import BackBtn from '../components/message/BackBtn';
 import DiscussionType from '../components/message/discussion-type/DiscussionType';
 import Gifted from '../components/message/Gifted';
 import Header from '../components/public/header/Header';
 import { Ionicons } from '@expo/vector-icons';
 import { MessageScreenRouteProp } from '../navigations/MessageNavigator';
+import { QueryMessagesArgs } from '../api/types';
 import ScreenContainer from '../components/public/ScreenContainer';
 import { globalStyles } from '../styles/global';
+import { useApolloClient } from '@apollo/client';
 import { useMe } from '../api/user/me/me.service';
 import { useMessages } from '../api/message/messages/service';
-import { useRoute } from '@react-navigation/core';
+import { useRemoveDiscussion } from '../api/discussion/remove-discussion/service';
 import { useViewMessage } from '../api/view-message/view-message/service';
 
 const MessageScreen: React.FC = () => {
+  const navigation = useNavigation();
+  const cache = useApolloClient().cache;
   const { submit } = useViewMessage();
   const { meData } = useMe();
   const me = meData!.me;
   const {
     params: { discussion },
   } = useRoute<MessageScreenRouteProp>();
-  const {
-    data,
-    loading,
-    subscribeToSendMessageEvent,
-    fetchMoreMessages,
-  } = useMessages({
+  const { submit: submitRemDiscussion } = useRemoveDiscussion({
+    discussionId: discussion.id,
+  });
+  const { data, subscribeToSendMessageEvent, fetchMoreMessages } = useMessages({
     discussionId: discussion.id,
     paginationInput: {
       limit: 10,
@@ -33,15 +38,28 @@ const MessageScreen: React.FC = () => {
     },
   });
 
+  const messages = data ? data.messages.data : [];
+  const pagination = data && data.messages.paginationMeta;
+
+  React.useEffect(() => {
+    const unsubscribe = navigation.addListener('blur', () => {
+      const messagesData = cache.readQuery<MessagesData, QueryMessagesArgs>({
+        query: MESSAGES,
+        variables: { discussionId: discussion.id } as QueryMessagesArgs,
+      });
+      if (messagesData && !messagesData.messages.data.length) {
+        submitRemDiscussion();
+      }
+    });
+    return unsubscribe;
+  }, [navigation]);
+
   React.useEffect(() => {
     subscribeToSendMessageEvent({
       userId: me.id,
       clientId: me.id,
     });
   }, [me.id, discussion.id]);
-
-  const messages = data ? data.messages.data : [];
-  const pagination = data && data.messages.paginationMeta;
 
   React.useEffect(() => {
     if (messages.length) {
@@ -57,7 +75,7 @@ const MessageScreen: React.FC = () => {
   return (
     <ScreenContainer>
       <Header
-        left={<BackBtn messages={messages} />}
+        left={<BackBtn />}
         title={discussion.name || 'Message'}
         right={
           messages.length ? (
