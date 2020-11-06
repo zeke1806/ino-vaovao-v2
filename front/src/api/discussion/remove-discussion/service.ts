@@ -1,7 +1,12 @@
 import { REMOVE_DISCUSSION, RemoveDiscussionData } from './gql';
+import {
+  USER_DISCUSSIONS,
+  UserDiscussionVars,
+  UserDiscussionsData,
+} from '../user-discussions/gql';
 
 import { MutationRemoveDiscussionArgs } from '../../types';
-import { USER_DISCUSSIONS } from '../user-discussions/gql';
+import produce from 'immer';
 import { useMe } from '../../user/me/me.service';
 import { useMutation } from '@apollo/client';
 
@@ -19,14 +24,26 @@ export const useRemoveDiscussion = (
     RemoveDiscussionData,
     MutationRemoveDiscussionArgs
   >(REMOVE_DISCUSSION, {
-    refetchQueries: [
-      {
-        query: USER_DISCUSSIONS,
-        variables: {
-          clientId: me.id,
-        },
-      },
-    ],
+    update(cache) {
+      const userDiscussionsData = cache.readQuery<
+        UserDiscussionsData,
+        UserDiscussionVars
+      >({ query: USER_DISCUSSIONS, variables: { clientId: me.id } });
+      if (userDiscussionsData) {
+        cache.writeQuery<UserDiscussionsData, UserDiscussionVars>({
+          query: USER_DISCUSSIONS,
+          variables: { clientId: me.id },
+          data: produce(userDiscussionsData, (draft) => {
+            draft.userDiscussions.splice(
+              draft.userDiscussions.findIndex(
+                (elt) => elt.id === variables.discussionId,
+              ),
+              1,
+            );
+          }),
+        });
+      }
+    },
   });
 
   const submit = (): void => {
