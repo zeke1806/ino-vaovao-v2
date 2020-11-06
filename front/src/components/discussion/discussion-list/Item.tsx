@@ -24,7 +24,7 @@ const Item: React.FC<ItemProps> = ({ discussion }) => {
     ({
       message: {
         id: 0,
-        content: '',
+        content: 'Pas de message',
         sender: {
           id: 0,
           username: '',

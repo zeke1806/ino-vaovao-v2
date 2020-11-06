@@ -45,7 +45,7 @@ const DiscussionList: React.FC<DiscussionList> = ({ before: Before }) => {
       data={discussions}
       renderItem={renderItem}
       ListHeaderComponent={Before || null}
-      keyExtractor={(item): string => String(item.id)}
+      keyExtractor={(item, i): string => String(item.id)}
     />
   );
 };
