@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { filterDiscussion, useFilterUser } from '../../../providers/filterUser';
+
 import { Discussion } from '../../../api/types';
 import { FlatList } from 'react-native-gesture-handler';
 import Item from './Item';
@@ -19,6 +21,7 @@ const DiscussionList: React.FC<DiscussionList> = ({ before: Before }) => {
     subscribeToMore,
   } = useUserDiscussions();
   const { meData } = useMe();
+  const { search } = useFilterUser();
 
   const renderItem: ListRenderItem<Discussion> | null | undefined = ({
     item,
@@ -37,7 +40,9 @@ const DiscussionList: React.FC<DiscussionList> = ({ before: Before }) => {
     return (): void => console.log('unmount discussion list');
   }, [meData?.me.id, subscribeToMore]);
 
-  const discussions = data ? data.userDiscussions : [];
+  const discussions = data
+    ? filterDiscussion(data.userDiscussions, search.discussion)
+    : [];
 
   return (
     <FlatList

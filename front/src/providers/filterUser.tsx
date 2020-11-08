@@ -1,12 +1,13 @@
 import * as React from 'react';
 
-import { User } from '../api/types';
+import { Discussion, User } from '../api/types';
 
 type State = {
   suggestion: string;
   request: string;
   friend: string;
   selectRecipient: string;
+  discussion: string;
 };
 type Keys = keyof State;
 type SetSearch = (value: string, key: Keys) => void;
@@ -23,6 +24,7 @@ export const FilterUserProvider: React.FC = ({ children }) => {
     request: '',
     friend: '',
     selectRecipient: '',
+    discussion: '',
   });
 
   const value: Shape = {
@@ -43,4 +45,12 @@ export const useFilterUser = (): Shape => {
 export const filterUtil = (list: User[], search: string): User[] => {
   if (!search) return list;
   return list.filter((item) => item.username.includes(search));
+};
+
+export const filterDiscussion = (
+  list: Discussion[],
+  search: string,
+): Discussion[] => {
+  if (!search) return list;
+  return list.filter((item) => item.name.includes(search));
 };

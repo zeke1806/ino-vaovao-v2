@@ -82,15 +82,15 @@ const MessageScreen: React.FC = () => {
       <Header
         left={<BackBtn />}
         title={discussionName || 'Message'}
-        right={
-          messages.length ? (
-            <Ionicons
-              name="ios-more"
-              size={globalStyles.iconSize}
-              color={globalStyles.colors.primary}
-            />
-          ) : undefined
-        }
+        // right={
+        //   messages.length ? (
+        //     <Ionicons
+        //       name="ios-more"
+        //       size={globalStyles.iconSize}
+        //       color={globalStyles.colors.primary}
+        //     />
+        //   ) : undefined
+        // }
       />
       {!messages.length && <DiscussionType discussion={discussion} />}
       {pagination && (
