@@ -17,7 +17,6 @@ export const useAudio = (): (() => void) => {
     Audio.setAudioModeAsync({
       interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
       shouldDuckAndroid: true,
-      staysActiveInBackground: true,
       playThroughEarpieceAndroid: true,
     }).then(() => {
       setSound(new Audio.Sound());
