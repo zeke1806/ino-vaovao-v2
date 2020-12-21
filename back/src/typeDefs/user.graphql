@@ -1,0 +1,8 @@
+type User {
+  id: Float!
+  username: String!
+}
+
+type Token {
+  token: String!
+}
