@@ -19,4 +19,7 @@ export class UserEntity {
 
   @Column({ nullable: true, default: null })
   photo?: string;
+
+  @Column({ nullable: true, default: null })
+  photoPublicId?: string;
 }

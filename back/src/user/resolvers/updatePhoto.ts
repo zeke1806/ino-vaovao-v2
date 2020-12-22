@@ -1,5 +1,5 @@
 import { FileUpload } from 'graphql-upload';
-import { Resolver, User } from '../../types';
+import { MutationUpdatePhotoArgs, Resolver, User } from '../../types';
 import { CloudinaryService } from '../../libs/cloudinary';
 import { UserService } from '../user.service';
 import { authGuard } from '../../utils/authGuard';
@@ -16,6 +16,7 @@ const onFinishStream = async (
 ): Promise<void> => {
   if (result) {
     user.photo = result.url;
+    user.photoPublicId = result.public_id;
     const r = await userService.save(user);
     resolve({
       id: r.id,
@@ -30,13 +31,19 @@ const onFinishStream = async (
   }
 }
 
-type T = Resolver<User, {}, { req: any }, FileUpload>;
+type T = Resolver<User, {}, { req: any }, MutationUpdatePhotoArgs>;
 
-export const updatePhoto: T = async (_, { createReadStream }, { req }) => {
-  const cloudinaryService = new CloudinaryService();
+export const updatePhoto: T = async (_, { file }, { req }) => {
   const {
     payload: { id }
   } = authGuard(req);
+  const cloudinaryService = new CloudinaryService();
+
+  if(!file) {
+    return {} as User;
+  }
+
+  const { createReadStream } = file as FileUpload;
 
   const userService = new UserService();
   const user = await userService.getById(id);

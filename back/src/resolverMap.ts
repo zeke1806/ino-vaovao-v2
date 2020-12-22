@@ -12,6 +12,7 @@ const resolverMap: IResolvers = {
     users,
     me,
   },
+
   Mutation: {
     login,
     register
