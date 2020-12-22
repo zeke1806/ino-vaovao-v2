@@ -1,3 +1,4 @@
 type Mutation {
-  login(username: String!, password: String!): Token
+  login(username: String!, password: String!): Token!
+  register(input: RegisterInput!): User!
 }

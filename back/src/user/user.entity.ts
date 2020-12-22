@@ -12,7 +12,10 @@ export class UserEntity {
   password: string;
 
   @Column()
-  statusConnected: boolean;
+  sex: boolean;
+
+  @Column({ type: 'date' })
+  birthday: Date;
 
   @Column({ nullable: true, default: null })
   photo?: string;

@@ -1,8 +1,18 @@
 type User {
   id: Float!
   username: String!
+  sex: Boolean!
+  birthday: String!
+  photo: String
 }
 
 type Token {
   token: String!
+}
+
+input RegisterInput {
+  username: String!
+  password: String!
+  birthday: String!
+  sex: Boolean!
 }

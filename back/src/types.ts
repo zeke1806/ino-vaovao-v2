@@ -13,13 +13,19 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  login?: Maybe<Token>;
+  login: Token;
+  register: User;
 };
 
 
 export type MutationLoginArgs = {
   username: Scalars['String'];
   password: Scalars['String'];
+};
+
+
+export type MutationRegisterArgs = {
+  input: RegisterInput;
 };
 
 export type Query = {
@@ -33,11 +39,21 @@ export type User = {
   __typename?: 'User';
   id: Scalars['Float'];
   username: Scalars['String'];
+  sex: Scalars['Boolean'];
+  birthday: Scalars['String'];
+  photo?: Maybe<Scalars['String']>;
 };
 
 export type Token = {
   __typename?: 'Token';
   token: Scalars['String'];
+};
+
+export type RegisterInput = {
+  username: Scalars['String'];
+  password: Scalars['String'];
+  birthday: Scalars['String'];
+  sex: Scalars['Boolean'];
 };
 
 
@@ -123,8 +139,9 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
-  Token: ResolverTypeWrapper<Token>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Token: ResolverTypeWrapper<Token>;
+  RegisterInput: RegisterInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -134,12 +151,14 @@ export type ResolversParentTypes = {
   Query: {};
   User: User;
   Float: Scalars['Float'];
-  Token: Token;
   Boolean: Scalars['Boolean'];
+  Token: Token;
+  RegisterInput: RegisterInput;
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  login?: Resolver<Maybe<ResolversTypes['Token']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'username' | 'password'>>;
+  login?: Resolver<ResolversTypes['Token'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'username' | 'password'>>;
+  register?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -151,6 +170,9 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   id?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  sex?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  birthday?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  photo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

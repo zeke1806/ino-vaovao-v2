@@ -7,5 +7,7 @@ export const users: Resolver<User[]> = async () => {
   return (await userService.getAll()).map((ue) => ({
     id: ue.id,
     username: ue.username,
+    sex: ue.sex,
+    birthday: ue.birthday.toISOString()
   }));
 };

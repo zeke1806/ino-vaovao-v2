@@ -1,5 +1,4 @@
 import { MutationLoginArgs, Resolver, Token } from "../../types";
-
 import { UserService } from "../user.service";
 import bcrypt from "bcrypt";
 import { setTokens } from "../../libs/json-web-token";
