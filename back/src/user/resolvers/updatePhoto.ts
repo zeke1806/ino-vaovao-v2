@@ -1,0 +1,56 @@
+import { FileUpload } from 'graphql-upload';
+import { Resolver, User } from '../../types';
+import { CloudinaryService } from '../../libs/cloudinary';
+import { UserService } from '../user.service';
+import { authGuard } from '../../utils/authGuard';
+import { ApolloError } from 'apollo-server-express';
+import { UserEntity } from '../user.entity';
+
+const onFinishStream = async (
+  error: any,
+  result: any,
+  resolve: (value?: User | PromiseLike<User>) => void,
+  reject: (reason?: any) => void,
+  user: UserEntity,
+  userService: UserService
+): Promise<void> => {
+  if (result) {
+    user.photo = result.url;
+    const r = await userService.save(user);
+    resolve({
+      id: r.id,
+      sex: r.sex,
+      username: r.username,
+      birthday: r.birthday.toString(),
+      photo: r.photo
+    });
+  } else {
+    console.log(error);
+    reject(null);
+  }
+}
+
+type T = Resolver<User, {}, { req: any }, FileUpload>;
+
+export const updatePhoto: T = async (_, { createReadStream }, { req }) => {
+  const cloudinaryService = new CloudinaryService();
+  const {
+    payload: { id }
+  } = authGuard(req);
+
+  const userService = new UserService();
+  const user = await userService.getById(id);
+  if(!user) throw new ApolloError('user not find');
+
+  return new Promise((resolve, reject) => {
+    const stream = cloudinaryService.cloudinary.uploader.upload_stream(
+      {
+        folder: 'ino-vaovao',
+      },
+      (error: any, result: any) =>
+        onFinishStream(error, result, resolve, reject, user, userService),
+    );
+    createReadStream().pipe(stream);
+  });
+}
+  
