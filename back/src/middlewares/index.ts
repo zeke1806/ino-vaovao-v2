@@ -3,7 +3,7 @@ import compression from "compression";
 import cors from "cors";
 import { validateTokenMiddleware } from "./validateToken";
 
-export function applyMiddlewares(app: Express): Express {
+export function applyMiddlewares(app: Express): Express { 
   app.use("*", cors());
   app.use(compression());
   app.use(validateTokenMiddleware);

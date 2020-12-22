@@ -24,5 +24,5 @@ export const connectDB = async () => {
   const connexion = await createConnection(configs.database);
   console.log("Database connection ok");
 
-  firstStart();
+  // firstStart();
 };
