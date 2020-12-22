@@ -11,11 +11,13 @@ export const me: Resolver<User, {}, { req: any }> = async (_, __, { req }) => {
   const userService = new UserService();
   const user = await userService.getById(id);
   if(!user) throw new ApolloError('user id not find');
-
+  
   return {
     id: user.id,
     username: user.username,
     sex: user.sex,
-    birthday: user.birthday.toISOString()
+    birthday: user.birthday.toISOString(),
+    photo: user.photo,
+    photoPublicId: user.photoPublicId
   };
 };

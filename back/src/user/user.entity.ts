@@ -14,7 +14,7 @@ export class UserEntity {
   @Column()
   sex: boolean;
 
-  @Column({ type: 'date' })
+  @Column({ type: 'timestamptz' })
   birthday: Date;
 
   @Column({ nullable: true, default: null })
