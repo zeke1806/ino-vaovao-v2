@@ -18,6 +18,7 @@ export type Mutation = {
   login: Token;
   register: User;
   updatePhoto: User;
+  updateInfo: User;
 };
 
 
@@ -36,6 +37,11 @@ export type MutationUpdatePhotoArgs = {
   file?: Maybe<Scalars['Upload']>;
 };
 
+
+export type MutationUpdateInfoArgs = {
+  input: UpdateInfoInput;
+};
+
 export type Query = {
   __typename?: 'Query';
   helloWorld: Scalars['String'];
@@ -50,6 +56,7 @@ export type User = {
   sex: Scalars['Boolean'];
   birthday: Scalars['String'];
   photo?: Maybe<Scalars['String']>;
+  photoPublicId?: Maybe<Scalars['String']>;
 };
 
 export type Token = {
@@ -62,6 +69,13 @@ export type RegisterInput = {
   password: Scalars['String'];
   birthday: Scalars['String'];
   sex: Scalars['Boolean'];
+};
+
+export type UpdateInfoInput = {
+  username: Scalars['String'];
+  password: Scalars['String'];
+  sex: Scalars['Boolean'];
+  birthday: Scalars['String'];
 };
 
 
@@ -151,6 +165,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Token: ResolverTypeWrapper<Token>;
   RegisterInput: RegisterInput;
+  UpdateInfoInput: UpdateInfoInput;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -164,6 +179,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   Token: Token;
   RegisterInput: RegisterInput;
+  UpdateInfoInput: UpdateInfoInput;
 };
 
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
@@ -174,6 +190,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   login?: Resolver<ResolversTypes['Token'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'username' | 'password'>>;
   register?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>;
   updatePhoto?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdatePhotoArgs, never>>;
+  updateInfo?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateInfoArgs, 'input'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -188,6 +205,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   sex?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   birthday?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   photo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  photoPublicId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

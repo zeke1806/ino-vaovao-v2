@@ -1,9 +1,10 @@
 type User {
-  id: Float!
+  id: ID!
   username: String!
   sex: Boolean!
   birthday: String!
   photo: String
+  photoPublicId: String
 }
 
 type Token {
@@ -15,4 +16,11 @@ input RegisterInput {
   password: String!
   birthday: String!
   sex: Boolean!
+}
+
+input UpdateInfoInput {
+  username: String!
+  password: String!
+  sex: Boolean!
+  birthday: String!
 }

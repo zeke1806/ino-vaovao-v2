@@ -4,4 +4,5 @@ type Mutation {
   login(username: String!, password: String!): Token!
   register(input: RegisterInput!): User!
   updatePhoto(file: Upload): User!
+  updateInfo(input: UpdateInfoInput!): User!
 }
