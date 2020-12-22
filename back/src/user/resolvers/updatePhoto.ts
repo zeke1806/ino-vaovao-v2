@@ -5,6 +5,7 @@ import { UserService } from '../user.service';
 import { authGuard } from '../../utils/authGuard';
 import { ApolloError } from 'apollo-server-express';
 import { UserEntity } from '../user.entity';
+import { delUserPhoto } from '../../utils/delPhotoIfExist';
 
 const onFinishStream = async (
   error: any,
@@ -38,16 +39,14 @@ export const updatePhoto: T = async (_, { file }, { req }) => {
     payload: { id }
   } = authGuard(req);
   const cloudinaryService = new CloudinaryService();
-
-  if(!file) {
-    return {} as User;
-  }
-
-  const { createReadStream } = file as FileUpload;
+  
+  const { createReadStream } = await file as FileUpload;
 
   const userService = new UserService();
   const user = await userService.getById(id);
   if(!user) throw new ApolloError('user not find');
+
+  await delUserPhoto(user.id);
 
   return new Promise((resolve, reject) => {
     const stream = cloudinaryService.cloudinary.uploader.upload_stream(
