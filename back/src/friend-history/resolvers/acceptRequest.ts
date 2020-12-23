@@ -30,7 +30,7 @@ export const acceptRequest: T = async (_, { userId }, { req }) => {
   await fhService.save(meFH);
 
   return {
-    id: `${me.id}-${requestor.id}`,
+    id: `${requestor.id}`,
     friend: mapUser(requestor),
     status: FhStatus.Friend
   }
