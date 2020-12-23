@@ -10,6 +10,7 @@ import { delPhoto } from "./user/resolvers/delPhoto";
 import { sendRequest } from "./friend-history/resolvers/sendRequest";
 import { acceptRequest } from "./friend-history/resolvers/acceptRequest";
 import { delRequest } from "./friend-history/resolvers/delRequest";
+import { friendsHistory } from "./friend-history/resolvers/friendsHistory";
 
 const helloWorld = (): string => "Hello world";
 
@@ -18,6 +19,7 @@ const resolverMap: IResolvers = {
     helloWorld,
     users,
     me,
+    friendsHistory
   },
 
   Mutation: {

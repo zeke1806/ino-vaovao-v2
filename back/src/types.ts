@@ -80,6 +80,7 @@ export type Query = {
   helloWorld: Scalars['String'];
   users: Array<User>;
   me: User;
+  friendsHistory: Array<Fh>;
 };
 
 export type User = {
@@ -244,6 +245,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   helloWorld?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
   me?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  friendsHistory?: Resolver<Array<ResolversTypes['FH']>, ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
