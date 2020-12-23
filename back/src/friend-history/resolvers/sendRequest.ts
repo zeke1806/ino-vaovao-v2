@@ -34,6 +34,7 @@ export const sendRequest: T = async (_, { friendId }, { req }) => {
   newFH = await fhService.save(newFH);
   
   return {
+    id: `${user.id}-${friend.id}`,
     friend: mapUser(friend),
     status: await checkStatusFH(id, +friendId)
   }

@@ -7,4 +7,5 @@ type Mutation {
   updateInfo(input: UpdateInfoInput!): User!
   delPhoto: User!
   sendRequest(friendId: String!): FH!
+  acceptRequest(userId: String!): FH!
 }

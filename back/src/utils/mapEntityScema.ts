@@ -1,4 +1,4 @@
-import { User } from "../types";
+import { Fh, User } from "../types";
 import { UserEntity } from "../user/user.entity";
 
 export const mapUser = (userEntity: UserEntity): User => ({

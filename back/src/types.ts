@@ -20,6 +20,7 @@ export enum FhStatus {
 
 export type Fh = {
   __typename?: 'FH';
+  id: Scalars['ID'];
   friend: User;
   status: FhStatus;
 };
@@ -33,6 +34,7 @@ export type Mutation = {
   updateInfo: User;
   delPhoto: User;
   sendRequest: Fh;
+  acceptRequest: Fh;
 };
 
 
@@ -59,6 +61,11 @@ export type MutationUpdateInfoArgs = {
 
 export type MutationSendRequestArgs = {
   friendId: Scalars['String'];
+};
+
+
+export type MutationAcceptRequestArgs = {
+  userId: Scalars['String'];
 };
 
 export type Query = {
@@ -177,12 +184,12 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   FHStatus: FhStatus;
   FH: ResolverTypeWrapper<Fh>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
   Mutation: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Token: ResolverTypeWrapper<Token>;
   RegisterInput: RegisterInput;
@@ -192,12 +199,12 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   FH: Fh;
+  ID: Scalars['ID'];
   Upload: Scalars['Upload'];
   Mutation: {};
   String: Scalars['String'];
   Query: {};
   User: User;
-  ID: Scalars['ID'];
   Boolean: Scalars['Boolean'];
   Token: Token;
   RegisterInput: RegisterInput;
@@ -205,6 +212,7 @@ export type ResolversParentTypes = {
 };
 
 export type FhResolvers<ContextType = any, ParentType extends ResolversParentTypes['FH'] = ResolversParentTypes['FH']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   friend?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['FHStatus'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -221,6 +229,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updateInfo?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateInfoArgs, 'input'>>;
   delPhoto?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   sendRequest?: Resolver<ResolversTypes['FH'], ParentType, ContextType, RequireFields<MutationSendRequestArgs, 'friendId'>>;
+  acceptRequest?: Resolver<ResolversTypes['FH'], ParentType, ContextType, RequireFields<MutationAcceptRequestArgs, 'userId'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
