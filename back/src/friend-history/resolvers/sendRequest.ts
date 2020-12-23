@@ -35,6 +35,6 @@ export const sendRequest: T = async (_, { friendId }, { req }) => {
   
   return {
     friend: mapUser(friend),
-    status
+    status: await checkStatusFH(id, +friendId)
   }
 }
