@@ -21,7 +21,7 @@ export const updateInfo: T = async (_, { input: { username, password, birthday, 
   const r = await userService.save(toUpdate);
   
   return {
-    id: r.id,
+    id: r.id.toString(),
     username: r.username,
     birthday: r.birthday.toString(),
     sex: r.sex,

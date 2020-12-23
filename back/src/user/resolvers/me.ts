@@ -13,7 +13,7 @@ export const me: Resolver<User, {}, { req: any }> = async (_, __, { req }) => {
   if(!user) throw new ApolloError('user id not find');
   
   return {
-    id: user.id,
+    id: user.id.toString(),
     username: user.username,
     sex: user.sex,
     birthday: user.birthday.toISOString(),

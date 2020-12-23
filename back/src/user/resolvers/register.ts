@@ -19,7 +19,7 @@ export const register: T = async (_, { input: { username, password, birthday, se
   const r = await userService.save(newUser);
 
   return {
-    id: r.id,
+    id: r.id.toString(),
     username: r.username,
     sex: r.sex,
     birthday: r.birthday.toISOString(),

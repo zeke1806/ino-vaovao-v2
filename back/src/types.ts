@@ -19,6 +19,7 @@ export type Mutation = {
   register: User;
   updatePhoto: User;
   updateInfo: User;
+  delPhoto: User;
 };
 
 
@@ -34,7 +35,7 @@ export type MutationRegisterArgs = {
 
 
 export type MutationUpdatePhotoArgs = {
-  file?: Maybe<Scalars['Upload']>;
+  file: Scalars['Upload'];
 };
 
 
@@ -51,7 +52,7 @@ export type Query = {
 
 export type User = {
   __typename?: 'User';
-  id: Scalars['Float'];
+  id: Scalars['ID'];
   username: Scalars['String'];
   sex: Scalars['Boolean'];
   birthday: Scalars['String'];
@@ -161,7 +162,7 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
-  Float: ResolverTypeWrapper<Scalars['Float']>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Token: ResolverTypeWrapper<Token>;
   RegisterInput: RegisterInput;
@@ -175,7 +176,7 @@ export type ResolversParentTypes = {
   String: Scalars['String'];
   Query: {};
   User: User;
-  Float: Scalars['Float'];
+  ID: Scalars['ID'];
   Boolean: Scalars['Boolean'];
   Token: Token;
   RegisterInput: RegisterInput;
@@ -189,8 +190,9 @@ export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   login?: Resolver<ResolversTypes['Token'], ParentType, ContextType, RequireFields<MutationLoginArgs, 'username' | 'password'>>;
   register?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationRegisterArgs, 'input'>>;
-  updatePhoto?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdatePhotoArgs, never>>;
+  updatePhoto?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdatePhotoArgs, 'file'>>;
   updateInfo?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateInfoArgs, 'input'>>;
+  delPhoto?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -200,7 +202,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
-  id?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   sex?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   birthday?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

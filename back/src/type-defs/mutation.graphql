@@ -5,4 +5,5 @@ type Mutation {
   register(input: RegisterInput!): User!
   updatePhoto(file: Upload!): User!
   updateInfo(input: UpdateInfoInput!): User!
+  delPhoto: User!
 }

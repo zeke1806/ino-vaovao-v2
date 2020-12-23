@@ -20,7 +20,7 @@ const onFinishStream = async (
     user.photoPublicId = result.public_id;
     const r = await userService.save(user);
     resolve({
-      id: r.id,
+      id: r.id.toString(),
       sex: r.sex,
       username: r.username,
       birthday: r.birthday.toString(),
