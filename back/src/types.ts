@@ -22,7 +22,7 @@ export enum FhStatus {
 export type Fh = {
   __typename?: 'FH';
   id: Scalars['ID'];
-  friend: User;
+  user: User;
   status: FhStatus;
 };
 
@@ -221,7 +221,7 @@ export type ResolversParentTypes = {
 
 export type FhResolvers<ContextType = any, ParentType extends ResolversParentTypes['FH'] = ResolversParentTypes['FH']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  friend?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['FHStatus'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

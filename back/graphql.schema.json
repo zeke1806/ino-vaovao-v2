@@ -65,7 +65,7 @@
             "deprecationReason": null
           },
           {
-            "name": "friend",
+            "name": "user",
             "description": null,
             "args": [],
             "type": {

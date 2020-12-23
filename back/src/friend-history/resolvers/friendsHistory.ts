@@ -29,7 +29,7 @@ export const friendsHistory: T = async (_, __, { req }) => {
 
     return {
       id: u.id.toString(),
-      friend: mapUser(u),
+      user: mapUser(u),
       status
     }
   }));

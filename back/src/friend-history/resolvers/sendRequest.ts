@@ -31,7 +31,7 @@ export const sendRequest: T = async (_, { userId }, { req }) => {
   
   return {
     id: `${friend.id}`,
-    friend: mapUser(friend),
+    user: mapUser(friend),
     status: FhStatus.RequestFromMe
   }
 }

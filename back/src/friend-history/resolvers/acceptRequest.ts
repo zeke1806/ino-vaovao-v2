@@ -31,7 +31,7 @@ export const acceptRequest: T = async (_, { userId }, { req }) => {
 
   return {
     id: `${requestor.id}`,
-    friend: mapUser(requestor),
+    user: mapUser(requestor),
     status: FhStatus.Friend
   }
 }

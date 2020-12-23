@@ -7,6 +7,6 @@ enum FHStatus {
 
 type FH {
   id: ID!
-  friend: User!
+  user: User!
   status: FHStatus!
 }
