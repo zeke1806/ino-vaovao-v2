@@ -19,4 +19,8 @@ export class FriendHistoryService {
   save(fh: FriendHistoryEntity): Promise<FriendHistoryEntity> {
     return this.fhRepository.save(fh);
   }
+
+  remove(fh: FriendHistoryEntity): Promise<FriendHistoryEntity> {
+    return this.fhRepository.remove(fh);
+  }
 }

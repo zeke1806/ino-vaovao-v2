@@ -36,6 +36,7 @@ export type Mutation = {
   delPhoto: User;
   sendRequest: Fh;
   acceptRequest: Fh;
+  delRequest?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -66,6 +67,11 @@ export type MutationSendRequestArgs = {
 
 
 export type MutationAcceptRequestArgs = {
+  userId: Scalars['String'];
+};
+
+
+export type MutationDelRequestArgs = {
   userId: Scalars['String'];
 };
 
@@ -189,9 +195,9 @@ export type ResolversTypes = {
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
   Mutation: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Token: ResolverTypeWrapper<Token>;
   RegisterInput: RegisterInput;
   UpdateInfoInput: UpdateInfoInput;
@@ -204,9 +210,9 @@ export type ResolversParentTypes = {
   Upload: Scalars['Upload'];
   Mutation: {};
   String: Scalars['String'];
+  Boolean: Scalars['Boolean'];
   Query: {};
   User: User;
-  Boolean: Scalars['Boolean'];
   Token: Token;
   RegisterInput: RegisterInput;
   UpdateInfoInput: UpdateInfoInput;
@@ -231,6 +237,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   delPhoto?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   sendRequest?: Resolver<ResolversTypes['FH'], ParentType, ContextType, RequireFields<MutationSendRequestArgs, 'userId'>>;
   acceptRequest?: Resolver<ResolversTypes['FH'], ParentType, ContextType, RequireFields<MutationAcceptRequestArgs, 'userId'>>;
+  delRequest?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDelRequestArgs, 'userId'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {

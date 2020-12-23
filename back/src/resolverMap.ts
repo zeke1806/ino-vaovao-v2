@@ -9,6 +9,7 @@ import { delPhoto } from "./user/resolvers/delPhoto";
 
 import { sendRequest } from "./friend-history/resolvers/sendRequest";
 import { acceptRequest } from "./friend-history/resolvers/acceptRequest";
+import { delRequest } from "./friend-history/resolvers/delRequest";
 
 const helloWorld = (): string => "Hello world";
 
@@ -26,7 +27,8 @@ const resolverMap: IResolvers = {
     updateInfo,
     delPhoto,
     sendRequest,
-    acceptRequest
+    acceptRequest,
+    delRequest
   },
 };
 

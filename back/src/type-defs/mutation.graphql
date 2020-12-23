@@ -8,4 +8,5 @@ type Mutation {
   delPhoto: User!
   sendRequest(userId: String!): FH!
   acceptRequest(userId: String!): FH!
+  delRequest(userId: String!): Boolean
 }
