@@ -17,19 +17,25 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "ACCEPTED",
-            "description": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "PROCESSING",
+            "name": "FRIEND",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "SUGGESTION",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "REQUEST_FROM_ME",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "REQUEST_TO_ME",
             "description": null,
             "isDeprecated": false,
             "deprecationReason": null
@@ -280,7 +286,7 @@
             "description": null,
             "args": [
               {
-                "name": "friendId",
+                "name": "userId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",

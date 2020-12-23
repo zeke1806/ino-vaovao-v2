@@ -9,23 +9,19 @@ import {
   StatusCodes
 } from 'http-status-codes';
 import { mapUser } from "../../utils/mapEntityScema";
-import { checkStatusFH } from "../../utils/checkStatusFH";
 
 type T = Resolver<Fh, {}, { req: any }, MutationSendRequestArgs>;
 
-export const sendRequest: T = async (_, { friendId }, { req }) => {
+export const sendRequest: T = async (_, { userId }, { req }) => {
   const {
     payload: { id }
   } = authGuard(req);
   const userService = new UserService();
   const fhService = new FriendHistoryService();
-  const status = await checkStatusFH(id, +friendId);
-
-  if(status !== FhStatus.Suggestion) throw new ApolloError(ReasonPhrases.CONFLICT, StatusCodes.CONFLICT.toString());
 
   const user = await userService.getById(id);
-  const friend = await userService.getById(+friendId);
-  if(!user || !friend) throw new ApolloError(ReasonPhrases.NO_CONTENT, StatusCodes.NO_CONTENT.toString());
+  const friend = await userService.getById(+userId);
+  if(!user || !friend) throw new ApolloError(ReasonPhrases.NOT_FOUND, StatusCodes.NOT_FOUND.toString());
 
   let newFH = new FriendHistoryEntity();
   newFH.user = user;
@@ -36,6 +32,6 @@ export const sendRequest: T = async (_, { friendId }, { req }) => {
   return {
     id: `${user.id}-${friend.id}`,
     friend: mapUser(friend),
-    status: await checkStatusFH(id, +friendId)
+    status: FhStatus.RequestFromMe
   }
 }

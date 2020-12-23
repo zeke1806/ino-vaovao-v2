@@ -13,9 +13,10 @@ export type Scalars = {
 };
 
 export enum FhStatus {
-  Accepted = 'ACCEPTED',
-  Processing = 'PROCESSING',
-  Suggestion = 'SUGGESTION'
+  Friend = 'FRIEND',
+  Suggestion = 'SUGGESTION',
+  RequestFromMe = 'REQUEST_FROM_ME',
+  RequestToMe = 'REQUEST_TO_ME'
 }
 
 export type Fh = {
@@ -60,7 +61,7 @@ export type MutationUpdateInfoArgs = {
 
 
 export type MutationSendRequestArgs = {
-  friendId: Scalars['String'];
+  userId: Scalars['String'];
 };
 
 
@@ -228,7 +229,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updatePhoto?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdatePhotoArgs, 'file'>>;
   updateInfo?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateInfoArgs, 'input'>>;
   delPhoto?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  sendRequest?: Resolver<ResolversTypes['FH'], ParentType, ContextType, RequireFields<MutationSendRequestArgs, 'friendId'>>;
+  sendRequest?: Resolver<ResolversTypes['FH'], ParentType, ContextType, RequireFields<MutationSendRequestArgs, 'userId'>>;
   acceptRequest?: Resolver<ResolversTypes['FH'], ParentType, ContextType, RequireFields<MutationAcceptRequestArgs, 'userId'>>;
 };
 

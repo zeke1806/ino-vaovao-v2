@@ -1,8 +1,7 @@
-import { Fh, Resolver, MutationAcceptRequestArgs } from "../../types";
+import { Fh, Resolver, MutationAcceptRequestArgs, FhStatus } from "../../types";
 import { UserEntity } from "../../user/user.entity";
 import { UserService } from "../../user/user.service";
 import { authGuard } from "../../utils/authGuard";
-import { checkStatusFH } from "../../utils/checkStatusFH";
 import { mapUser } from "../../utils/mapEntityScema";
 import { FriendHistoryEntity } from "../friendHistory.entity";
 import { FriendHistoryService } from "../friendHistory.service";
@@ -24,15 +23,15 @@ export const acceptRequest: T = async (_, { userId }, { req }) => {
   requestorFH.accepted = true;
   await fhService.save(requestorFH!);
 
-  const myFH = new FriendHistoryEntity();
-  myFH.user = me;
-  myFH.friend = requestor;
-  myFH.accepted = true;
-  await fhService.save(myFH);
+  const meFH = new FriendHistoryEntity();
+  meFH.user = me;
+  meFH.friend = requestor;
+  meFH.accepted = true;
+  await fhService.save(meFH);
 
   return {
     id: `${me.id}-${requestor.id}`,
     friend: mapUser(requestor),
-    status: await checkStatusFH(me.id, requestor.id)
+    status: FhStatus.Friend
   }
 }

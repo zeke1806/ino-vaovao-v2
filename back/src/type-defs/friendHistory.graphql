@@ -1,7 +1,8 @@
 enum FHStatus {
-  ACCEPTED
-  PROCESSING
+  FRIEND
   SUGGESTION
+  REQUEST_FROM_ME
+  REQUEST_TO_ME
 }
 
 type FH {
