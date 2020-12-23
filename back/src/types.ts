@@ -12,6 +12,18 @@ export type Scalars = {
   Upload: any;
 };
 
+export enum FhStatus {
+  Accepted = 'ACCEPTED',
+  Processing = 'PROCESSING',
+  Suggestion = 'SUGGESTION'
+}
+
+export type Fh = {
+  __typename?: 'FH';
+  friend: User;
+  status: FhStatus;
+};
+
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -20,6 +32,7 @@ export type Mutation = {
   updatePhoto: User;
   updateInfo: User;
   delPhoto: User;
+  sendRequest: Fh;
 };
 
 
@@ -41,6 +54,11 @@ export type MutationUpdatePhotoArgs = {
 
 export type MutationUpdateInfoArgs = {
   input: UpdateInfoInput;
+};
+
+
+export type MutationSendRequestArgs = {
+  friendId: Scalars['String'];
 };
 
 export type Query = {
@@ -157,6 +175,8 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  FHStatus: FhStatus;
+  FH: ResolverTypeWrapper<Fh>;
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
   Mutation: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
@@ -171,6 +191,7 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  FH: Fh;
   Upload: Scalars['Upload'];
   Mutation: {};
   String: Scalars['String'];
@@ -183,6 +204,12 @@ export type ResolversParentTypes = {
   UpdateInfoInput: UpdateInfoInput;
 };
 
+export type FhResolvers<ContextType = any, ParentType extends ResolversParentTypes['FH'] = ResolversParentTypes['FH']> = {
+  friend?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['FHStatus'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
   name: 'Upload';
 }
@@ -193,6 +220,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updatePhoto?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdatePhotoArgs, 'file'>>;
   updateInfo?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateInfoArgs, 'input'>>;
   delPhoto?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  sendRequest?: Resolver<ResolversTypes['FH'], ParentType, ContextType, RequireFields<MutationSendRequestArgs, 'friendId'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -217,6 +245,7 @@ export type TokenResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type Resolvers<ContextType = any> = {
+  FH?: FhResolvers<ContextType>;
   Upload?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

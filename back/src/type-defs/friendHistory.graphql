@@ -1,0 +1,10 @@
+enum FHStatus {
+  ACCEPTED
+  PROCESSING
+  SUGGESTION
+}
+
+type FH {
+  friend: User!
+  status: FHStatus!
+}
