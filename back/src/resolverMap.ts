@@ -12,6 +12,10 @@ import { acceptRequest } from "./friend-history/resolvers/acceptRequest";
 import { delRequest } from "./friend-history/resolvers/delRequest";
 import { friendsHistory } from "./friend-history/resolvers/friendsHistory";
 
+import { sendMessage } from "./message/resolvers/sendMessage";
+
+import { createDiscussion } from "./discussion/resolvers/createDiscussion";
+
 const helloWorld = (): string => "Hello world";
 
 const resolverMap: IResolvers = {
@@ -30,7 +34,9 @@ const resolverMap: IResolvers = {
     delPhoto,
     sendRequest,
     acceptRequest,
-    delRequest
+    delRequest,
+    sendMessage,
+    createDiscussion
   },
 };
 

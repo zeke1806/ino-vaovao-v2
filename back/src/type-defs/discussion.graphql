@@ -1,0 +1,4 @@
+type Discussion {
+  id: ID!
+  name: String!
+}

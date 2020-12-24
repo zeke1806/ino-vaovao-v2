@@ -12,6 +12,12 @@ export type Scalars = {
   Upload: any;
 };
 
+export type Discussion = {
+  __typename?: 'Discussion';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+};
+
 export enum FhStatus {
   Friend = 'FRIEND',
   Suggestion = 'SUGGESTION',
@@ -40,6 +46,7 @@ export type Mutation = {
   acceptRequest: User;
   delRequest: Scalars['Boolean'];
   sendMessage: Message;
+  createDiscussion: Discussion;
 };
 
 
@@ -82,6 +89,12 @@ export type MutationDelRequestArgs = {
 export type MutationSendMessageArgs = {
   discussionId: Scalars['ID'];
   content: Scalars['String'];
+};
+
+
+export type MutationCreateDiscussionArgs = {
+  members: Array<Scalars['ID']>;
+  name: Scalars['String'];
 };
 
 export type Query = {
@@ -200,10 +213,11 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  FHStatus: FhStatus;
-  Message: ResolverTypeWrapper<Message>;
+  Discussion: ResolverTypeWrapper<Discussion>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  FHStatus: FhStatus;
+  Message: ResolverTypeWrapper<Message>;
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
   Mutation: ResolverTypeWrapper<{}>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
@@ -216,9 +230,10 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  Message: Message;
+  Discussion: Discussion;
   ID: Scalars['ID'];
   String: Scalars['String'];
+  Message: Message;
   Upload: Scalars['Upload'];
   Mutation: {};
   Boolean: Scalars['Boolean'];
@@ -227,6 +242,12 @@ export type ResolversParentTypes = {
   Token: Token;
   RegisterInput: RegisterInput;
   UpdateInfoInput: UpdateInfoInput;
+};
+
+export type DiscussionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Discussion'] = ResolversParentTypes['Discussion']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type MessageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']> = {
@@ -252,6 +273,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   acceptRequest?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAcceptRequestArgs, 'userId'>>;
   delRequest?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDelRequestArgs, 'userId'>>;
   sendMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationSendMessageArgs, 'discussionId' | 'content'>>;
+  createDiscussion?: Resolver<ResolversTypes['Discussion'], ParentType, ContextType, RequireFields<MutationCreateDiscussionArgs, 'members' | 'name'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -278,6 +300,7 @@ export type TokenResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type Resolvers<ContextType = any> = {
+  Discussion?: DiscussionResolvers<ContextType>;
   Message?: MessageResolvers<ContextType>;
   Upload?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
