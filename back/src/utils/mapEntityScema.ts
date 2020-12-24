@@ -1,3 +1,4 @@
+import { MessageEntity } from "../message/message.entity";
 import { User } from "../types";
 import { UserEntity } from "../user/user.entity";
 

@@ -19,6 +19,15 @@ export enum FhStatus {
   RequestToMe = 'REQUEST_TO_ME'
 }
 
+export type Message = {
+  __typename?: 'Message';
+  id: Scalars['ID'];
+  content: Scalars['String'];
+  createdAt: Scalars['String'];
+  sender: User;
+  discussionId: Scalars['String'];
+};
+
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -29,7 +38,8 @@ export type Mutation = {
   delPhoto: User;
   sendRequest: User;
   acceptRequest: User;
-  delRequest?: Maybe<Scalars['Boolean']>;
+  delRequest: Scalars['Boolean'];
+  sendMessage: Message;
 };
 
 
@@ -66,6 +76,12 @@ export type MutationAcceptRequestArgs = {
 
 export type MutationDelRequestArgs = {
   userId: Scalars['String'];
+};
+
+
+export type MutationSendMessageArgs = {
+  discussionId: Scalars['ID'];
+  content: Scalars['String'];
 };
 
 export type Query = {
@@ -185,13 +201,14 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   FHStatus: FhStatus;
+  Message: ResolverTypeWrapper<Message>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
   Mutation: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   Token: ResolverTypeWrapper<Token>;
   RegisterInput: RegisterInput;
   UpdateInfoInput: UpdateInfoInput;
@@ -199,16 +216,26 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  Message: Message;
+  ID: Scalars['ID'];
+  String: Scalars['String'];
   Upload: Scalars['Upload'];
   Mutation: {};
-  String: Scalars['String'];
   Boolean: Scalars['Boolean'];
   Query: {};
   User: User;
-  ID: Scalars['ID'];
   Token: Token;
   RegisterInput: RegisterInput;
   UpdateInfoInput: UpdateInfoInput;
+};
+
+export type MessageResolvers<ContextType = any, ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  sender?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
+  discussionId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
@@ -223,7 +250,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   delPhoto?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   sendRequest?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationSendRequestArgs, 'userId'>>;
   acceptRequest?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAcceptRequestArgs, 'userId'>>;
-  delRequest?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDelRequestArgs, 'userId'>>;
+  delRequest?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDelRequestArgs, 'userId'>>;
+  sendMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationSendMessageArgs, 'discussionId' | 'content'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -250,6 +278,7 @@ export type TokenResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type Resolvers<ContextType = any> = {
+  Message?: MessageResolvers<ContextType>;
   Upload?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
