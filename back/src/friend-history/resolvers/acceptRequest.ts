@@ -1,4 +1,4 @@
-import { Fh, Resolver, MutationAcceptRequestArgs, FhStatus } from "../../types";
+import { Resolver, MutationAcceptRequestArgs, FhStatus, User } from "../../types";
 import { UserEntity } from "../../user/user.entity";
 import { UserService } from "../../user/user.service";
 import { authGuard } from "../../utils/authGuard";
@@ -6,7 +6,7 @@ import { mapUser } from "../../utils/mapEntityScema";
 import { FriendHistoryEntity } from "../friendHistory.entity";
 import { FriendHistoryService } from "../friendHistory.service";
 
-type T = Resolver<Fh, {}, { req: any }, MutationAcceptRequestArgs>;
+type T = Resolver<User, {}, { req: any }, MutationAcceptRequestArgs>;
 
 export const acceptRequest: T = async (_, { userId }, { req }) => {
   const {
@@ -30,8 +30,7 @@ export const acceptRequest: T = async (_, { userId }, { req }) => {
   await fhService.save(meFH);
 
   return {
-    id: `${requestor.id}`,
-    user: mapUser(requestor),
+    ...mapUser(requestor),
     status: FhStatus.Friend
   }
 }

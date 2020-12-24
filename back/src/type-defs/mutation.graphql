@@ -6,7 +6,7 @@ type Mutation {
   updatePhoto(file: Upload!): User!
   updateInfo(input: UpdateInfoInput!): User!
   delPhoto: User!
-  sendRequest(userId: String!): FH!
-  acceptRequest(userId: String!): FH!
+  sendRequest(userId: String!): User!
+  acceptRequest(userId: String!): User!
   delRequest(userId: String!): Boolean
 }

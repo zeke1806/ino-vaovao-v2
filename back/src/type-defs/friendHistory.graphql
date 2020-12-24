@@ -4,9 +4,3 @@ enum FHStatus {
   REQUEST_FROM_ME
   REQUEST_TO_ME
 }
-
-type FH {
-  id: ID!
-  user: User!
-  status: FHStatus!
-}

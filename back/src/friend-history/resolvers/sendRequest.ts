@@ -1,5 +1,5 @@
 import { ApolloError } from "apollo-server-express";
-import { Fh, Resolver, MutationSendRequestArgs, FhStatus } from "../../types";
+import { Resolver, MutationSendRequestArgs, FhStatus, User } from "../../types";
 import { UserService } from "../../user/user.service";
 import { authGuard } from "../../utils/authGuard";
 import { FriendHistoryEntity } from "../friendHistory.entity";
@@ -10,7 +10,7 @@ import {
 } from 'http-status-codes';
 import { mapUser } from "../../utils/mapEntityScema";
 
-type T = Resolver<Fh, {}, { req: any }, MutationSendRequestArgs>;
+type T = Resolver<User, {}, { req: any }, MutationSendRequestArgs>;
 
 export const sendRequest: T = async (_, { userId }, { req }) => {
   const {
@@ -30,8 +30,7 @@ export const sendRequest: T = async (_, { userId }, { req }) => {
   newFH = await fhService.save(newFH);
   
   return {
-    id: `${friend.id}`,
-    user: mapUser(friend),
+    ...mapUser(friend),
     status: FhStatus.RequestFromMe
   }
 }

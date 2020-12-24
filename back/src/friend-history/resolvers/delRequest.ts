@@ -1,6 +1,6 @@
 import { ApolloError } from "apollo-server-express";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
-import { Fh, MutationDelRequestArgs, Resolver } from "../../types";
+import { MutationDelRequestArgs, Resolver } from "../../types";
 import { UserEntity } from "../../user/user.entity";
 import { UserService } from "../../user/user.service";
 import { authGuard } from "../../utils/authGuard";

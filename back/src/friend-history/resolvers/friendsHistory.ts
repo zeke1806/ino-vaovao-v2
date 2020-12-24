@@ -1,11 +1,11 @@
-import { Fh, FhStatus, Resolver } from "../../types";
+import { FhStatus, Resolver, User } from "../../types";
 import { UserEntity } from "../../user/user.entity";
 import { UserService } from "../../user/user.service";
 import { authGuard } from "../../utils/authGuard";
 import { mapUser } from "../../utils/mapEntityScema";
 import { FriendHistoryService } from "../friendHistory.service";
 
-type T = Resolver<Fh[], {}, { req: any }>;
+type T = Resolver<User[], {}, { req: any }>;
 
 export const friendsHistory: T = async (_, __, { req }) => {
   const {
@@ -17,20 +17,19 @@ export const friendsHistory: T = async (_, __, { req }) => {
   const me = await userService.getById(id) as UserEntity;
   const users = (await userService.getAll()).filter(u => u.id !== id);
 
-  const fhs = await Promise.all(users.map(async (u): Promise<Fh> => {
-    let status;
+  const fhs = await Promise.all(users.map(async (u): Promise<User> => {
+    let fhStatus;
     const meFh = await fhService.getOne(me, u);
     const uFh = await fhService.getOne(u, me);
 
-    if(!meFh && !uFh) status = FhStatus.Suggestion;
-    else if(meFh && !uFh) status = FhStatus.RequestFromMe;
-    else if(!meFh && uFh) status = FhStatus.RequestToMe;
-    else status = FhStatus.Friend;
+    if(!meFh && !uFh) fhStatus = FhStatus.Suggestion;
+    else if(meFh && !uFh) fhStatus = FhStatus.RequestFromMe;
+    else if(!meFh && uFh) fhStatus = FhStatus.RequestToMe;
+    else fhStatus = FhStatus.Friend;
 
     return {
-      id: u.id.toString(),
-      user: mapUser(u),
-      status
+      ...mapUser(u),
+      fhStatus
     }
   }));
 

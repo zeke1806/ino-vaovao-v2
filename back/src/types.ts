@@ -19,13 +19,6 @@ export enum FhStatus {
   RequestToMe = 'REQUEST_TO_ME'
 }
 
-export type Fh = {
-  __typename?: 'FH';
-  id: Scalars['ID'];
-  user: User;
-  status: FhStatus;
-};
-
 
 export type Mutation = {
   __typename?: 'Mutation';
@@ -34,8 +27,8 @@ export type Mutation = {
   updatePhoto: User;
   updateInfo: User;
   delPhoto: User;
-  sendRequest: Fh;
-  acceptRequest: Fh;
+  sendRequest: User;
+  acceptRequest: User;
   delRequest?: Maybe<Scalars['Boolean']>;
 };
 
@@ -80,7 +73,7 @@ export type Query = {
   helloWorld: Scalars['String'];
   users: Array<User>;
   me: User;
-  friendsHistory: Array<Fh>;
+  friendsHistory: Array<User>;
 };
 
 export type User = {
@@ -91,6 +84,7 @@ export type User = {
   birthday: Scalars['String'];
   photo?: Maybe<Scalars['String']>;
   photoPublicId?: Maybe<Scalars['String']>;
+  fhStatus?: Maybe<FhStatus>;
 };
 
 export type Token = {
@@ -191,14 +185,13 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   FHStatus: FhStatus;
-  FH: ResolverTypeWrapper<Fh>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
   Upload: ResolverTypeWrapper<Scalars['Upload']>;
   Mutation: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Query: ResolverTypeWrapper<{}>;
   User: ResolverTypeWrapper<User>;
+  ID: ResolverTypeWrapper<Scalars['ID']>;
   Token: ResolverTypeWrapper<Token>;
   RegisterInput: RegisterInput;
   UpdateInfoInput: UpdateInfoInput;
@@ -206,24 +199,16 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  FH: Fh;
-  ID: Scalars['ID'];
   Upload: Scalars['Upload'];
   Mutation: {};
   String: Scalars['String'];
   Boolean: Scalars['Boolean'];
   Query: {};
   User: User;
+  ID: Scalars['ID'];
   Token: Token;
   RegisterInput: RegisterInput;
   UpdateInfoInput: UpdateInfoInput;
-};
-
-export type FhResolvers<ContextType = any, ParentType extends ResolversParentTypes['FH'] = ResolversParentTypes['FH']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  user?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  status?: Resolver<ResolversTypes['FHStatus'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
@@ -236,8 +221,8 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   updatePhoto?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdatePhotoArgs, 'file'>>;
   updateInfo?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateInfoArgs, 'input'>>;
   delPhoto?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  sendRequest?: Resolver<ResolversTypes['FH'], ParentType, ContextType, RequireFields<MutationSendRequestArgs, 'userId'>>;
-  acceptRequest?: Resolver<ResolversTypes['FH'], ParentType, ContextType, RequireFields<MutationAcceptRequestArgs, 'userId'>>;
+  sendRequest?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationSendRequestArgs, 'userId'>>;
+  acceptRequest?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationAcceptRequestArgs, 'userId'>>;
   delRequest?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType, RequireFields<MutationDelRequestArgs, 'userId'>>;
 };
 
@@ -245,7 +230,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   helloWorld?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   users?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
   me?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
-  friendsHistory?: Resolver<Array<ResolversTypes['FH']>, ParentType, ContextType>;
+  friendsHistory?: Resolver<Array<ResolversTypes['User']>, ParentType, ContextType>;
 };
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
@@ -255,6 +240,7 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   birthday?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   photo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   photoPublicId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  fhStatus?: Resolver<Maybe<ResolversTypes['FHStatus']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -264,7 +250,6 @@ export type TokenResolvers<ContextType = any, ParentType extends ResolversParent
 };
 
 export type Resolvers<ContextType = any> = {
-  FH?: FhResolvers<ContextType>;
   Upload?: GraphQLScalarType;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

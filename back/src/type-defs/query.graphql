@@ -2,5 +2,5 @@ type Query {
   helloWorld: String!
   users: [User!]!
   me: User!
-  friendsHistory: [FH!]!
+  friendsHistory: [User!]!
 }
