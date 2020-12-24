@@ -11,4 +11,8 @@ export class MessageService {
   save(message: MessageEntity): Promise<MessageEntity> {
     return this.messageRepository.save(message);
   }
+
+  getById(id: number): Promise<MessageEntity | undefined> {
+    return this.messageRepository.findOne(id);
+  }
 }

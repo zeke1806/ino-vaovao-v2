@@ -1,5 +1,5 @@
 import { MessageEntity } from "../message/message.entity";
-import { User } from "../types";
+import { Message, User } from "../types";
 import { UserEntity } from "../user/user.entity";
 
 export const mapUser = (userEntity: UserEntity): User => ({
@@ -10,3 +10,11 @@ export const mapUser = (userEntity: UserEntity): User => ({
   photo: userEntity.photo,
   photoPublicId: userEntity.photoPublicId
 });
+
+export const mapMessage = (messageEntity: MessageEntity): Message => ({
+  id: messageEntity.id.toString(),
+  content: messageEntity.content,
+  createdAt: messageEntity.createdAt.toString(),
+  discussionId: messageEntity.discussionId.toString(),
+  senderId: messageEntity.senderId.toString()
+})

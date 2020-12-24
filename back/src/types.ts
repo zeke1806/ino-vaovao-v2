@@ -30,8 +30,10 @@ export type Message = {
   id: Scalars['ID'];
   content: Scalars['String'];
   createdAt: Scalars['String'];
-  sender: User;
   discussionId: Scalars['String'];
+  senderId: Scalars['String'];
+  sender?: Maybe<User>;
+  views?: Maybe<Array<User>>;
 };
 
 
@@ -47,6 +49,7 @@ export type Mutation = {
   delRequest: Scalars['Boolean'];
   sendMessage: Message;
   createDiscussion: Discussion;
+  viewMessage: Message;
 };
 
 
@@ -95,6 +98,11 @@ export type MutationSendMessageArgs = {
 export type MutationCreateDiscussionArgs = {
   members: Array<Scalars['ID']>;
   name: Scalars['String'];
+};
+
+
+export type MutationViewMessageArgs = {
+  messageId: Scalars['String'];
 };
 
 export type Query = {
@@ -254,8 +262,10 @@ export type MessageResolvers<ContextType = any, ParentType extends ResolversPare
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   content?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  sender?: Resolver<ResolversTypes['User'], ParentType, ContextType>;
   discussionId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  senderId?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  sender?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  views?: Resolver<Maybe<Array<ResolversTypes['User']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -274,6 +284,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
   delRequest?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationDelRequestArgs, 'userId'>>;
   sendMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationSendMessageArgs, 'discussionId' | 'content'>>;
   createDiscussion?: Resolver<ResolversTypes['Discussion'], ParentType, ContextType, RequireFields<MutationCreateDiscussionArgs, 'members' | 'name'>>;
+  viewMessage?: Resolver<ResolversTypes['Message'], ParentType, ContextType, RequireFields<MutationViewMessageArgs, 'messageId'>>;
 };
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {

@@ -16,6 +16,9 @@ import { sendMessage } from "./message/resolvers/sendMessage";
 
 import { createDiscussion } from "./discussion/resolvers/createDiscussion";
 
+import { viewMessage } from "./view-message/resolvers/viewMessage";
+import { views, sender } from "./message/field-resolver";
+
 const helloWorld = (): string => "Hello world";
 
 const resolverMap: IResolvers = {
@@ -36,8 +39,14 @@ const resolverMap: IResolvers = {
     acceptRequest,
     delRequest,
     sendMessage,
-    createDiscussion
+    createDiscussion,
+    viewMessage
   },
+  
+  Message: {
+    views,
+    sender
+  }
 };
 
 export default resolverMap;

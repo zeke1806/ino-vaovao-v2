@@ -4,7 +4,7 @@ import { Message, MutationSendMessageArgs, Resolver } from "../../types";
 import { UserEntity } from "../../user/user.entity";
 import { UserService } from "../../user/user.service";
 import { authGuard } from "../../utils/authGuard";
-import { mapUser } from "../../utils/mapEntityScema";
+import { mapMessage } from "../../utils/mapEntityScema";
 import { MessageEntity } from "../message.entity";
 import { MessageService } from "../message.service";
 
@@ -27,11 +27,5 @@ export const sendMessage: T = async (_, { discussionId, content }, { req }) => {
   newMessage.createdAt = new Date();
   newMessage = await messageService.save(newMessage);
 
-  return {
-    id: newMessage.id.toString(),
-    content: newMessage.content,
-    createdAt: newMessage.createdAt.toISOString(),
-    discussionId: discussion.id.toString(),
-    sender: mapUser(sender)
-  }
+  return mapMessage(newMessage);
 }

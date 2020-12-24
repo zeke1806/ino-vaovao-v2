@@ -11,4 +11,5 @@ type Mutation {
   delRequest(userId: String!): Boolean!
   sendMessage(discussionId: ID!, content: String!): Message!
   createDiscussion(members: [ID!]!, name: String!): Discussion!
+  viewMessage(messageId: String!): Message!
 }
