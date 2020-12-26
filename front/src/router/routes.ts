@@ -3,9 +3,14 @@ import { RouteConfig } from 'vue-router';
 const routes: RouteConfig[] = [
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
+    redirect: '/register'
+  },
+
+  {
+    path: '/register',
+    component: () => import('layouts/EmptyLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { path: '', component: () => import('pages/Register.vue') }
     ]
   },
 
