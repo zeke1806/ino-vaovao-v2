@@ -1,5 +1,5 @@
 <template>
-  <q-page padding class="myPage column">
+  <q-page padding class="column">
     <q-space />
 
     <div class="text-h4 row justify-center">Connexion</div>

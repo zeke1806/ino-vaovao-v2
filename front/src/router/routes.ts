@@ -3,7 +3,15 @@ import { RouteConfig } from 'vue-router';
 const routes: RouteConfig[] = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/presentation'
+  },
+
+  {
+    path: '/presentation',
+    component: () => import('layouts/EmptyLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Presentation.vue') }
+    ]
   },
 
   {
