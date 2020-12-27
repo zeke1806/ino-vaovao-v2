@@ -29,6 +29,36 @@
           >
         </div>
       </q-carousel-slide>
+
+      <q-carousel-slide :name="3">
+        <q-img src="~/assets/splash2.png" />
+        <div class="text-h5 text-center">
+          Discussion de groupe <br />
+          <span class="text-subtitle1 text-weight-light"
+            >Decouvrer les dernieres actualites et partagez avec vos amis</span
+          >
+        </div>
+      </q-carousel-slide>
+
+      <q-carousel-slide :name="4">
+        <q-img src="~/assets/splash3.png" />
+        <div class="text-h5 text-center">
+          Discussion privee <br />
+          <span class="text-subtitle1 text-weight-light"
+            >Decouvrer les dernieres actualites et partagez avec vos amis</span
+          >
+        </div>
+
+        <div class="row justify-center q-pa-sm">
+          <q-btn
+            outline
+            rounded
+            color="primary"
+            label="S'inscrire"
+            to="/register"
+          />
+        </div>
+      </q-carousel-slide>
     </q-carousel>
   </q-page>
 </template>
