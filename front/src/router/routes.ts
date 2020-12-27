@@ -3,7 +3,15 @@ import { RouteConfig } from 'vue-router';
 const routes: RouteConfig[] = [
   {
     path: '/',
-    redirect: '/register'
+    redirect: '/login'
+  },
+
+  {
+    path: '/login',
+    component: () => import('layouts/EmptyLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Login.vue') }
+    ]
   },
 
   {

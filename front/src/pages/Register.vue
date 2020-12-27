@@ -53,7 +53,7 @@
 
     <div class="text-body1 text-center">
       Vous possedez deja un compte? <br />
-      <q-btn flat class="connectez-vous" label="Connectez vous" />
+      <q-btn to="/login" flat class="connectez-vous" label="Connectez vous" />
     </div>
 
     <q-space />
