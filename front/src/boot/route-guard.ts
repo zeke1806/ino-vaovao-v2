@@ -10,17 +10,15 @@ export default boot(({ router }) => {
       key: TOKEN
     });
 
-    if(!token && to.fullPath === '/home') {
+    if(!token && to.fullPath.includes('/app')) {
       next({
-        replace: true,
         path: '/login'
       });
     }
-    else if(token && to.fullPath === '/presentation') {
+    else if(token && !to.fullPath.includes('/app')) {
       next({
-        replace: true,
-        path: '/home'
-      });
+        path: '/login'
+      })
     }
     else next();
   });

@@ -31,8 +31,14 @@ const routes: RouteConfig[] = [
   },
 
   {
-    path: '/home',
-    component: () => import('layouts/HomeLayout.vue')
+    path: '/app',
+    component: () => import('components/public/JustRouterView.vue'),
+    children: [
+      {
+        path: 'home',
+        component: () => import('layouts/HomeLayout.vue')
+      }
+    ]
   },
 
   // Always leave this as last one,

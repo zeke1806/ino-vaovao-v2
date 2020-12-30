@@ -30,7 +30,7 @@ export const useLogin = () => {
         key: TOKEN,
         value: data.login.token
       });
-      void routerInstance.replace('/home');
+      void routerInstance.replace('/app/home');
       form.username = '';
       form.password = '';
     }
