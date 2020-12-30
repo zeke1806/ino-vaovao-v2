@@ -6,8 +6,12 @@
 
     <q-space />
 
-    <form @submit.prevent="submit">
-      <q-input label="Identifiant" v-model="form.input.username">
+    <q-form @submit.prevent="submit">
+      <q-input
+        label="Identifiant"
+        v-model="form.input.username"
+        :rules="[val => (val && val.length > 0) || 'Le champ est requis']"
+      >
         <template v-slot:prepend>
           <q-icon name="account_circle" />
         </template>
@@ -17,6 +21,7 @@
         label="Mot de passe"
         v-model="form.input.password"
         :type="isPwd ? 'password' : 'text'"
+        :rules="[val => (val && val.length > 0) || 'Le champ est requis']"
       >
         <template v-slot:prepend>
           <q-icon name="lock" :color="isPasswordOk ? 'green' : ''" />
@@ -32,6 +37,7 @@
 
       <q-input
         label="Valider le mot de passe"
+        :rules="[val => (val && val.length > 0) || 'Le champ est requis']"
         v-model="validatePassword"
         type="password"
       >
@@ -80,7 +86,7 @@
           type="submit"
         />
       </div>
-    </form>
+    </q-form>
 
     <q-space />
 

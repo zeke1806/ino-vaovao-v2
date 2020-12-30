@@ -3,6 +3,8 @@ import { computed, reactive, ref } from '@vue/composition-api'
 import { date } from 'quasar';
 import { MutationRegisterArgs } from 'src/api/types'
 import { REGISTER, RegisterData } from 'src/api/user';
+import { Notify } from 'quasar';
+import { logErrorMessages } from '@vue/apollo-util';
 
 export const useRegister = () => {
   const validatePassword = ref('');
@@ -16,7 +18,7 @@ export const useRegister = () => {
     }
   });
 
-  const { mutate, onDone } = useMutation<RegisterData, MutationRegisterArgs>(REGISTER);
+  const { mutate, onDone, onError } = useMutation<RegisterData, MutationRegisterArgs>(REGISTER);
 
   const formatedDate = computed(() => date.formatDate(form.input.birthday, 'YYYY-MM-DD'));
 
@@ -36,12 +38,31 @@ export const useRegister = () => {
   });
 
   const submit = () => {
-    void mutate(form);
-  }
+    const { username, password } = form.input;
+    if(username && password && password === validatePassword.value) {
+      void mutate(form);
+    }
+  };
 
   onDone(({ data }) => {
-    console.log('register done => ', data);
-  })
+    if(data) {
+      Notify.create({
+        message: `Votre compte ${data.register.username} a ete creer avec succes`,
+        type: 'positive',
+        actions: [
+          { label: 'Se connecter', color: 'white', handler: () => { /* ... */ } }
+        ]
+      });
+    }
+  });
+
+  onError((error) => {
+    logErrorMessages(error);
+    Notify.create({
+      message: `L'indentifiant ${form.input.username} n'est plus disponible`,
+      type: 'negative'
+    })
+  });
 
   return {
     form,

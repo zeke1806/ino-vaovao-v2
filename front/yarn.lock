@@ -1920,6 +1920,11 @@
     throttle-debounce "^2.3.0"
     vue-demi "^0.4.0"
 
+"@vue/apollo-util@^4.0.0-alpha.11":
+  version "4.0.0-alpha.11"
+  resolved "https://registry.yarnpkg.com/@vue/apollo-util/-/apollo-util-4.0.0-alpha.11.tgz#37bdeb1c2ebbc4a78adc1d995fc1d05eca64ceaa"
+  integrity sha512-VDFW1Xs4gIh+bLxzDmP1brRoBGl24SJysevoMdaimxLSXBbVc9r6ACoCEUOUGvJ193HGmvwmrZ0mIxd58WsnYQ==
+
 "@vue/component-compiler-utils@^3.1.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@vue/component-compiler-utils/-/component-compiler-utils-3.2.0.tgz#8f85182ceed28e9b3c75313de669f83166d11e5d"
