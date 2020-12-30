@@ -2,7 +2,7 @@ import { useMutation } from '@vue/apollo-composable';
 import { reactive } from '@vue/composition-api'
 import { MutationLoginArgs } from 'src/api/types'
 import { LOGIN, LoginData } from 'src/api/user';
-import { Plugins } from '@capacitor/core';
+import { Plugins } from '../../../src-capacitor/node_modules/@capacitor/core';
 import { TOKEN } from 'src/configs';
 import { routerInstance } from 'src/boot/router';
 import { logErrorMessages } from '@vue/apollo-util';

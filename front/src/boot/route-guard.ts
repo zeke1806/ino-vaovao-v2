@@ -1,5 +1,5 @@
 import { boot } from 'quasar/wrappers';
-import { Plugins } from '@capacitor/core';
+import { Plugins } from '../../src-capacitor/node_modules/@capacitor/core';
 import { TOKEN } from 'src/configs';
 
 const { Storage } = Plugins;
