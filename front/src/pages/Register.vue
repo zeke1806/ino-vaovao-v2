@@ -112,7 +112,7 @@ import { date } from 'quasar';
 export default defineComponent({
   name: 'Register',
 
-  setup() {
+  setup(_, root) {
     return useRegister();
   }
 });

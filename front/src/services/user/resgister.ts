@@ -5,6 +5,7 @@ import { MutationRegisterArgs } from 'src/api/types'
 import { REGISTER, RegisterData } from 'src/api/user';
 import { Notify } from 'quasar';
 import { logErrorMessages } from '@vue/apollo-util';
+import { routerInstance } from '../../boot/router';
 
 export const useRegister = () => {
   const validatePassword = ref('');
@@ -50,7 +51,9 @@ export const useRegister = () => {
         message: `Votre compte ${data.register.username} a ete creer avec succes`,
         type: 'positive',
         actions: [
-          { label: 'Se connecter', color: 'white', handler: () => { /* ... */ } }
+          { label: 'Se connecter', color: 'white', handler: () => {
+            void routerInstance.replace('/login')
+          }}
         ]
       });
     }
