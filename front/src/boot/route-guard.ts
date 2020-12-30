@@ -10,8 +10,6 @@ export default boot(({ router }) => {
       key: TOKEN
     });
 
-    console.log(token);
-
     if(!token && to.fullPath === '/home') {
       next({
         replace: true,

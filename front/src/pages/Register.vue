@@ -100,19 +100,13 @@
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  defineComponent,
-  reactive,
-  toRefs
-} from '@vue/composition-api';
+import { defineComponent } from '@vue/composition-api';
 import { useRegister } from '../services/user/resgister';
-import { date } from 'quasar';
 
 export default defineComponent({
   name: 'Register',
 
-  setup(_, root) {
+  setup() {
     return useRegister();
   }
 });

@@ -5,31 +5,30 @@
       <router-view />
     </q-page-container>
 
-    <q-footer>
-      <q-tabs switch-indicator>
-        <q-route-tab icon="map" to="/your/route" replace label="One Tab" />
-        <q-route-tab
-          icon="assignment"
-          to="/some/other/route"
-          replace
-          label="Other Tab"
-        />
+    <q-footer style="border: 0.01px solid transparent;">
+      <q-tabs
+        v-model="tab"
+        class="text-white full-width"
+        align="center"
+        inline-label
+      >
+        <q-tab name="mails" icon="question_answer" label="Discussion" />
+        <q-tab name="alarms" icon="fiber_new" label="Decouverte" />
       </q-tabs>
-
-      <q-toolbar>
-        <q-btn flat round dense icon="menu" @click="leftDrawer = !leftDrawer" />
-        <q-toolbar-title>
-          Footer
-        </q-toolbar-title>
-      </q-toolbar>
     </q-footer>
   </q-layout>
 </template>
 
-<script>
-import { defineComponent } from '@vue/composition-api';
+<script lang="ts">
+import { defineComponent, ref } from '@vue/composition-api';
 
 export default defineComponent({
-  name: 'HomeLayout'
+  name: 'HomeLayout',
+  setup() {
+    const tab = ref('mails');
+    return {
+      tab
+    };
+  }
 });
 </script>
