@@ -28,7 +28,8 @@ module.exports = configure(function (ctx) {
       'composition-api',
       'apollo-setup',
       'notify-defaults',
-      'router'
+      'router',
+      'route-guard'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

@@ -13,3 +13,16 @@ mutation Register($input: RegisterInput!) {
 }
 ${USER_FRAG}
 `;
+
+export interface LoginData {
+  login: {
+    token: string
+  }
+}
+export const LOGIN = gql`
+mutation Login($username: String!, $password: String!) {
+  login(username: $username, password: $password) {
+     token
+  }
+}
+`;

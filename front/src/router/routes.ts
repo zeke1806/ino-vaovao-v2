@@ -30,6 +30,11 @@ const routes: RouteConfig[] = [
     ]
   },
 
+  {
+    path: '/home',
+    component: () => import('layouts/HomeLayout.vue')
+  },
+
   // Always leave this as last one,
   // but you can also remove it
   {

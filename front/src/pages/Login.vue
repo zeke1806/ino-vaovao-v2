@@ -6,23 +6,38 @@
 
     <q-space />
 
-    <form>
-      <q-input label="Identifiant">
+    <q-form @submit="submit">
+      <q-input
+        label="Identifiant"
+        v-model="form.username"
+        :rules="[val => (val && val.length > 0) || 'Le champ est requis']"
+      >
         <template v-slot:prepend>
           <q-icon name="account_circle" />
         </template>
       </q-input>
 
-      <q-input label="Mot de passe">
+      <q-input
+        label="Mot de passe"
+        v-model="form.password"
+        type="password"
+        :rules="[val => (val && val.length > 0) || 'Le champ est requis']"
+      >
         <template v-slot:prepend>
           <q-icon name="lock" />
         </template>
       </q-input>
 
       <div class="row justify-end q-pa-sm">
-        <q-btn outline rounded color="primary" label="Se connecter" />
+        <q-btn
+          outline
+          rounded
+          color="primary"
+          label="Se connecter"
+          type="submit"
+        />
       </div>
-    </form>
+    </q-form>
 
     <q-space />
 
@@ -42,11 +57,12 @@
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from '@vue/composition-api';
+import { useLogin } from '../services/user/login';
 
 export default defineComponent({
   name: 'Login',
   setup() {
-    return {};
+    return useLogin();
   }
 });
 </script>
