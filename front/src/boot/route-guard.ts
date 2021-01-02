@@ -17,7 +17,7 @@ export default boot(({ router }) => {
     }
     else if(token && !to.fullPath.includes('/app')) {
       next({
-        path: '/login'
+        path: '/app/home'
       })
     }
     else next();
