@@ -36,7 +36,13 @@ const routes: RouteConfig[] = [
     children: [
       {
         path: 'home',
-        component: () => import('layouts/HomeLayout.vue')
+        component: () => import('layouts/HomeLayout.vue'),
+        children: [
+          {
+            path: 'discussion',
+            component: () => import('pages/Discussion.vue')
+          }
+        ]
       }
     ]
   },

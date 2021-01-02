@@ -2,12 +2,7 @@
   <q-layout view="hHh Lpr fFf">
     <q-header class="q-pa-xs bg-transparent row">
       <div class="col-2">
-        <q-avatar>
-          <q-icon name="face" color="grey" size="xl" />
-          <q-badge class="bg-transparent" floating>
-            <q-icon name="lens" color="green" size="xs" />
-          </q-badge>
-        </q-avatar>
+        <MyAvatar />
       </div>
 
       <div class="col-7">
@@ -44,12 +39,20 @@
 
     <q-footer class="q-pa-xs">
       <q-tabs v-model="tab" class="text-white" align="center" inline-label>
-        <q-tab name="mails" icon="question_answer" label="Discussion">
+        <q-route-tab
+          to="/app/home/discussion"
+          icon="question_answer"
+          label="Discussion"
+        >
           <q-badge color="secondary" floating>
             0
           </q-badge>
-        </q-tab>
-        <q-tab name="alarms" icon="fiber_new" label="Decouverte" />
+        </q-route-tab>
+        <q-route-tab
+          to="/app/home/decouverte"
+          icon="fiber_new"
+          label="Decouverte"
+        />
       </q-tabs>
     </q-footer>
 
@@ -61,9 +64,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api';
+import MyAvatar from '../components/public/MyAvatar.vue';
 
 export default defineComponent({
   name: 'HomeLayout',
+  components: {
+    MyAvatar
+  },
   setup() {
     const tab = ref('mails');
     return {
