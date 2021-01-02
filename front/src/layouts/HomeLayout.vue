@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh Lpr fFf">
+  <q-layout view="hhh Lpr fFf">
     <q-header class="q-pa-xs bg-transparent row">
       <div class="col-2">
         <MyAvatar />

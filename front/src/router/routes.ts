@@ -37,6 +37,7 @@ const routes: RouteConfig[] = [
       {
         path: 'home',
         component: () => import('layouts/HomeLayout.vue'),
+        redirect: 'home/discussion',
         children: [
           {
             path: 'discussion',
