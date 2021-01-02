@@ -1,11 +1,13 @@
 <template>
   <q-layout view="hhh Lpr fFf">
-    <q-header class="q-pa-xs bg-transparent row">
-      <div class="col-2">
-        <MyAvatar />
+    <q-header class="q-pa-xs bg-transparent row q-gutter-xs">
+      <div>
+        <router-link to="/app/profile">
+          <MyAvatar />
+        </router-link>
       </div>
 
-      <div class="col-7">
+      <div class="col">
         <q-input filled type="search" label="Discussion">
           <template v-slot:append>
             <q-icon name="search" />
@@ -13,7 +15,7 @@
         </q-input>
       </div>
 
-      <div class="col row justify-around items-center">
+      <div class="row justify-around items-center">
         <q-btn
           flat
           round
@@ -49,7 +51,7 @@
           </q-badge>
         </q-route-tab>
         <q-route-tab
-          to="/app/home/decouverte"
+          to="/app/home/discovery"
           icon="fiber_new"
           label="Decouverte"
         />

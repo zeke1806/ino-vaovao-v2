@@ -42,6 +42,20 @@ const routes: RouteConfig[] = [
           {
             path: 'discussion',
             component: () => import('pages/Discussion.vue')
+          },
+          {
+            path: 'discovery',
+            component: () => import('pages/Discovery.vue')
+          }
+        ]
+      },
+      {
+        path: '',
+        component: () => import('layouts/EmptyLayout.vue'),
+        children: [
+          {
+            path: 'profile',
+            component: () => import('pages/Profile.vue')
           }
         ]
       }
