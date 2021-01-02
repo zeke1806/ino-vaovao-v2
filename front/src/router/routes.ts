@@ -50,14 +50,8 @@ const routes: RouteConfig[] = [
         ]
       },
       {
-        path: '',
-        component: () => import('layouts/EmptyLayout.vue'),
-        children: [
-          {
-            path: 'profile',
-            component: () => import('pages/Profile.vue')
-          }
-        ]
+        path: 'profile',
+        component: () => import('pages/Profile.vue')
       }
     ]
   },
