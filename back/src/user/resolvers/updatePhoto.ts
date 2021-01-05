@@ -30,6 +30,10 @@ const onFinishStream = async (
 type T = Resolver<User, {}, { req: any }, MutationUpdatePhotoArgs>;
 
 export const updatePhoto: T = async (_, { file }, { req }) => {
+  console.log(`resolver updatePhoto => {
+    file: ${file}
+  }`);
+
   const {
     payload: { id }
   } = authGuard(req);

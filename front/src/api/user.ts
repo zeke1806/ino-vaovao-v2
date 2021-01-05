@@ -38,3 +38,15 @@ query {
 }
 ${USER_FRAG}
 `;
+
+export interface UpdatePhotoData {
+  updatePhoto: User;
+}
+export const UPDATE_PHOTO = gql`
+mutation UpdatePhoto($file: Upload!) {
+  updatePhoto(file: $file) {
+    ...UserFrag
+  }
+}
+${USER_FRAG}
+`;
