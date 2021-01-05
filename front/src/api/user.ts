@@ -26,3 +26,15 @@ mutation Login($username: String!, $password: String!) {
   }
 }
 `;
+
+export interface MeData {
+  me: User;
+}
+export const ME = gql`
+query {
+  me {
+    ...UserFrag
+  }
+}
+${USER_FRAG}
+`;

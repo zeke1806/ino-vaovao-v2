@@ -1,17 +1,28 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
-import { API_URL } from 'src/configs'
+import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core';
+import { setContext } from '@apollo/client/link/context';
+import { API_URL, TOKEN } from 'src/configs';
+import { Plugins } from '../utils/capacitor';
 
-// HTTP connection to the API
+const { Storage } = Plugins;
+
 const httpLink = createHttpLink({
-  // You should use an absolute URL here
   uri: API_URL,
-})
+});
 
-// Cache implementation
-const cache = new InMemoryCache()
+const authLink = setContext(async (_, { headers }) => {
+  const token = (await Storage.get({key: TOKEN})).value;
+  const newHeaders = {
+    ...headers,
+    authorization: token ? token : ''
+  } as Record<string, any>;
+  return {
+    headers: newHeaders
+  }
+});
 
-// Create the apollo client
+const cache = new InMemoryCache();
+
 export const apollo = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache,
-})
+});
