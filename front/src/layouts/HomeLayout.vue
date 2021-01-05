@@ -24,6 +24,7 @@
           color="grey"
           padding="none"
           :ripple="false"
+          to="/app/friend"
         >
           <q-badge floating color="secondary">1</q-badge>
         </q-btn>

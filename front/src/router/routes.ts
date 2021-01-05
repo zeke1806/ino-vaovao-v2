@@ -52,6 +52,10 @@ const routes: RouteConfig[] = [
       {
         path: 'profile',
         component: () => import('pages/Profile.vue')
+      },
+      {
+        path: 'friend',
+        component: () => import('pages/Friend.vue')
       }
     ]
   },
