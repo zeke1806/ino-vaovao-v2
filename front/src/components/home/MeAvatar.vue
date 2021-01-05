@@ -4,6 +4,7 @@
       v-if="!loading"
       :username="result.me.username"
       :photo="result.me.photo"
+      :connected="false"
     />
   </router-link>
 </template>
