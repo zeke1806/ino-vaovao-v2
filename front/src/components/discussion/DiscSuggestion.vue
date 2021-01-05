@@ -14,7 +14,7 @@
           class="text-center"
           style="width: 100px;"
         >
-          <MyAvatar />
+          <MyAvatar username="John Doe" />
           <p>John Doe</p>
         </div>
       </div>

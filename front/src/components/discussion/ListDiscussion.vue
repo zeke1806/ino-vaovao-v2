@@ -5,7 +5,7 @@
       <q-card class="my-card" v-for="(item, i) in new Array(15)" :key="i">
         <q-item>
           <q-item-section avatar>
-            <MyAvatar />
+            <MyAvatar username="John Doe" />
           </q-item-section>
 
           <q-item-section>

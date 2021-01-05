@@ -6,9 +6,9 @@ const { Storage } = Plugins;
 
 export default boot(({ router }) => {
   router.beforeEach(async (to, from, next) => {
-    const token = await Storage.get({
+    const token = (await Storage.get({
       key: TOKEN
-    });
+    })).value;
 
     if(!token && to.fullPath.includes('/app')) {
       next({

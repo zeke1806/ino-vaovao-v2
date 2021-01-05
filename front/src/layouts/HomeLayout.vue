@@ -1,11 +1,7 @@
 <template>
   <q-layout view="hhh Lpr fFf">
     <q-header class="q-pa-xs bg-transparent row q-gutter-xs">
-      <div>
-        <router-link to="/app/profile">
-          <MyAvatar />
-        </router-link>
-      </div>
+      <MeAvatar />
 
       <div class="col">
         <q-input filled type="search" label="Discussion">
@@ -67,12 +63,12 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api';
-import MyAvatar from '../components/public/MyAvatar.vue';
+import MeAvatar from '../components/home/MeAvatar.vue';
 
 export default defineComponent({
   name: 'HomeLayout',
   components: {
-    MyAvatar
+    MeAvatar
   },
   setup() {
     const tab = ref('mails');
