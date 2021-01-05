@@ -119,6 +119,8 @@ export type User = {
   username: Scalars['String'];
   sex: Scalars['Boolean'];
   birthday: Scalars['String'];
+  visible: Scalars['Boolean'];
+  connected: Scalars['Boolean'];
   photo?: Maybe<Scalars['String']>;
   photoPublicId?: Maybe<Scalars['String']>;
   fhStatus?: Maybe<FhStatus>;
@@ -299,6 +301,8 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
   username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   sex?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   birthday?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  visible?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
+  connected?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   photo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   photoPublicId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   fhStatus?: Resolver<Maybe<ResolversTypes['FHStatus']>, ParentType, ContextType>;

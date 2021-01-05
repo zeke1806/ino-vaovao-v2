@@ -7,6 +7,8 @@ export const mapUser = (userEntity: UserEntity): User => ({
   username: userEntity.username,
   sex: userEntity.sex,
   birthday: userEntity.birthday.toString(),
+  visible: userEntity.visible,
+  connected: userEntity.connected,
   photo: userEntity.photo,
   photoPublicId: userEntity.photoPublicId
 });

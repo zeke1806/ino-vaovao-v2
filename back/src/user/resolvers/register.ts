@@ -3,6 +3,7 @@ import { MutationRegisterArgs, Resolver, User } from "../../types";
 import { UserEntity } from "../user.entity";
 import { UserService } from "../user.service";
 import bcrypt from "bcrypt";
+import { mapUser } from "../../utils/mapEntityScema";
 
 type T = Resolver<User, {}, {}, MutationRegisterArgs>;
 
@@ -18,11 +19,5 @@ export const register: T = async (_, { input: { username, password, birthday, se
   newUser.sex = sex;
   const r = await userService.save(newUser);
 
-  return {
-    id: r.id.toString(),
-    username: r.username,
-    sex: r.sex,
-    birthday: r.birthday.toISOString(),
-    photo: r.photo
-  }
+  return mapUser(newUser)
 }

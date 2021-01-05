@@ -3,6 +3,8 @@ type User {
   username: String!
   sex: Boolean!
   birthday: String!
+  visible: Boolean!
+  connected: Boolean!
   photo: String
   photoPublicId: String
   fhStatus: FHStatus

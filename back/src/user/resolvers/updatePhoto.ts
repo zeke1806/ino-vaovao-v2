@@ -6,6 +6,7 @@ import { authGuard } from '../../utils/authGuard';
 import { ApolloError } from 'apollo-server-express';
 import { UserEntity } from '../user.entity';
 import { delUserPhoto } from '../../utils/delPhotoIfExist';
+import { mapUser } from '../../utils/mapEntityScema';
 
 const onFinishStream = async (
   error: any,
@@ -19,13 +20,7 @@ const onFinishStream = async (
     user.photo = result.url;
     user.photoPublicId = result.public_id;
     const r = await userService.save(user);
-    resolve({
-      id: r.id.toString(),
-      sex: r.sex,
-      username: r.username,
-      birthday: r.birthday.toString(),
-      photo: r.photo
-    });
+    resolve(mapUser(r));
   } else {
     console.log(error);
     reject(null);

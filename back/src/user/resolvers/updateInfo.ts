@@ -3,6 +3,7 @@ import { Resolver, User, MutationUpdateInfoArgs } from "../../types";
 import { authGuard } from "../../utils/authGuard";
 import { UserService } from "../user.service";
 import bcrypt from "bcrypt";
+import { mapUser } from "../../utils/mapEntityScema";
 
 type T = Resolver<User, {}, { req: any }, MutationUpdateInfoArgs>;
 
@@ -20,12 +21,5 @@ export const updateInfo: T = async (_, { input: { username, password, birthday, 
   toUpdate.sex = sex;
   const r = await userService.save(toUpdate);
   
-  return {
-    id: r.id.toString(),
-    username: r.username,
-    birthday: r.birthday.toString(),
-    sex: r.sex,
-    photo: r.photo,
-    photoPublicId: r.photoPublicId
-  }
+  return mapUser(r)
 }

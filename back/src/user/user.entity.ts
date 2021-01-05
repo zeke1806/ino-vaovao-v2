@@ -17,6 +17,12 @@ export class UserEntity {
   @Column({ type: 'timestamptz' })
   birthday: Date;
 
+  @Column({ default: false })
+  visible: boolean;
+
+  @Column({ default: false })
+  connected: boolean;
+
   @Column({ nullable: true, default: null })
   photo?: string;
 
