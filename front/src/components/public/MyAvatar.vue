@@ -1,7 +1,8 @@
 <template>
-  <q-avatar color="primary" style="color: white;" v-if="!photo">
-    {{ uNameFirstLetter }}
-    <q-badge class="bg-transparent" floating>
+  <q-avatar color="primary" style="color: white;">
+    <span v-if="!photo">{{ uNameFirstLetter }}</span>
+    <img v-else :src="photo" />
+    <q-badge v-if="connected" class="bg-transparent" floating>
       <q-icon name="lens" color="green" size="xs" />
     </q-badge>
   </q-avatar>
@@ -20,6 +21,10 @@ export default defineComponent({
     },
     photo: {
       type: String,
+      required: false
+    },
+    connected: {
+      type: Boolean,
       required: false
     }
   },

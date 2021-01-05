@@ -1,6 +1,10 @@
 <template>
   <router-link to="/app/profile">
-    <MyAvatar :username="result.me.username" />
+    <MyAvatar
+      v-if="!loading"
+      :username="result.me.username"
+      :photo="result.me.photo"
+    />
   </router-link>
 </template>
 
@@ -18,7 +22,8 @@ export default defineComponent({
   setup() {
     const { result, loading } = useMe();
     return {
-      result
+      result,
+      loading
     };
   }
 });
